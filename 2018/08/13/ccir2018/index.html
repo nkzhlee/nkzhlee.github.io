@@ -1,0 +1,78 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Zhaohui Li  </title>
+   <meta name="author" content="Zhaohui Li" />
+
+   <link rel="start" href="/" />
+   <!-- syntax highlighting CSS -->
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" />
+</head>
+<body id="layout">
+<div id="site">
+    <div id="header">
+    <h1>
+    	<a href="/" title="zhaohuili">Zhaohui Li</a>
+    	<!-- <span class="byline">&larr; <a href="/">Manling Li</a></span> -->
+    </h1>
+    <ul class="nav">
+      <li><a class="home" href="/">Home</a></li>
+      <li><a class="publication" href="/publications">Publication</a></li>
+      <li><a class="project" href="/projects">Project</a></li>
+      <li><a class="contest" href="/tags">blog</a></li>
+      <li><a class="award" href="/about">About</a></li>
+      <li><a class="CV" href="/files/CV_ZhLi.pdf">CV</a></li>
+     <!--  <li><a  href="/archive.html">Archive</a></li>
+      <li><a  href="/pages.html">Pages</a></li>
+      <li><a  href="/categories.html">Categories</a></li>
+      <li><a  href="/tags.html">Tags</a></li> -->
+    </ul>
+</div>
+
+
+<body><div id="page">
+    <h2 id="Hierarchical answer selection framework for Multi-passage Machine Reading Comprehension">Hierarchical answer selection framework for Multi-passage Machine Reading Comprehension</h2>
+
+<p><img class="inset right" title="Fine-Grained Entity Typing" src="./images/FET.jpg" alt="Fine-Grained Entity Typing" width="270px"></p>
+
+<div class="section">
+<h1> Date </h1>
+<ul>
+06/2017 - Present
+</ul>
+<h1>Sponsored by</h1> <ul>National Natural Science Foundation of China (NSFC) No.61572469 </ul>
+<h1>Advisor:</h1> <ul>Yantao Jia, Yuanzhuo Wang</ul>
+<h1>Project Objectives:</h1> <ul>
+Fine-grained entity typing aims to assign entity mentions in the free text with types (e.g., person, politician, etc.), which are arranged in a hierarchical structure. Traditional distant supervision based methods employ a structured data source as a weak supervision and do not need hand-labeled data, but they neglect the label noise in the automatically labeled training corpus. For example, the entity ''Donald Trump'' has types ''person", ''businessman'' and ''politician'' in KBs, thus all three types are annotated for its mentions in the training corpora. But in sentence ''Donald Trump announced his candidacy for President of US.'', only ''person'' and ''politician'' are correct types, while ''businessman'' can not be deduced from the sentence, so serves as noise. <br>
+The project aims to improve the performance of fine-grained entity typing with reducing noise.
+</ul>
+
+<h1>My Work 1</h1>
+<ul>
+<li> Assisted in designing <a href="PAN.html">the Path-based Attention Neural model (PAN)</a> to dynamically reduce the weights of wrong labeled sentences for each type. Specifically, propose to formulate path as semantic composition of all the types on the path by different composition operators. <!--to  the embeddings of and participated in proposing an end-to-end typing model, called <a href='PAN.html'>the Path-based Attention Neural model (PAN)</a>, by leveraging the hierarchical structure of types to learn a noise-robust performance.--> </li>
+<!--<li> Specifically, implemented PAN by PyTorch, and then conducted experiments on two datasets to demonstrate the superiority of PAN in reducing noise. </li>-->
+<li>Implemented baseline (Shimaoka et al. 2016) by PyTorch, and then assisted in conducting experiments on two datasets to demonstrate the superiority of PAN in reducing noise. </li>
+<li> PAN achieved more than 4% improvement of typing accuracy.Co-authored paper was submitted as a poster to AAAI 2018, and is under review now. </li>
+</ul>
+
+<h1>My Work 2</h1>
+<ul>
+<li> Came up with the idea to use Gaussian to capture the hierarchical structures of types. </li>
+<li> Designed Gaussian loss function to learn Gaussian embedding, and to reduce noise by using a possibility to select partial labels. <!--the relationship of each type and the entity--> (in progress)  </li>
+<!--<li> Implemented fine-grained entity typing with Gaussian loss function. (in progress) </li>-->
+</ul>
+</div>
+</div><!-- End Page -->
+
+
+
+
+</body>
+</div>
+</body>
+</html>
