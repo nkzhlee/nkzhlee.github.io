@@ -24,8 +24,8 @@
       <li><a class="home" href="/">Home</a></li>
       <li><a class="publication" href="/publications">Publication</a></li>
       <li><a class="project" href="/projects">Project</a></li>
-      <li><a class="contest" href="/tags">blog</a></li>
-      <li><a class="award" href="/about">About</a></li>
+      <!-- <li><a class="contest" href="/tags">blog</a></li>
+      <li><a class="award" href="/about">About</a></li> -->
       <li><a class="CV" href="/files/CV_ZhLi.pdf">CV</a></li>
      <!--  <li><a  href="/archive.html">Archive</a></li>
       <li><a  href="/pages.html">Pages</a></li>
@@ -38,34 +38,45 @@
 <body><div id="page">
     <h2 id="Hierarchical answer selection framework for Multi-passage Machine Reading Comprehension">Hierarchical answer selection framework for Multi-passage Machine Reading Comprehension</h2>
 
-<p><img class="inset right" title="Fine-Grained Entity Typing" src="./images/FET.jpg" alt="Fine-Grained Entity Typing" width="270px"></p>
+
 
 <div class="section">
+ <h1>Problem </h1> <ul>
+Recent researches in answer extraction on single passage formulate Machine Reading Comprehension(MRC) task as predicting the start and end positions of the answer in the passage. However, they are not strong enough when considering the real web data, which have more than one passage and multiple answer spans, such as DuReader.
+</ul>
+ <h1>Inspiration</h1> <ul>
+<!--Inspired by <a href="https://matt-gardner.github.io/">Matt Gardner</a> ’ survey of Reading Comprehension, I found that teach machine how to read a passage is an interesting and promising work. And I begin with the task of <a href="ttps://ai.baidu.com/broad/introduction?dataset=dureader">DuReader</a>. <br />-->
+
+To handle these complex MRC tasks, I begin to thinking that how to tackle this complex daze. After a long-time contemplation, a spark come to my mind, that is, MRC process can be formulate as the normal people’s reading process. When I doing my GRE Reading test, I need to read the whole passage to find some special texts that contain the answer. And then I will find the answers in these <b>Main Content</b>. My MRC model can be something like this. Thus, combined with Reinforcement learning and the state-of-the-art answer extraction method, this MRC framework is implemented.
+</ul>
+<p><img class="inset mid" title="MDP" src="../../../../pic/ccir1.png" alt="MDP" width="450px"></p>
+<h1>Main Work </h1>
+<ul>
+The general framework of this model is demonstrated in Figure 1, which consists of one encoding module and other three function modules. Specifically, the encoding module employs the Bi-Directional Attention mechanism to obtain a question-aware word representation.
+And then three other modules are implemented:
+<li> First, passage selection layer first use the passage title and content information to predicted which passage will be selected;</li>
+<li> Second, a main content selection module is modeled by Markov-Decision-Process(MDP Figure 2) and trained by policy gradient to predict a sequence of key sentences, which is called <b>Main Content</b> in our approach.
+main content selection module is modeled by MDP and trained by policy gradient</li>
+<br>
+<p><img class="inset mid" title="MDP" src="../../../../pic/ccir2.png" alt="MDP" width="370px"></p>
+<li> Finally, a Match-LSTM method is employed to obtain the final answer from the <b>Main Content</b>.</li>
+</ul>
+<h1>Conclusion</h1>
+<ul>
+<li> We formulate the candidate answer selection model as a <b>MDP</b> process, which performs well in large search engine dataset.   </li>
+<li> We first use the title of passage to filter the passages, which is a complement for passage representation.   </li>
+<li> We propose a real world MRC pipeline based on these modules, which can tackle the redundant information problems.   </li>
+</ul>
+
 <h1> Date </h1>
 <ul>
-06/2017 - Present
+12/2017 - 5/2018
 </ul>
-<h1>Sponsored by</h1> <ul>National Natural Science Foundation of China (NSFC) No.61572469 </ul>
-<h1>Advisor:</h1> <ul>Yantao Jia, Yuanzhuo Wang</ul>
-<h1>Project Objectives:</h1> <ul>
-Fine-grained entity typing aims to assign entity mentions in the free text with types (e.g., person, politician, etc.), which are arranged in a hierarchical structure. Traditional distant supervision based methods employ a structured data source as a weak supervision and do not need hand-labeled data, but they neglect the label noise in the automatically labeled training corpus. For example, the entity ''Donald Trump'' has types ''person", ''businessman'' and ''politician'' in KBs, thus all three types are annotated for its mentions in the training corpora. But in sentence ''Donald Trump announced his candidacy for President of US.'', only ''person'' and ''politician'' are correct types, while ''businessman'' can not be deduced from the sentence, so serves as noise. <br>
-The project aims to improve the performance of fine-grained entity typing with reducing noise.
+<h1> Paper </h1>
+<ul>
+[<a href="../../../../files/82_pdf.pdf">PDF</a>]
 </ul>
 
-<h1>My Work 1</h1>
-<ul>
-<li> Assisted in designing <a href="PAN.html">the Path-based Attention Neural model (PAN)</a> to dynamically reduce the weights of wrong labeled sentences for each type. Specifically, propose to formulate path as semantic composition of all the types on the path by different composition operators. <!--to  the embeddings of and participated in proposing an end-to-end typing model, called <a href='PAN.html'>the Path-based Attention Neural model (PAN)</a>, by leveraging the hierarchical structure of types to learn a noise-robust performance.--> </li>
-<!--<li> Specifically, implemented PAN by PyTorch, and then conducted experiments on two datasets to demonstrate the superiority of PAN in reducing noise. </li>-->
-<li>Implemented baseline (Shimaoka et al. 2016) by PyTorch, and then assisted in conducting experiments on two datasets to demonstrate the superiority of PAN in reducing noise. </li>
-<li> PAN achieved more than 4% improvement of typing accuracy.Co-authored paper was submitted as a poster to AAAI 2018, and is under review now. </li>
-</ul>
-
-<h1>My Work 2</h1>
-<ul>
-<li> Came up with the idea to use Gaussian to capture the hierarchical structures of types. </li>
-<li> Designed Gaussian loss function to learn Gaussian embedding, and to reduce noise by using a possibility to select partial labels. <!--the relationship of each type and the entity--> (in progress)  </li>
-<!--<li> Implemented fine-grained entity typing with Gaussian loss function. (in progress) </li>-->
-</ul>
 </div>
 </div><!-- End Page -->
 
