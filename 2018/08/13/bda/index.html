@@ -36,37 +36,59 @@
 
 
 <body><div id="page">
-    <h2 id="Word Vector Modeling for Sentiment Analysis">Word Vector Modeling for Sentiment Analysis</h2>
-
-<p><img class="inset right" title="Fine-Grained Entity Typing" src="./images/FET.jpg" alt="Fine-Grained Entity Typing" width="270px"></p>
+    <h2 id="BDAandEML">Big Date Analysis System Research (<a href="http://159.226.40.104:18080/dev" target="_blank" rel="noopener">online demo</a>)</h2>
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=ICT-BDA&repo=EasyML&type=watch&count=true&size=large&v=2" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+<iframe src="https://ghbtns.com/github-btn.html?user=ICT-BDA&repo=EasyML&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+<iframe src="https://ghbtns.com/github-btn.html?user=ICT-BDA&repo=EasyML&type=fork&count=true&size=large" frameborder="0" scrolling="0" width="158px" height="30px"></iframe>
+<br><a href="http://159.226.40.104:18080" target="_blank" rel="noopener"><img src="../../../../pic/EasyML.jpg" width="600" class="panel_cover_photo"></a>
 
 <div class="section">
+ <h1>Description </h1> <ul>
+This task aims to implement a general-purpose dataflow-based system for easing the pro- cess of applying machine learning algorithms to real world tasks. And now it is realised as a open source project, BDA is our research version and EML is the open source version.
+<li>BDA: big data analysis as a service.</li>
+<li>EML: An Open Source and general-purpose dataflow-based system for easing the process of applying machine learning algorithms to real world tasks</li>
+</ul>
+
+ <h1>Problem </h1> <ul>
+Machine learning algorithms have become the key compo- nents in many big data applications. However, the full po- tential of machine learning is still far from been realized be- cause using machine learning algorithms is hard, especially on distributed platforms such as Hadoop and Spark. The key barriers come from not only the implementation of the algorithms themselves, but also the processing for apply- ing them to real applications which often involve multiple steps and different algorithms.
+</ul>
+<h1>Main Work </h1>
+<p>
+</p><p><img class="inset right" title="MDP" src="../../../../pic/BDA2.png" alt="EML" width="270px"></p>
+<ul>
+n the system, a learning task is formulated as a di- rected acyclic graph (DAG) in which each node represents an operation (e.g., a machine learning algorithm), and each edge represents the flow of the data from one node to its de- scendants. Graphical user interface is implemented for mak- ing users to create, configure, submit, and monitor a task in a drag-and-drop manner.
+<br>
+</ul>
+<h1>Conclusion</h1>
+<ul>
+ <p><img class="inset mid" title="MDP" src="../../../../pic/BDA1.png" alt="EML" width="400px"></p>
+The system has been deployed as a machine learning service and can be access from the Internet. And it is an open source project now, which can be accessed on the <a href="https://github.com/ICT-BDA/EasyML" target="_blank" rel="noopener">github</a>
+<li> lowering the barriers of defining and executing machine learning tasks </li>
+<li> sharing and re-using the implementations of the algorithms, the task dataflow DAGs, and the (inter- mediate) experimental results;   </li>
+<li> seamlessly integrating the stand-alone algorithms as well as the distributed algorithms in one task.  </li>
+</ul>
+<h1>My work</h1>
+<ul>
+<li> Responsible for the survey of this Big Data Analysis System  </li>
+<li> Contributed word2vec algorithm to Lib </li>
+<li> Core member of designing BDA Studio, which is a HCI to enable user to modify model or change parameters on website visual interface. </li>
+<li> Wrote scripts to achieve fast cluster deployment using our Docker images </li>
+<li> Wrote scripts to achieve fast cluster deployment using our Docker images </li>
+
+
+</ul>
+
 <h1> Date </h1>
 <ul>
-06/2017 - Present
+01/2014-12/2014
 </ul>
-<h1>Sponsored by</h1> <ul>National Natural Science Foundation of China (NSFC) No.61572469 </ul>
-<h1>Advisor:</h1> <ul>Yantao Jia, Yuanzhuo Wang</ul>
-<h1>Project Objectives:</h1> <ul>
-Fine-grained entity typing aims to assign entity mentions in the free text with types (e.g., person, politician, etc.), which are arranged in a hierarchical structure. Traditional distant supervision based methods employ a structured data source as a weak supervision and do not need hand-labeled data, but they neglect the label noise in the automatically labeled training corpus. For example, the entity ''Donald Trump'' has types ''person", ''businessman'' and ''politician'' in KBs, thus all three types are annotated for its mentions in the training corpora. But in sentence ''Donald Trump announced his candidacy for President of US.'', only ''person'' and ''politician'' are correct types, while ''businessman'' can not be deduced from the sentence, so serves as noise. <br>
-The project aims to improve the performance of fine-grained entity typing with reducing noise.
+<h1> Paper </h1>
+<ul>
+[<a href="../../../../files/CIKM2016_BDADEmo.pdf">PDF</a>]
 </ul>
 
-<h1>My Work 1</h1>
-<ul>
-<li> Assisted in designing <a href="PAN.html">the Path-based Attention Neural model (PAN)</a> to dynamically reduce the weights of wrong labeled sentences for each type. Specifically, propose to formulate path as semantic composition of all the types on the path by different composition operators. <!--to  the embeddings of and participated in proposing an end-to-end typing model, called <a href='PAN.html'>the Path-based Attention Neural model (PAN)</a>, by leveraging the hierarchical structure of types to learn a noise-robust performance.--> </li>
-<!--<li> Specifically, implemented PAN by PyTorch, and then conducted experiments on two datasets to demonstrate the superiority of PAN in reducing noise. </li>-->
-<li>Implemented baseline (Shimaoka et al. 2016) by PyTorch, and then assisted in conducting experiments on two datasets to demonstrate the superiority of PAN in reducing noise. </li>
-<li> PAN achieved more than 4% improvement of typing accuracy.Co-authored paper was submitted as a poster to AAAI 2018, and is under review now. </li>
-</ul>
-
-<h1>My Work 2</h1>
-<ul>
-<li> Came up with the idea to use Gaussian to capture the hierarchical structures of types. </li>
-<li> Designed Gaussian loss function to learn Gaussian embedding, and to reduce noise by using a possibility to select partial labels. <!--the relationship of each type and the entity--> (in progress)  </li>
-<!--<li> Implemented fine-grained entity typing with Gaussian loss function. (in progress) </li>-->
-</ul>
-</div>
+</div></p>
 </div><!-- End Page -->
 
 

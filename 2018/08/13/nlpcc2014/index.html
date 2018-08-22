@@ -36,40 +36,47 @@
 
 
 <body><div id="page">
-    
-<h2 id="Word Vector Modeling for Sentiment Analysis">Word Vector Modeling for Sentiment Analysis</h2>
+    <h2 id="Word Vector Modeling for Sentiment Analysis of Product Reviews">Word Vector Modeling for Sentiment Analysis of Product Reviews</h2>
 
-<p><img class="inset right" title="Fine-Grained Entity Typing" src="./images/FET.jpg" alt="Fine-Grained Entity Typing" width="270px"></p>
+
 
 <div class="section">
+ <h1>Task </h1> <ul>
+This task aims to evaluate the deep learning techniques for sentiment classification. The data set are collected from both Chinese and English Amazon product review web site, and deep learning technology is required to use in the classify process.
+</ul>
+ <h1>Problem </h1> <ul>
+The state-of-the-art word vector method still can’t distinguish the important sentiment information explicitly. For example, the model can learn out the information that “good” and “well” have the similar meaning, but it can’t grasp the information that the both of the two words have strong positive affectivity. Thus, how to mine the semantic and sentiment information in product reviews is the key point in this task.
+</ul>
+<h1>Main Work </h1>
+<ul>
+This work proposes a word vector neural network model, which introduces label information into the unsupervised neural network language model, so that the sentiment orientation and topical semantic information are both learned.
+We also accelerate our neural network language model. The experiments on the NLPCC2014 emotional evaluation dataset show the effectiveness of our model.
+<br>
+<p><img class="inset mid" title="MDP" src="../../../../pic/NLPCC1.png" alt="MDP" width="370px"></p>
+</ul>
+<h1>Conclusion</h1>
+<ul>
+<li> Proposed a word vector learning method aiming at sentiment analysis and explores the performance of deep learning models on the task of sentiment classification for product reviews.  </li>
+<li> Acquired the best F1 score in the Competition of NLPCC2014   </li>
+<li> Published Paper in NLPCC2014: Word Vector Modeling for Sentiment Analysis of Product Reviews (EI)  </li>
+</ul>
+<h1>My work</h1>
+<ul>
+<li> Surveyed Word Vector Modeling method and analysis statistical attributes over Amazon Product Review Dataset  </li>
+<li> Improved Word2Vec code by adding positive/negative label which represents words’ sentiment information on product reviews in training phase </li>
+<li> Implemented the experiments and wrote parts of this paper </li>
+</ul>
+
 <h1> Date </h1>
 <ul>
-06/2017 - Present
+01/2014-12/2014
 </ul>
-<h1>Sponsored by</h1> <ul>National Natural Science Foundation of China (NSFC) No.61572469 </ul>
-<h1>Advisor:</h1> <ul>Yantao Jia, Yuanzhuo Wang</ul>
-<h1>Project Objectives:</h1> <ul>
-Fine-grained entity typing aims to assign entity mentions in the free text with types (e.g., person, politician, etc.), which are arranged in a hierarchical structure. Traditional distant supervision based methods employ a structured data source as a weak supervision and do not need hand-labeled data, but they neglect the label noise in the automatically labeled training corpus. For example, the entity ''Donald Trump'' has types ''person", ''businessman'' and ''politician'' in KBs, thus all three types are annotated for its mentions in the training corpora. But in sentence ''Donald Trump announced his candidacy for President of US.'', only ''person'' and ''politician'' are correct types, while ''businessman'' can not be deduced from the sentence, so serves as noise. <br>
-The project aims to improve the performance of fine-grained entity typing with reducing noise.
+<h1> Paper </h1>
+<ul>
+[<a href="../../../../files/NLPCC148.pdf">PDF</a>]
 </ul>
 
-<h1>My Work 1</h1>
-<ul>
-<li> Assisted in designing <a href="PAN.html">the Path-based Attention Neural model (PAN)</a> to dynamically reduce the weights of wrong labeled sentences for each type. Specifically, propose to formulate path as semantic composition of all the types on the path by different composition operators. <!--to  the embeddings of and participated in proposing an end-to-end typing model, called <a href='PAN.html'>the Path-based Attention Neural model (PAN)</a>, by leveraging the hierarchical structure of types to learn a noise-robust performance.--> </li>
-<!--<li> Specifically, implemented PAN by PyTorch, and then conducted experiments on two datasets to demonstrate the superiority of PAN in reducing noise. </li>-->
-<li>Implemented baseline (Shimaoka et al. 2016) by PyTorch, and then assisted in conducting experiments on two datasets to demonstrate the superiority of PAN in reducing noise. </li>
-<li> PAN achieved more than 4% improvement of typing accuracy.Co-authored paper was submitted as a poster to AAAI 2018, and is under review now. </li>
-</ul>
-
-<h1>My Work 2</h1>
-<ul>
-<li> Came up with the idea to use Gaussian to capture the hierarchical structures of types. </li>
-<li> Designed Gaussian loss function to learn Gaussian embedding, and to reduce noise by using a possibility to select partial labels. <!--the relationship of each type and the entity--> (in progress)  </li>
-<!--<li> Implemented fine-grained entity typing with Gaussian loss function. (in progress) </li>-->
-</ul>
 </div>
-
-
 </div><!-- End Page -->
 
 
