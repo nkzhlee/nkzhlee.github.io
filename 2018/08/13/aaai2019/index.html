@@ -1,0 +1,87 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Zhaohui Li  </title>
+   <meta name="author" content="Zhaohui Li" />
+
+   <link rel="start" href="/" />
+   <!-- syntax highlighting CSS -->
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" />
+</head>
+<body id="layout">
+<div id="site">
+    <div id="header">
+    <h1>
+    	<a href="/" title="zhaohuili">Zhaohui Li</a>
+    	<!-- <span class="byline">&larr; <a href="/">Manling Li</a></span> -->
+    </h1>
+    <ul class="nav">
+      <li><a class="home" href="/">Home</a></li>
+      <li><a class="publication" href="/publications">Publication</a></li>
+      <li><a class="project" href="/projects">Project</a></li>
+      <!-- <li><a class="contest" href="/tags">blog</a></li>
+      <li><a class="award" href="/about">About</a></li> -->
+      <li><a class="CV" href="/files/CV_lizhaohui_2018.pdf">CV</a></li>
+     <!--  <li><a  href="/archive.html">Archive</a></li>
+      <li><a  href="/pages.html">Pages</a></li>
+      <li><a  href="/categories.html">Categories</a></li>
+      <li><a  href="/tags.html">Tags</a></li> -->
+    </ul>
+</div>
+
+
+<body><div id="page">
+    <h2 id="Teach Machines to Learn Main Content for Machine Reading Comprehension">Teach Machines to Learn Main Content for Machine Reading Comprehension</h2>
+
+
+
+<div class="section">
+ <h1>Problem </h1> <ul>
+ Machine reading comprehension (MRC) aims to extract answers from a set of passages according to a question. Given a question, a large number of candidate passages could be involved. Therefore, how to identify answer-related content becomes a critical issue.
+</ul>
+ <h1>Inspiration</h1> <ul>
+<!--Inspired by <a href="https://matt-gardner.github.io/">Matt Gardner</a> ’ survey of Reading Comprehension, I found that teach machine how to read a passage is an interesting and promising work. And I begin with the task of <a href="ttps://ai.baidu.com/broad/introduction?dataset=dureader">DuReader</a>. <br />-->
+Ideally, an MRC model shall follow the RC process of human beings. That is, human beings may first read the given question, and then go through the whole passages to identify the question-related contents, and finally conclude the answer. The attention of human beings should focus on the question-related sentences during the whole process.
+</ul>
+<h1>Main Work </h1>
+<ul>
+MC-MDP consists of an encoding step which employs attention mechanism to obtain question-aware representations for the question and sentences, and a MDP step for constructing the main content sequence:
+<li> First, Question-awared passage sentences representations are learned at this step: </li>
+ <p><img class="inset mid" title="attention" src="../../../../pic/attention1.png" alt="attention" width="430px"></p>
+<li> Second, a main content construction module is modeled by Markov-Decision-Process and the agent is trained by policy gradient to predict a sequence of key sentences, which is called <b>Main Content</b> in our approach.
+main content selection module is modeled by MDP and trained by policy gradient:</li>
+<br>
+<p><img class="inset mid" title="MDP" src="../../../../pic/MDP.png" alt="MDP" width="450px"></p>
+<li> At the on-line time, the agent selects the sentences from the passages according to the learned representations and the policy function.</li>
+</ul>
+<h1>Conclusion</h1>
+<ul>
+<li> We define a sub-task in multi-passage MRC, which is aimed at filtering out valuable information from massive texts according to the question.   </li>
+<li> we implement an end-to-end model called MC-MDP, which can learn the main content in passages and RL algorithm was proposed to learn the model parameters. </li>
+<li> Experiments show that MC-MDP can outperform the baselines through selecting the sentences containing the answers with high precision   </li>
+</ul>
+
+<h1> Date </h1>
+<ul>
+12/2017 - 10/2018
+</ul>
+<h1> Paper </h1>
+<ul>
+[<a href="../../../../files/AAAI-19_paper_367.pdf">PDF</a>]
+</ul>
+
+</div>
+</div><!-- End Page -->
+
+
+
+
+</body>
+</div>
+</body>
+</html>
