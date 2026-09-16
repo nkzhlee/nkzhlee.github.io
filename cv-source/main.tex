@@ -1,0 +1,613 @@
+%
+% Academic CV LaTeX Template (refined & filled)
+% Base Author: Dubasi Pavan Kumar (MIT)
+% Updated for: Zhaohui Li
+%
+
+\documentclass[a4paper,11pt]{article}
+
+% Package imports
+\usepackage{latexsym}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{ragged2e}
+\usepackage[empty]{fullpage}
+\usepackage{wrapfig}
+\usepackage{lipsum}
+\usepackage{tabularx}
+\usepackage{titlesec}
+\usepackage{geometry}
+\usepackage{marvosym}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{cfr-lm}
+\usepackage[T1]{fontenc}
+\usepackage{fontspec}
+\setmainfont{Palatino}
+\usepackage{fontawesome5}
+
+% Color definitions
+\definecolor{darkblue}{RGB}{0,0,139}
+% Highlight my name in author lists
+\newcommand{\myname}[1]{\textbf{#1}}
+
+% Page layout
+\setlength{\multicolsep}{0pt} 
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\geometry{left=1.4cm, top=0.8cm, right=1.2cm, bottom=1cm}
+\setlength{\footskip}{5pt} % Addressing fancyhdr warning
+
+% Hyperlink setup (moved after fancyhdr to address warning)
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=darkblue,
+    filecolor=darkblue,
+    urlcolor=darkblue,
+}
+
+% Custom box settings
+\usepackage[most]{tcolorbox}
+\tcbset{
+    frame code={},
+    center title,
+    left=0pt,
+    right=0pt,
+    top=0pt,
+    bottom=0pt,
+    colback=gray!20,
+    colframe=white,
+    width=\dimexpr\textwidth\relax,
+    enlarge left by=-2mm,
+    boxsep=4pt,
+    arc=0pt,outer arc=0pt,
+}
+
+% URL style
+\urlstyle{same}
+
+% Text alignment
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Section formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-7pt}]
+
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item{
+    \textbf{#1}{\hspace{0.5mm}#2 \vspace{-0.5mm}}
+  }
+}
+
+\newcommand{\resumePOR}[3]{
+\vspace{0.5mm}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1}\hspace{0.3mm}#2 & \textit{\small{#3}} 
+    \end{tabular*}
+    \vspace{-2mm}
+}
+
+\newcommand{\resumeSubheading}[4]{
+\vspace{0.5mm}\item
+    \begin{tabular*}{0.98\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1} & \textit{\footnotesize{#4}} \\
+        \textit{\footnotesize{#3}} &  \footnotesize{#2}\\
+    \end{tabular*}
+    \vspace{-2.4mm}
+}
+
+\newcommand{\resumeProject}[4]{
+\vspace{0.5mm}\item
+    \begin{tabularx}{0.98\textwidth}[t]{Xr}
+        \textbf{#1} & \textit{\footnotesize{#3}} \\
+        \footnotesize{\textit{#2}} & \footnotesize{#4}
+    \end{tabularx}
+    \vspace{-2.4mm}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+
+\renewcommand{\labelitemi}{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\renewcommand{\labelitemii}{$\vcenter{\hbox{\tiny$\circ$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*,labelsep=1mm]}
+\newcommand{\resumeHeadingSkillStart}{\begin{itemize}[leftmargin=*,itemsep=1.7mm, rightmargin=2ex]}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=*,labelsep=1mm,itemsep=0.5mm]}
+
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}\vspace{2mm}}
+\newcommand{\resumeHeadingSkillEnd}{\end{itemize}\vspace{-2mm}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-2mm}}
+\newcommand{\cvsection}[1]{%
+\vspace{2mm}
+\begin{tcolorbox}
+    \textbf{\large #1}
+\end{tcolorbox}
+    \vspace{-4mm}
+}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}%
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}%
+\newcolumntype{C}{>{\centering\arraybackslash}X}%
+
+% Commands for icon sizing and positioning
+\newcommand{\socialicon}[1]{\raisebox{-0.05em}{\resizebox{!}{1em}{#1}}}
+\newcommand{\ieeeicon}[1]{\raisebox{-0.3em}{\resizebox{!}{1.3em}{#1}}}
+
+% Font options
+\newcommand{\headerfonti}{\fontfamily{phv}\selectfont}
+\newcommand{\headerfontii}{\fontfamily{ptm}\selectfont}
+\newcommand{\headerfontiii}{\fontfamily{ppl}\selectfont}
+\newcommand{\headerfontiv}{\fontfamily{pbk}\selectfont}
+\newcommand{\headerfontv}{\fontfamily{pag}\selectfont}
+\newcommand{\headerfontvi}{\fontfamily{cmss}\selectfont}
+\newcommand{\headerfontvii}{\fontfamily{qhv}\selectfont}
+\newcommand{\headerfontviii}{\fontfamily{qpl}\selectfont}
+\newcommand{\headerfontix}{\fontfamily{qtm}\selectfont}
+\newcommand{\headerfontx}{\fontfamily{bch}\selectfont}
+
+\begin{document}
+
+% Header
+\begin{center}
+    {\Huge\textbf{ZHAOHUI LI}}
+\end{center}
+\vspace{-6mm}
+
+\begin{center}
+    \small{
+    Phone: (+1)-814-826-9537 \;|\; Email: \href{mailto:nkzhaohuilee@gmail.com}{nkzhaohuilee@gmail.com} \;|\; 
+    Website: \href{https://zhaohuilee.com/}{zhaohuilee.com}
+    }
+\end{center}
+\vspace{-6mm}
+
+
+\section{\textbf{Employment}}
+\vspace{-0.4mm}
+\resumeSubHeadingListStart
+
+\resumeSubheading
+{Institute for Artificial Intelligence and Data Science (IAD), \href{https://www.buffalo.edu/}{University at Buffalo}}{Buffalo, NY}
+{Postdoctoral Associate \ \textbar\ Mentor: Dr.\href{https://scholar.google.com/citations?hl=en&user=tRt1xPYAAAAJ}{~Jinjun Xiong}}{Aug 2024 -- Present}
+\vspace{-0.2mm}
+\resumeItemListStart
+  {\footnotesize
+  \item AI Team Lead at the \href{https://www.buffalo.edu/ai4exceptionaled.html}{\textbf{National AI Institute for Exceptional Education (AI4ExceptionalEd)}}.
+  \vspace{-1.6mm}
+  \item AI Team Lead at the \href{https://earlyliteracyai.org/}{\textbf{Center for Early Literacy and Responsible AI (CELaRAI)}}.
+  \vspace{-2mm}
+  }
+\resumeItemListEnd
+
+\resumeSubheading
+{Big Data Lab, Baidu Research}{Beijing, China}
+{Research Intern \ \textbar\ Mentor: Dr.\href{https://scholar.google.com/citations?user=pu00nBoAAAAJ&hl=en}{~Jun Huan}}{Feb 2019 -- Aug 2019}
+
+\resumeSubHeadingListEnd
+\vspace{-6mm}
+
+
+%=====================
+% Education
+%=====================
+\section{\textbf{Education}}
+\resumeSubHeadingListStart
+
+\resumeSubheading
+{The Pennsylvania State University}{State College, PA}
+{Ph.D. in Computer Science — Natural Language Processing Lab}{Aug 2019 -- May 2024}
+\vspace{-0.2mm}
+\resumeItemListStart
+{\footnotesize
+  \resumeItem{Advisor:}{ Dr.\textit{\href{https://scholar.google.com/citations?hl=en&user=jb9VOp0AAAAJ}{~Rebecca J.~Passonneau}}}
+  \vspace{-1.2mm}
+  \resumeItem{Dissertation:}{ \textit{Automated and Semi-Automated Assessment of STEM Reasoning Questions (\textbf{Best Doctoral Dissertation Award)}}}
+}  
+\resumeItemListEnd
+\vspace{-2mm}
+\resumeSubheading
+{Nankai University}{Tianjin, China}
+{B.S. in Computer Science and Engineering}{Aug 2012 -- Jun 2016}
+\resumeItemListStart
+{\footnotesize
+   \resumeItem{Advisor:}{\textit{Dr.\href{https://scholar.google.com/citations?hl=en&user=su14mcEAAAAJ}{~Jun Xu} }
+   \& \textit{ Dr.\href{https://scholar.google.com/citations?user=oab9IRYAAAAJ&hl=en}{~Jie Liu}}}
+
+   \vspace{-1mm}
+   \resumeItem{Thesis:}{{ BDA: Big Data Analysis as a Service (\href{https://github.com/ICT-BDA/EasyML}{2k+ GitHub Stars})}}
+}
+\resumeItemListEnd
+\resumeSubHeadingListEnd
+\vspace{-7mm}
+%=====================
+% Research Interest
+%=====================
+
+% \section{\textbf{Research Interests}}
+% \vspace{1mm}
+% \small{
+
+% My research focuses on developing artificial intelligence tools to advance education. I design multimodal datasets and models that support personalized learning scenarios, including automated assessment and feedback in special education, teaching plan refinement, storybook generation, and student behavior analysis.  
+
+% My work bridges the AI and education research communities by creating models and datasets that address real-world educational challenges. I have published peer-reviewed papers on large language models, reinforcement learning, and selective prediction at leading AI and NLP conferences such as EMNLP, AAAI, and AIED. In collaboration with researchers in educational technology and learning sciences, I have also developed datasets and published in top journals, including \textit{Computers \& Education} and the \textit{British Journal of Educational Technology}. In addition, I have contributed to NSF proposals as a co-PI and served as a panel reviewer.  
+
+% My long-term goal is to harness AI to promote equitable, high-quality education for all learners. I envision a future where learning is truly personalized—empowering every child, including those with special needs, through the thoughtful integration of advanced technologies.  
+
+% \textbf{Keywords:} Natural Language Processing, Large Language Models, Learning Sciences, Educational Technology
+
+% }
+% \vspace{-2mm}
+
+
+
+%=====================
+% Grants
+%=====================
+\section{\textbf{Grants Experience}}
+\vspace{-0.4mm}
+\resumeSubHeadingListStart
+
+\resumeProject
+  {Organization for Autism Research (OAR) Research Grant (\$50{,}000)}
+  {\textbf{Co-PI};\textit{ Study of Parent’s AI Coach for Parent-Implemented Communication Interventions for Children with ASD}. }
+  {Feb 2026 -- Dec 2027}
+  {}
+
+\resumeProject
+  {Spencer Foundation — Large Research Grant on Education (\$125{,}000--\$500{,}000)}
+  {\textbf{Co-PI}; Topic: AI-Automated Behavioral Support Plans for Young Children with Autism Spectrum Disorder (In submission)}
+  {July 2025 -- TBD}
+  {}
+
+\resumeProject
+  {NSF \#2229873 — AI Institute for Exceptional Education (\$20{,}000{,}000)}
+  {Tech Lead supporting Dr.~Jinjun Xiong (Co-PI); advancing AI solutions for challenges in special education.}
+  {Jan 2023 -- Dec 2027}
+  {}
+
+\resumeProject
+  {IES \#R305C240046 — Center for Early Literacy and Responsible AI (\$10{,}000{,}000)}
+  {Tech Lead supporting Dr.~Jinjun Xiong (Co-PI); developing responsible AI tools for early literacy and diverse learners.}
+  {Sep 2024 -- Aug 2029}
+  {}
+
+\resumeProject
+  {NSF IUSE \#2236150 — Project CLASSIFIES (\$300{,}000)}
+  {Contributor; developed NLP algorithms and helped write technical proposal with Dr.~Rebecca Passonneau (Co-PI)}
+  {Mar 2023 -- Feb 2025}
+  {}
+
+\resumeProject
+  {Penn State AI Challenge Grant — Nittany AI Challenge 2023 (\$5{,}000)}
+  {\textbf{PI}; Topic: Developed AI-driven Interactive E-Books System for Children.}
+  {Jan 2023 -- Jan 2024}
+  {}
+
+\resumeSubHeadingListEnd
+\vspace{-6mm}
+
+%=====================
+% Teaching Experience
+%=====================
+\section{\textbf{Teaching Experience}}
+\vspace{-0.4mm}
+\resumeSubHeadingListStart
+
+\resumeSubheading
+{NSF Argumentation Workshop (PACE Lab)}{Illinois State University}
+{Invited Speaker}{Feb 2022}
+\resumeItemListStart
+  \item Delivered a workshop talk on AI-assisted assessment and Large Language Models.
+\resumeItemListEnd
+\vspace{-2mm}
+\resumeSubheading
+{Pennsylvania State University}{State College, PA}
+{Teaching Assistant — Natural Language Processing (CSE597, graduate level)}{Jan 2020 -- May 2020}
+\resumeItemListStart
+  \item Teaching and grading; supported student projects.
+\resumeItemListEnd
+\vspace{-2mm}
+\resumeSubheading
+{Pennsylvania State University}{State College, PA}
+{Teaching Assistant — Artificial Intelligence (CMPSC442, undergraducate level)}{Aug 2019 -- Dec 2019}
+\resumeItemListStart
+  \item Teaching and grading; exams for 100+ students.
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+\vspace{-6mm}
+
+\section{\textbf{Service Experience}}
+\vspace{-0.4mm}
+ \resumeHeadingSkillStart
+  
+  \resumeSubItem{Proposal Reviewer:}{ NSF Panelist on DRL}
+  \resumeSubItem{Conference Reviewer:}{ ACL Rolling Review(ACL, EMNLP, NAACL), AAAI, AIED, SIGIR}
+  \resumeSubItem{Session Chair:}{ AIED 2025, 2026 (Language Learning \& Story Generation, AI Agents for Education)}
+  \resumeSubItem{Program Committee Member:}{ AIED 2025, AIED 2026}
+  \resumeSubItem{Student Voluteer:}{AAAI 2019}
+ \resumeHeadingSkillEnd
+
+
+\section{\textbf{Research Interests}}
+\vspace{1mm}
+{
+
+My research focuses on how artificial intelligence, particularly multimodal large language models (LLMs), can be integrated into educational tools that transform thinking, learning, teaching, and assessment. I design multimodal datasets and multimodal LLMs for personalized learning, including automated assessment and feedback in special education, instructional material evaluation, storybook generation, and student behavior analysis. My work bridges AI and education by addressing real-world challenges through data-driven models and interdisciplinary collaboration. I have published in leading venues such as \textit{EMNLP}, \textit{AAAI}, \textit{AIED}, \textit{BJET}, and \textit{Computers \& Education}, and have contributed to NSF proposals and served as an NSF panelist. My career goal is to develop reliable AI framework to promote equitable, high-quality education worldwide. 
+
+\vspace{1mm} % <-- added space before keywords
+\textbf{Keywords:} Large Language Models, Natural Language Processing, Educational Assessment, Educational Technology, Early Literacy, Learning Science, AI Literacy, Art Education, Special Education
+
+}
+\vspace{-2mm}
+
+%=====================
+% Publications (numbered; author name highlighted)
+%=====================
+\section{\textbf{Publications}}
+\vspace{0.2mm}
+\small{
+\begin{enumerate}[leftmargin=*, label={[\arabic*]}, itemsep=0.6mm]
+\item Akemoğlu, Y., \myname{Li, Z.}, Singh, S. P., Zheng, Q., Roberts, E. B., \& Xiong, J.
+Parent's AI Coach (PaiCoach): A Single-Case Experimental Study of an AI-Supported Parent Coaching System for Autistic Children.
+\textit{Journal of Autism and Developmental Disorders}.
+\item Xiao, F., \myname{Li, Z.}, Jiang, S., \& Xiong, J. (2026).
+Design and Feasibility of an LLM-Powered Humanoid Robot as a Reading Companion to Support Children's AI Literacy.
+In \textit{Proceedings of the International Conference on Artificial Intelligence in Education}.
+(AIED 2026)
+\item \myname{Li, Z.}, He, P., Chen, Z., Liu, H., Wang, Z., Li, T., \& Xiong, J. (2026).
+SciEval: A Benchmark for Automatic Evaluation of K--12 Science Instructional Materials.
+In \textit{Proceedings of the International Conference on Artificial Intelligence in Education}.
+(AIED 2026)
+\item \myname{Li, Z.}, Li, N., \& Xiong, J. (2026). 
+LLM4Art: Using Large Language Models for Art Interpretation. 
+In \textit{Proceedings of the International Conference on Learning Analytics \& Knowledge}. 
+(LAK 2026)
+\item He, P., \myname{Li, Z.}, Wang, Z., Xiong, J., \& Li, T. (2026). 
+Judging the Judges: Human Validation of Multi-LLM Evaluation for High-Quality K--12 Science Instructional Materials. 
+In \textit{Proceedings of the Computing Conference}. 
+(Computing Conference 2026)
+\item \myname{Li, Z.}; Xiao, F.; Lin, J.; Zou, X.; Zheng, Q.; Xiong, J. (2025, July). 
+StoryLab: Empowering Personalized Learning for Children through Teacher-Guided Multimodal Story Generation. 
+In \textit{International Conference on Artificial Intelligence in Education} (pp.~285--292). Cham: Springer Nature Switzerland. (AIED 2025)
+
+\item \myname{Li, Z.}, Akemoglu, Y., Lyu, J., Zheng, Q., \& Xiong, J. (2025, July). 
+ASD-HI: A Parent-Child Interaction Dataset for Automated Assessment of Home Intervention. 
+In \textit{International Conference on Artificial Intelligence in Education} (pp.~48--62). Cham: Springer Nature Switzerland. (AIED 2025)
+
+\item Xiao, F., \myname{Li, Z.}, Lin, J., Zou, X., Yang, D., Zou, E. W., \& Xiong, J. (2025). 
+Leveraging an LLM-enhanced bilingual conversational agent for EFL children’s dialogic reading: Insights from children, parents, and educators. 
+\textit{Computers and Education: Artificial Intelligence}, 100484.
+
+\item Xiao, F., Zou, E. W., Lin, J., \myname{Li, Z.}, \& Yang, D. (2025). 
+Parent‐led vs. AI‐guided dialogic reading: Evidence from a randomized controlled trial in children's e‐book context. 
+\textit{British Journal of Educational Technology}, 56(5), 1784--1813.
+
+\item Sheikhi\_Karizaki, M., \myname{Li, Z.}, \& Passonneau, R. J. (2025, July). 
+Criteria for Demonstration Examples for LLM Assessment of Science Essays. 
+In \textit{Workshop on Epistemics and Decision-Making in AI-Supported Education, Annual Conference on Artificial Intelligence in Education}. (AIED 2025)
+
+\item \myname{Li, Z.}, \& Passonneau, R. J. (2024). 
+Joint Training for Selective Prediction. 
+\textit{arXiv preprint} arXiv:2410.24029.
+
+\item \myname{Li, Z.}, Lloyd, S. E., Beckman, M. D., \& Passonneau, R. J. (2023, December). 
+Answer-state recurrent relational network (AsRRN) for constructed response assessment and feedback grouping. 
+In \textit{The 2023 Conference on Empirical Methods in Natural Language Processing}. (EMNLP 2023)
+
+
+\item \myname{Li, Z.}, Zhang, C., Jin, Y., Cang, X., Puntambekar, S., \& Passonneau, R. J. (2023, June). 
+Learning when to defer to humans for short answer grading. 
+In \textit{International Conference on Artificial Intelligence in Education} (pp.~414--425). Cham: Springer Nature Switzerland. (AIED 2023)
+
+\item \myname{Li, Z.}; Lloyd, S.; Beckman, M. D.; Passonneau, R. J. (2023). 
+\textit{ISTUDIO: A Statistical Automatic Response Assessment Dataset}. 
+\href{https://www.datacommons.psu.edu/commonswizard/MetadataDisplay.aspx?Dataset=6392}{Penn State Data Commons}.
+
+
+\item Passonneau, R., Koenig, K., \myname{Li, Z.}, \& Soddano, J. (2023). 
+The ideal versus the real deal in assessment of physics lab report writing. 
+\textit{European Journal of Applied Sciences}, 11(2).
+
+\item Lloyd, S., Beckman, M. D., Pearl, D. K., Passonneau, R. J., \myname{Li, Z.}, \& Wang, Z. (2022, September). 
+Foundations for AI-Assisted Formative Assessment Feedback for Short-Answer Tasks in Large-Enrollment Classes.  
+In \textit{Proceedings of the 11th International Conference on Teaching Statistics (ICOTS 11)}.  
+\href{https://doi.org/10.52041/iase.icots11.T3C3}{DOI: 10.52041/iase.icots11.T3C3}.
+
+
+\item \myname{Li, Z.}; Atil, B.; Koenig, K.; Passonneau, R. J. (2022). 
+\textit{Reliable Rubric-Based Assessment of Physics Lab Reports: Data for Machine Learning}. 
+\href{https://www.datacommons.psu.edu/commonswizard/MetadataDisplay.aspx?Dataset=6358}{Penn State Data Commons}.
+
+
+\item \myname{Li, Z.}, Tomar, Y., \& Passonneau, R. J. (2021, November). 
+A semantic feature-wise transformation relation network for automatic short answer grading. 
+In \textit{Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing} (pp.~6030--6040). (EMNLP 2021)
+
+
+\item \myname{Li, Z.}, Feng, Y., Xu, J., Guo, J., Lan, Y., \& Cheng, X. (2019, July). 
+Teaching machines to extract main content for machine reading comprehension. 
+In \textit{Proceedings of the AAAI Conference on Artificial Intelligence} (Vol.~33, No.~1, pp.~9973--9974).
+
+\item \myname{Li, Z.}, Xu, J., Lan, Y., Guo, J., Feng, Y., \& Cheng, X. (2018, September). 
+Hierarchical answer selection framework for multi-passage machine reading comprehension. 
+In \textit{China Conference on Information Retrieval} (pp.~93--104). Cham: Springer International Publishing. (\textbf{Best Paper Nominee})
+
+
+\item Guo, T., Xu, J., Yan, X., Hou, J., Li, P., \myname{Li, Z.}, \ldots \& Cheng, X. (2016, October). 
+Ease the process of machine learning with dataflow. 
+In \textit{Proceedings of the 25th ACM International Conference on Information and Knowledge Management (CIKM 2016)} (pp.~2437--2440). (\textbf{Best Demo Paper Nominee})
+
+
+\item Wang, Y.; \myname{Li, Z.}; Liu, J.; He, Z.; Huang, Y.; Li, D. (2014).
+\textit{Word Vector Modeling for Sentiment Analysis of Product Reviews}.
+NLPCC 2014.
+
+\end{enumerate}
+}
+
+
+%=====================
+% Ongoing Research Projects
+%=====================
+\section{\textbf{Ongoing Research Projects}}
+\vspace{-0.4mm}
+\resumeSubHeadingListStart
+
+\resumeProject
+  {Automated Assessment of an ASD Home-Based Intervention}
+  {Research Lead; work with Prof.~Jinjun Xiong (Co-PI), National AI Institute for Exceptional Education, University at Buffalo.}
+  {Nov 2024 -- Present}
+  {}
+
+\resumeItemListStart
+  \item Lead the creation of a large-scale parent--child interaction dataset for automated assessment of home-based ASD interventions.
+  \item Design and implement an LLM-based automatic evaluation pipeline for behavioral and communicative outcomes.
+  \item Fine-tune large language models for speech recognition, visual information processing, and parent-facing feedback generation.
+  \item Develop and deploy the PiCoach platform; recruit parents and children to conduct user studies and collect real-world intervention data.
+\resumeItemListEnd
+
+\resumeProject
+  {Innovating Beginning Reading Instruction for Culturally and Linguistically Diverse Learners}
+  {AI Tech Lead; work with Prof.~X.~Christine Wang (PI), Center for Early Literacy and Responsible AI, University at Buffalo.}
+  {Jan 2025 -- Present}
+  {}
+
+\resumeItemListStart
+  \item Lead the development of the AI Reading Enhancer platform for early literacy instruction.
+  \item Design and implement a personalized decodable book generation pipeline aligned with K-2 child reading practices.
+  \item Fine-tune large language models for storybook text generation and illustration content creation.
+  \item Co-design and validate decodable storybook evaluation rubrics in collaboration with early literacy experts.
+\resumeItemListEnd
+
+\resumeProject
+  {Exploring LLM-Based Embodied Agents for Early Childhood AI Literacy}
+  {Research Lead; collaboration with Prof.~Shiyang Jiang (Graduate School of Education, University of Pennsylvania).}
+  {Nov 2025 -- Present}
+  {}
+
+\resumeItemListStart
+  \item Fine-tune and deploy multimodal large language models for embodied robotic agents supporting K--2 AI literacy.
+  \item Evaluate and select child-appropriate robotic platforms for early childhood educational settings.
+  \item Collect and analyze multimodal home-environment interaction data to iteratively improve model performance.
+  \item Lead the development of an NSF proposal focused on AI literacy, embodied learning, computation thinking, and responsible AI for young learners.
+\resumeItemListEnd
+
+
+
+
+\resumeProject
+  {Automated Evaluation of Instructional Materials for K--12 Science Education}
+  {Research Lead; collaboration with Prof.~Tingting Li and Prof.~Peng He (College of Education, Washington State University).}
+  {July 2025 -- Present}
+  {}
+
+\resumeItemListStart
+  \item Design and implement an evaluation framework for assessing large language models on instructional material analysis and quality judgment tasks.
+  \item Recruit, train, and calibrate human annotators to construct a high-quality lesson and instructional-material dataset based on OpenSciEd curricula.
+  \item Fine-tune Qwen-Omni-3 models to generate evidence-based assessments, pedagogical reasoning, and actionable suggestions for instructional materials.
+  \item Lead the drafting and submission of NSF proposal related to AI-assisted instructional evaluation and science education.
+\resumeItemListEnd
+
+
+
+\resumeProject
+  {LLM4Art: Using Large Language Models for Art Interpretation}
+  {Research Lead; collaboration with Prof.~Kyunghee Pyun (Fashion Institute of Technology, State University of New York).}
+  {July 2025 -- Present}
+  {}
+
+\resumeItemListStart
+  \item Design and implement an evaluation framework for assessing large language models on art interpretation tasks.
+  \item Develop a prototype tool to support art interpretation and art education using LLM-based assistance.
+  \item Co-curate and annotate a large-scale Art\,+\,LLM dataset for model training and evaluation.
+  \item Train and fine-tune art-specialized LLMs for interpretive reasoning and educational applications.
+\resumeItemListEnd
+
+\resumeProject
+  {LLM4Simulation: Using Large Language Models for Dyslexia Simulations}
+  {Research Lead; collaboration with Prof.~Xinxia Li (School of Education and Human Development, George Washington University).}
+  {Jan 2025 -- Present}
+  {}
+
+\resumeItemListStart
+  \item Conduct a systematic review of the design, delivery, and evaluation of dyslexia simulation technologies.
+  \item Develop an LLM-based prototype to generate interactive activities for dyslexia simulations supporting public awareness and special education training.
+  \item Co-design immersive simulation environments integrating virtual reality (VR) and LLM-driven agents.
+  \item Lead the drafting and submission of NSF proposal related to AI-driven disability simulations and inclusive education.
+\resumeItemListEnd
+
+
+
+
+
+
+\resumeSubHeadingListEnd
+\vspace{-6mm}
+
+%=====================
+% Research Projects
+%=====================
+% \section{\textbf{Research Projects}}
+% \vspace{-0.4mm}
+% \resumeSubHeadingListStart
+
+
+% \resumeProject
+%   {Machine Reading Comprehension}
+%   {Advisor: Prof.~Jun Xu \ \textbar\ Institute of Computing Technology}
+%   {2018 -- 2019 (follow-on work 2021--2022)}
+%   {{}}
+% \resumeItemListStart
+%   \item RL models for main-content identification; AAAI 2019 and CCIR 2018 (Best Paper Nominee).
+% \resumeItemListEnd
+
+% \resumeProject
+%   {BDA: Big Data Analysis as a Service (2k+ GitHub Stars)}
+%   {Advisor: Prof.~Jun Xu \ \textbar\ Institute of Computing Technology}
+%   {Aug 2015 -- Dec 2017}
+%   {{}}
+% \resumeItemListStart
+%   \item Engineered scalable dataflow between HDFS and Spark; CIKM 2016 Best Demo Paper Nominee.
+% \resumeItemListEnd
+
+% \resumeSubHeadingListEnd
+% \vspace{-6mm}
+
+%=====================
+% Skills (optional — keep/edit as needed)
+%=====================
+
+
+
+
+%=====================
+% Honors and Awards (optional)
+%=====================
+% \section{\textbf{Honors and Awards}}
+% \vspace{-0.4mm}
+% \resumeSubHeadingListStart
+% \resumeProject
+%   {Best Doctoral Dissertation in AI-Related Discipline Award}
+%   {Pennsylvania State University}
+%   {May 2024}
+%   {{}}
+% \resumeProject
+%   {Nittany AI Challenge — Finalist/Grant Award}
+%   {Penn State}
+%   {2023}
+%   {{}}
+% \resumeSubHeadingListEnd
+% \vspace{-6mm}
+
+\end{document}
