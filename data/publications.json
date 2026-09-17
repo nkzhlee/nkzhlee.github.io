@@ -1,0 +1,396 @@
+[
+  {
+    "id": "paicoach-2026",
+    "title": "Parent’s AI Coach (PaiCoach): A Single-Case Experimental Study of an AI-Supported Parent Coaching System for Autistic Children",
+    "authors": "Yusuf Akemoğlu, Zhaohui Li, Qingxiao Zheng, Emily Brooke Roberts, Samar Pratap Singh, and Jinjun Xiong",
+    "year": 2026,
+    "venue": "Journal of Autism and Developmental Disorders",
+    "type": "journal",
+    "status": "Published online",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.1007/s10803-026-07519-6"
+      },
+      {
+        "label": "PubMed",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42726183/"
+      }
+    ]
+  },
+  {
+    "id": "robot-reading-2026",
+    "title": "Design and Feasibility of an LLM-Powered Humanoid Robot as a Reading Companion to Support Children’s AI Literacy",
+    "authors": "Feiwen Xiao, Zhaohui Li, Shiyan Jiang, and Jinjun Xiong",
+    "year": 2026,
+    "venue": "AIED 2026 · Companion proceedings, pp. 498–504",
+    "type": "conference",
+    "status": "Published",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.1007/978-3-032-29788-4_71"
+      }
+    ]
+  },
+  {
+    "id": "scieval-2026",
+    "title": "SciEval: A Benchmark for Automatic Evaluation of K–12 Science Instructional Materials",
+    "authors": "Zhaohui Li, Peng He, Zhiyuan Chen, Honglu Liu, Zeyuan Wang, Tingting Li, and Jinjun Xiong",
+    "year": 2026,
+    "venue": "AIED 2026, pp. 539–554",
+    "type": "conference",
+    "status": "Published",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.1007/978-3-032-29744-0_36"
+      },
+      {
+        "label": "Preprint",
+        "url": "https://arxiv.org/abs/2604.25472"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2604.25472"
+      }
+    ]
+  },
+  {
+    "id": "llm4art-2026",
+    "title": "LLM4Art: Using Large Language Models for Art Interpretation",
+    "authors": "Naiquan Li, Dancheng Liu, Yuting Hu, Chenhui Xu, Shenghao Chao, Zhaohui Li, and Jinjun Xiong",
+    "year": 2026,
+    "venue": "LAK 2026 Companion Proceedings, pp. 246–248",
+    "type": "conference",
+    "status": "Published",
+    "links": [
+      {
+        "label": "Proceedings PDF",
+        "url": "https://www.solaresearch.org/wp-content/uploads/2026/04/LAK26-Companion-Proceedings.pdf"
+      },
+      {
+        "label": "Conference",
+        "url": "https://www.solaresearch.org/events/lak/lak26/accepted-papers/"
+      }
+    ]
+  },
+  {
+    "id": "judging-judges-2026",
+    "title": "Judging the Judges: Human Validation of Multi-LLM Evaluation for High-Quality K–12 Science Instructional Materials",
+    "authors": "Peng He, Zhaohui Li, Zeyuan Wang, Jinjun Xiong, and Tingting Li",
+    "year": 2026,
+    "venue": "Computing Conference 2026 · Intelligent Computing, pp. 481–496",
+    "type": "conference",
+    "status": "Published",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.1007/978-3-032-24807-7_31"
+      },
+      {
+        "label": "Preprint",
+        "url": "https://arxiv.org/abs/2602.13243"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2602.13243"
+      }
+    ]
+  },
+  {
+    "id": "storylab-2025",
+    "title": "StoryLab: Empowering Personalized Learning for Children Through Teacher-Guided Multimodal Story Generation",
+    "authors": "Zhaohui Li, Feiwen Xiao, Jiaju Lin, Xiaohan Zou, Qingxiao Zheng, and Jinjun Xiong",
+    "year": 2025,
+    "venue": "AIED 2025, pp. 285–292",
+    "type": "conference",
+    "status": "Published",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.1007/978-3-031-98462-4_36"
+      }
+    ]
+  },
+  {
+    "id": "asd-hi-2025",
+    "title": "ASD-HI: A Parent-Child Interaction Dataset for Automated Assessment of Home Intervention",
+    "authors": "Zhaohui Li, Yusuf Akemoglu, Jincheng Lyu, Qingxiao Zheng, and Jinjun Xiong",
+    "year": 2025,
+    "venue": "AIED 2025, pp. 48–62",
+    "type": "conference",
+    "status": "Published",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.1007/978-3-031-98414-3_4"
+      }
+    ]
+  },
+  {
+    "id": "bilingual-agent-2025",
+    "title": "Leveraging an LLM-enhanced bilingual conversational agent for EFL children’s dialogic reading: Insights from children, parents, and educators",
+    "authors": "Feiwen Xiao, Zhaohui Li, Jiaju Lin, Xiaohan Zou, Dandan Yang, Ellen Wenting Zou, and Jinjun Xiong",
+    "year": 2025,
+    "venue": "Computers and Education: Artificial Intelligence, article 100484",
+    "type": "journal",
+    "status": "Published",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.1016/j.caeai.2025.100484"
+      }
+    ]
+  },
+  {
+    "id": "dialogic-reading-2025",
+    "title": "Parent-led vs. AI-guided dialogic reading: Evidence from a randomized controlled trial in children’s e-book context",
+    "authors": "Feiwen Xiao, Ellen Wenting Zou, Jiaju Lin, Zhaohui Li, and Dandan Yang",
+    "year": 2025,
+    "venue": "British Journal of Educational Technology, 56(5), 1784–1813",
+    "type": "journal",
+    "status": "Published",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.1111/bjet.13615"
+      }
+    ]
+  },
+  {
+    "id": "demonstration-examples-2025",
+    "title": "Criteria for Demonstration Examples for LLM Assessment of Science Essays",
+    "authors": "Mahsa Sheikhi Karizaki, Zhaohui Li, and Rebecca J. Passonneau",
+    "year": 2025,
+    "venue": "Workshop on Epistemics and Decision-Making in AI-Supported Education · AIED 2025",
+    "type": "workshop",
+    "status": "Accepted manuscript",
+    "links": [
+      {
+        "label": "Paper",
+        "url": "https://par.nsf.gov/biblio/10613222"
+      },
+      {
+        "label": "PDF",
+        "url": "https://par.nsf.gov/servlets/purl/10613222"
+      }
+    ]
+  },
+  {
+    "id": "joint-selective-2024",
+    "title": "Joint Training for Selective Prediction",
+    "authors": "Zhaohui Li and Rebecca J. Passonneau",
+    "year": 2024,
+    "venue": "arXiv:2410.24029",
+    "type": "preprint",
+    "status": "Preprint",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2410.24029"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2410.24029"
+      }
+    ]
+  },
+  {
+    "id": "asrrn-2023",
+    "title": "Answer-state Recurrent Relational Network (AsRRN) for Constructed Response Assessment and Feedback Grouping",
+    "authors": "Zhaohui Li, Susan Lloyd, Matthew Beckman, and Rebecca Passonneau",
+    "year": 2023,
+    "venue": "Findings of EMNLP 2023, pp. 3879–3891",
+    "type": "conference",
+    "status": "Published",
+    "links": [
+      {
+        "label": "Paper",
+        "url": "https://aclanthology.org/2023.findings-emnlp.254/"
+      },
+      {
+        "label": "PDF",
+        "url": "https://aclanthology.org/2023.findings-emnlp.254.pdf"
+      },
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.18653/v1/2023.findings-emnlp.254"
+      }
+    ]
+  },
+  {
+    "id": "defer-grading-2023",
+    "title": "Learning When to Defer to Humans for Short Answer Grading",
+    "authors": "Zhaohui Li, Chengning Zhang, Yumi Jin, Xuesong Cang, Sadhana Puntambekar, and Rebecca J. Passonneau",
+    "year": 2023,
+    "venue": "AIED 2023, pp. 414–425",
+    "type": "conference",
+    "status": "Published",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.1007/978-3-031-36272-9_34"
+      }
+    ]
+  },
+  {
+    "id": "istudio-2023",
+    "title": "I-STUDIO: A reliable statistical automatic short answer assessment dataset",
+    "authors": "Zhaohui Li, Susan E. Lloyd, Matthew D. Beckman, and Rebecca J. Passonneau",
+    "year": 2023,
+    "venue": "Penn State Data Commons",
+    "type": "dataset",
+    "status": "Released",
+    "links": [
+      {
+        "label": "Dataset",
+        "url": "https://doi.org/10.26208/JFMP-V777"
+      }
+    ]
+  },
+  {
+    "id": "physics-assessment-2023",
+    "title": "The Ideal versus the Real Deal in Assessment of Physics Lab Report Writing",
+    "authors": "Rebecca J. Passonneau, Kathleen Koenig, Zhaohui Li, and Josephine Soddano",
+    "year": 2023,
+    "venue": "European Journal of Applied Sciences, 11(2), 626–644",
+    "type": "journal",
+    "status": "Published",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.14738/aivp.112.14406"
+      },
+      {
+        "label": "Paper",
+        "url": "https://journals.scholarpublishing.org/index.php/AIVP/article/view/14406"
+      }
+    ]
+  },
+  {
+    "id": "formative-feedback-2022",
+    "title": "Foundations for AI-Assisted Formative Assessment Feedback for Short-Answer Tasks in Large-Enrollment Classes",
+    "authors": "Susan E. Lloyd, Matthew D. Beckman, Dennis K. Pearl, Rebecca J. Passonneau, Zhaohui Li, and Zekun Wang",
+    "year": 2022,
+    "venue": "11th International Conference on Teaching Statistics (ICOTS 11)",
+    "type": "conference",
+    "status": "Published",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.52041/iase.icots11.T3C3"
+      },
+      {
+        "label": "PDF",
+        "url": "https://mdbeckman.github.io/2023-MSU-Colloq/docs/ICOTS-Paper.pdf"
+      }
+    ]
+  },
+  {
+    "id": "physics-dataset-2022",
+    "title": "Reliable Rubric-Based Assessment of Physics Lab Reports: Data for Machine Learning",
+    "authors": "Rebecca J. Passonneau, Zhaohui Li, B. Atil, and Kathleen M. Koenig",
+    "year": 2022,
+    "venue": "Penn State Data Commons",
+    "type": "dataset",
+    "status": "Released",
+    "links": [
+      {
+        "label": "Dataset",
+        "url": "https://doi.org/10.26208/BWE2-BR31"
+      }
+    ]
+  },
+  {
+    "id": "sfrn-2021",
+    "title": "A Semantic Feature-Wise Transformation Relation Network for Automatic Short Answer Grading",
+    "authors": "Zhaohui Li, Yajur Tomar, and Rebecca J. Passonneau",
+    "year": 2021,
+    "venue": "EMNLP 2021, pp. 6030–6040",
+    "type": "conference",
+    "status": "Published",
+    "links": [
+      {
+        "label": "Paper",
+        "url": "https://aclanthology.org/2021.emnlp-main.487/"
+      },
+      {
+        "label": "PDF",
+        "url": "https://aclanthology.org/2021.emnlp-main.487.pdf"
+      },
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.18653/v1/2021.emnlp-main.487"
+      }
+    ]
+  },
+  {
+    "id": "main-content-2019",
+    "title": "Teaching Machines to Extract Main Content for Machine Reading Comprehension",
+    "authors": "Zhaohui Li, Yue Feng, Jun Xu, Jiafeng Guo, Yanyan Lan, and Xueqi Cheng",
+    "year": 2019,
+    "venue": "AAAI 2019, 33(1), 9973–9974",
+    "type": "conference",
+    "status": "Published",
+    "links": [
+      {
+        "label": "PDF",
+        "url": "https://ojs.aaai.org/index.php/AAAI/article/download/5123/4996"
+      }
+    ]
+  },
+  {
+    "id": "hierarchical-answer-2018",
+    "title": "Hierarchical Answer Selection Framework for Multi-passage Machine Reading Comprehension",
+    "authors": "Zhaohui Li, Jun Xu, Yanyan Lan, Jiafeng Guo, Yue Feng, and Xueqi Cheng",
+    "year": 2018,
+    "venue": "China Conference on Information Retrieval (CCIR), pp. 93–104",
+    "type": "conference",
+    "status": "Published",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.1007/978-3-030-01012-6_8"
+      }
+    ]
+  },
+  {
+    "id": "dataflow-2016",
+    "title": "Ease the Process of Machine Learning with Dataflow",
+    "authors": "Tianyou Guo, Jun Xu, Xiaohui Yan, Jianpeng Hou, Ping Li, Zhaohui Li, Jiafeng Guo, and Xueqi Cheng",
+    "year": 2016,
+    "venue": "CIKM 2016, pp. 2437–2440",
+    "type": "conference",
+    "status": "Published",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.1145/2983323.2983327"
+      },
+      {
+        "label": "PDF",
+        "url": "https://jiafengguo.github.io/2016/2016-Ease%20the%20Process%20of%20Machine%20Learning%20with%20Dataflow.pdf"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/ICT-BDA/EasyML"
+      }
+    ]
+  },
+  {
+    "id": "word-vectors-2014",
+    "title": "Word Vector Modeling for Sentiment Analysis of Product Reviews",
+    "authors": "Yuan Wang, Zhaohui Li, Jie Liu, Zhicheng He, Yalou Huang, and Dong Li",
+    "year": 2014,
+    "venue": "NLPCC 2014, pp. 168–180",
+    "type": "conference",
+    "status": "Published",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.1007/978-3-662-45924-9_16"
+      }
+    ]
+  }
+]

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: http://zhaohuilee.com/sitemap.xml
