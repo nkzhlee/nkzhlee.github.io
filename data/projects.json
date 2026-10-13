@@ -1,0 +1,260 @@
+{
+  "themes": [
+    {
+      "id": "pedagogical-alignment",
+      "title": "Aligning AI with pedagogical goals",
+      "shortTitle": "Pedagogical alignment",
+      "description": "Models, rubrics, and benchmarks that align AI judgments with educational goals.",
+      "color": "#245d86"
+    },
+    {
+      "id": "human-ai-collaboration",
+      "title": "Designing human-AI collaboration",
+      "shortTitle": "Human-AI collaboration",
+      "description": "Methods and systems for human review, shared reading, and collaboration between people and AI.",
+      "color": "#137575"
+    },
+    {
+      "id": "personalized-learning",
+      "title": "Personalized learning and special education",
+      "shortTitle": "Personalized learning",
+      "description": "Materials, interactions, and feedback adapted to learners' goals and needs, with teachers, specialists, and families involved.",
+      "color": "#7757a3"
+    },
+    {
+      "id": "earlier-nlp",
+      "title": "Earlier work in NLP and machine learning",
+      "shortTitle": "Earlier NLP and ML",
+      "description": "Foundations in machine reading comprehension, sentiment representations, and tools for building machine-learning workflows.",
+      "color": "#69737c"
+    }
+  ],
+  "projects": [
+    {
+      "id": "science-instructional-materials",
+      "title": "Evaluating K-12 science instructional materials",
+      "themeId": "pedagogical-alignment",
+      "relatedThemeIds": ["human-ai-collaboration"],
+      "status": "Ongoing project",
+      "timeframe": "July 2025-present",
+      "summary": "SciEval and Judging the Judges examine how language models evaluate K-12 science lessons using educator-defined criteria. SciEval supplies a rubric-based benchmark with scores and evidence; expert review in Judging the Judges identifies where model scores, explanations, and suggestions depart from instructional context.",
+      "publicationIds": ["scieval-2026", "judging-judges-2026"],
+      "figureId": "scieval-2026",
+      "figureTitle": "Connecting lesson content with evaluation criteria",
+      "role": "Research lead",
+      "evidence": [
+        {"document": "research-statement", "pages": [1, 2]},
+        {"document": "cv", "pages": [2, 3, 4]}
+      ]
+    },
+    {
+      "id": "short-answer-assessment",
+      "title": "Short-answer assessment and formative feedback",
+      "themeId": "pedagogical-alignment",
+      "relatedThemeIds": [],
+      "status": "Research papers",
+      "timeframe": "2021-2023",
+      "summary": "SFRN and AsRRN represent relationships among questions, reference answers, and student responses for automated assessment. Related work on statistics responses contributes the I-STUDIO dataset, human-scoring procedures, and exploratory feedback grouping, connecting model design with reliable labels and the instructional purpose of formative feedback.",
+      "publicationIds": ["asrrn-2023", "istudio-2023", "formative-feedback-2022", "sfrn-2021"],
+      "figureId": "asrrn-2023",
+      "figureTitle": "AsRRN models the assessment context",
+      "evidence": [
+        {"document": "research-statement", "pages": [1, 2]},
+        {"document": "cv", "pages": [2, 3]}
+      ]
+    },
+    {
+      "id": "physics-lab-assessment",
+      "title": "Reliable assessment of physics lab reports",
+      "themeId": "pedagogical-alignment",
+      "relatedThemeIds": [],
+      "status": "Research papers",
+      "timeframe": "2022-2023",
+      "summary": "This research pairs a physics lab-report dataset with a study of rubric-based assessment reliability. Comparing routine classroom grades with trained raters' judgments shows why the target label needs scrutiny. Detailed rubrics make expectations and evidence more explicit before those judgments become targets for machine learning.",
+      "publicationIds": ["physics-assessment-2023", "physics-dataset-2022"],
+      "figureId": "physics-assessment-2023",
+      "figureTitle": "Performance across lab-report rubric dimensions",
+      "evidence": [
+        {"document": "research-statement", "pages": [2]},
+        {"document": "cv", "pages": [3]}
+      ]
+    },
+    {
+      "id": "science-essay-assessment",
+      "title": "LLM assessment of science essays",
+      "themeId": "pedagogical-alignment",
+      "relatedThemeIds": [],
+      "status": "Research papers",
+      "timeframe": "2025",
+      "summary": "This study examines how demonstration examples guide language models in identifying rubric-defined scientific ideas in student essays. It tests the number and quality of examples used in prompts, treating example design as part of the assessment task rather than relying only on general model capabilities.",
+      "publicationIds": ["demonstration-examples-2025"],
+      "figureId": "demonstration-examples-2025",
+      "figureTitle": "Scientific ideas and rubric-based essay feedback",
+      "evidence": [
+        {"document": "research-statement", "pages": [2]},
+        {"document": "cv", "pages": [2]}
+      ]
+    },
+    {
+      "id": "llm4art",
+      "title": "LLM4Art: AI-assisted art interpretation",
+      "themeId": "pedagogical-alignment",
+      "relatedThemeIds": [],
+      "status": "Ongoing project",
+      "timeframe": "July 2025-present",
+      "summary": "LLM4Art connects art scholars' expertise with language-model interpretation through prompts and evaluation rubrics for visual analysis, historical context, and cultural significance. A benchmark and prototype application support comparison of model interpretations, with ongoing work on art-focused datasets, model adaptation, and educational uses.",
+      "publicationIds": ["llm4art-2026"],
+      "figureId": "llm4art-2026",
+      "figureTitle": "The LLM4Art interpretation workspace",
+      "role": "Research lead",
+      "evidence": [
+        {"document": "research-statement", "pages": [2]},
+        {"document": "cv", "pages": [2, 4]}
+      ]
+    },
+    {
+      "id": "selective-prediction",
+      "title": "Selective prediction and human deferral",
+      "themeId": "human-ai-collaboration",
+      "relatedThemeIds": ["pedagogical-alignment"],
+      "status": "Research papers",
+      "timeframe": "2023-2024",
+      "summary": "These studies ask when an automatic grader should predict and when it should defer to a person. The initial work evaluates a learned deferral policy in a held-out simulation using human reference labels. Subsequent work jointly trains assessment and deferral representations across four student-answer datasets.",
+      "publicationIds": ["joint-selective-2024", "defer-grading-2023"],
+      "figureId": "joint-selective-2024",
+      "figureTitle": "Joint training of assessment and deferral",
+      "evidence": [
+        {"document": "research-statement", "pages": [2, 3]},
+        {"document": "cv", "pages": [2]}
+      ]
+    },
+    {
+      "id": "dialogic-reading",
+      "title": "Storio: AI-guided dialogic reading",
+      "themeId": "human-ai-collaboration",
+      "relatedThemeIds": ["personalized-learning"],
+      "status": "Research papers",
+      "timeframe": "2025",
+      "summary": "Two Storio studies examine bilingual conversational support during children's e-book reading. A design study explores responsive scaffolding with children, parents, and educators; a separate randomized study compares AI-guided and parent-led reading. Together they distinguish comprehension, vocabulary, retelling, and engagement to inform the design of learning partners.",
+      "publicationIds": ["bilingual-agent-2025", "dialogic-reading-2025"],
+      "figureId": "bilingual-agent-2025",
+      "figureTitle": "Bilingual dialogue and adaptive reading support",
+      "evidence": [
+        {"document": "research-statement", "pages": [3]},
+        {"document": "cv", "pages": [2]}
+      ]
+    },
+    {
+      "id": "embodied-reading",
+      "title": "An embodied reading companion for AI literacy",
+      "themeId": "human-ai-collaboration",
+      "relatedThemeIds": ["personalized-learning"],
+      "status": "Ongoing project",
+      "timeframe": "Nov 2025-present",
+      "summary": "An LLM-powered humanoid robot provides a platform for shared reading and early childhood AI literacy. The feasibility study evaluates structured dialogue policies with simulated child profiles and an expert. It examines interaction tradeoffs and informs future studies of physical presence, turn-taking, and participation by children and adults.",
+      "publicationIds": ["robot-reading-2026"],
+      "figureId": "robot-reading-2026",
+      "figureTitle": "The robot-assisted reading workflow",
+      "role": "Research lead",
+      "evidence": [
+        {"document": "research-statement", "pages": [3, 4]},
+        {"document": "cv", "pages": [2, 3]}
+      ]
+    },
+    {
+      "id": "personalized-reading",
+      "title": "StoryLab and AIRE: personalized reading materials",
+      "themeId": "personalized-learning",
+      "relatedThemeIds": ["pedagogical-alignment", "human-ai-collaboration"],
+      "status": "Ongoing project",
+      "timeframe": "Jan 2025-present",
+      "summary": "StoryLab combines teacher-defined learning goals with children's interests to generate stories, illustrations, and vocabulary support. AIRE extends this work to personalized decodable texts aligned with taught phonics patterns. Literacy experts' rubrics guide generation and review, while teachers can select and revise materials for their instruction.",
+      "publicationIds": ["aire-aera-2026", "storylab-2025"],
+      "figureId": "storylab-2025",
+      "figureTitle": "Teacher-guided story generation and review",
+      "role": "AI technical lead",
+      "evidence": [
+        {"document": "research-statement", "pages": [2, 3]},
+        {"document": "cv", "pages": [2, 3]}
+      ]
+    },
+    {
+      "id": "parent-coaching",
+      "title": "ASD-HI and PaiCoach: support for parent coaching",
+      "themeId": "personalized-learning",
+      "relatedThemeIds": ["pedagogical-alignment", "human-ai-collaboration"],
+      "status": "Ongoing project",
+      "timeframe": "Nov 2024-present",
+      "summary": "ASD-HI benchmarks detection and assessment of communication strategies in parent-child home interventions for autistic children. PaiCoach builds on this work to generate feedback tailored to shared-reading sessions. A four-family study found preliminary improvements under an AI-assisted workflow in which specialists corrected strategy codes and reviewed every feedback message before delivery.",
+      "publicationIds": ["paicoach-2026", "asd-hi-2025"],
+      "figureId": "paicoach-2026",
+      "figureTitle": "Parent implementation and child responsiveness",
+      "role": "Research lead",
+      "evidence": [
+        {"document": "research-statement", "pages": [1, 2, 3]},
+        {"document": "cv", "pages": [2, 3]}
+      ]
+    },
+    {
+      "id": "dyslexia-simulation",
+      "title": "LLM4Simulation: dyslexia simulations",
+      "themeId": "personalized-learning",
+      "relatedThemeIds": [],
+      "status": "Ongoing project",
+      "timeframe": "Jan 2025-present",
+      "summary": "This ongoing collaboration investigates dyslexia simulation technologies for public awareness and special education training. The work includes a review of existing approaches and development of an LLM-based prototype for interactive activities, with immersive environments combining virtual reality and AI agents as a direction under development.",
+      "publicationIds": [],
+      "figureId": null,
+      "figureTitle": "",
+      "role": "Research lead",
+      "evidence": [
+        {"document": "cv", "pages": [4]}
+      ]
+    },
+    {
+      "id": "machine-reading-comprehension",
+      "title": "Machine reading comprehension",
+      "themeId": "earlier-nlp",
+      "relatedThemeIds": [],
+      "status": "Earlier work",
+      "timeframe": "2018-2019",
+      "summary": "This work develops hierarchical methods for answering questions across multiple passages. Passage selection, question-relevant sentence selection, and answer extraction break the task into stages. Reinforcement learning for main-content selection examines how choosing useful evidence can improve downstream reading-comprehension models on benchmark datasets.",
+      "publicationIds": ["main-content-2019", "hierarchical-answer-2018"],
+      "figureId": "hierarchical-answer-2018",
+      "figureTitle": "From passage selection to answer extraction",
+      "evidence": [
+        {"document": "cv", "pages": [3]}
+      ]
+    },
+    {
+      "id": "dataflow-ml",
+      "title": "Dataflow tools for machine learning",
+      "themeId": "earlier-nlp",
+      "relatedThemeIds": [],
+      "status": "Earlier work",
+      "timeframe": "2016",
+      "summary": "A visual dataflow system makes machine-learning workflows easier to construct, execute, monitor, and reuse. Users connect operations as a directed acyclic graph in a drag-and-drop studio. The system integrates algorithm libraries with Hadoop and Spark infrastructure to support both standalone and distributed computation.",
+      "publicationIds": ["dataflow-2016"],
+      "figureId": "dataflow-2016",
+      "figureTitle": "The dataflow system architecture",
+      "evidence": [
+        {"document": "cv", "pages": [3]}
+      ]
+    },
+    {
+      "id": "sentiment-representations",
+      "title": "Sentiment-aware word representations",
+      "themeId": "earlier-nlp",
+      "relatedThemeIds": [],
+      "status": "Earlier work",
+      "timeframe": "2014",
+      "summary": "This early NLP work incorporates sentiment labels into a semi-supervised language model for learning word vectors. Experiments on English and Chinese product reviews examine how semantic and sentiment information work together, studying representation choices that support review classification across the two languages.",
+      "publicationIds": ["word-vectors-2014"],
+      "figureId": "word-vectors-2014",
+      "figureTitle": "Review classification with sentiment-aware vectors",
+      "evidence": [
+        {"document": "cv", "pages": [3]}
+      ]
+    }
+  ]
+}

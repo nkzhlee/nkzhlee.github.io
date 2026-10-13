@@ -4,16 +4,19 @@ from html import escape
 import json
 from publication_map import render_publication_map, render_publication_map_svg
 from highlights import render_highlights
+from project_groups import render_projects
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = json.loads((ROOT / "data/profile.json").read_text())
 PUBS = json.loads((ROOT / "data/publications.json").read_text()) if (ROOT / "data/publications.json").exists() else []
 TAXONOMY = json.loads((ROOT / "data/publication-map.json").read_text())
 HIGHLIGHTS = [entry for path in sorted((ROOT / "data").glob("highlights-*.json")) for entry in json.loads(path.read_text())]
+PROJECT_DATA = json.loads((ROOT / "data/projects.json").read_text())
+PROJECT_BY_PAPER = {identifier: project for project in PROJECT_DATA["projects"] for identifier in project["publicationIds"]}
 BASE = PROFILE["base_url"].rstrip("/")
 CV = "/files/Zhaohui_Li_CV.pdf"
 E = escape
-NAV = [("/", "About"), ("/research/", "Research"), ("/publications/", "Publications"), ("/experience/", "Experience"), ("/teaching/", "Teaching & service"), ("/cv/", "CV & contact")]
+NAV = [("/", "About"), ("/projects/", "Projects"), ("/research/", "Research"), ("/publications/", "Publications"), ("/experience/", "Experience"), ("/teaching/", "Teaching & service"), ("/cv/", "CV & contact")]
 AI_LEADERSHIP = [
     ("National AI Institute for Exceptional Education (AI4ExceptionalEd)", "https://www.buffalo.edu/ai4exceptionaled.html"),
     ("Center for Early Literacy and Responsible AI (CELaRAI)", "https://earlyliteracyai.org/"),
@@ -33,6 +36,7 @@ def layout(title, description, body, route="/"):
               "jobTitle": PROFILE["role"], "affiliation": {"@type":"CollegeOrUniversity","name":PROFILE["institution"]},
               "sameAs":[PROFILE["scholar_url"],"https://github.com/nkzhlee"]}
     map_assets = '<link rel="stylesheet" href="/css/publication-map.css"><script src="/js/publication-map.js" defer></script>' if route == "/publications/" else ""
+    project_assets = '<link rel="stylesheet" href="/css/projects.css">' if route == "/projects/" else ""
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -53,6 +57,7 @@ def layout(title, description, body, route="/"):
 <script src="/js/academic.js" defer></script>
 <script src="/js/highlights.js" defer></script>
 {map_assets}
+{project_assets}
 <script type="application/ld+json">{json.dumps(person, ensure_ascii=False)}</script>
 </head>
 <body>
@@ -70,6 +75,9 @@ def intro(kicker, title, text):
 
 def pub_links(p):
     links = "".join(f'<a href="{E(x["url"])}">{E(x["label"])} <span aria-hidden="true">↗</span></a>' for x in p.get("links",[]))
+    project = PROJECT_BY_PAPER.get(p["id"])
+    if project:
+        links += f'<a href="/projects/#{E(project["id"], quote=True)}">Project</a>'
     return f'<div class="publication-links">{links}</div>' if links else ""
 
 def pub_card(p, compact=False):
@@ -101,39 +109,17 @@ def home():
 </ul></section>
 <section class="wrap section"><div class="section-title"><h2>Recent papers</h2><a href="/research/">All {len(HIGHLIGHTS)} paper highlights →</a></div>
 {render_highlights(PUBS, HIGHLIGHTS, limit=6)}
-<p class="section-end"><a href="/research/">More paper highlights</a> · <a href="/publications/">Full publication list</a> · <a href="/publications/#publication-map">Fields &amp; venues</a></p></section>'''
+<p class="section-end"><a href="/projects/">Projects by research area</a> · <a href="/research/">More paper highlights</a> · <a href="/publications/">Full publication list</a> · <a href="/publications/#publication-map">Fields &amp; venues</a></p></section>'''
     write("index.html", layout("Zhaohui Li | AI for Education & Natural Language Processing", "Academic website of Zhaohui Li: research, publications, teaching, service, and CV in AI for education and natural language processing.", body))
 
-PROJECTS = [
-("assessment","01","Assessment & feedback","Making educational judgments useful and reviewable","I develop models and datasets for assessing short answers, STEM reasoning, and instructional materials. This work studies both prediction quality and the information a teacher needs to interpret or review an assessment.",[
-("Short-answer assessment","Models that compare student answers with questions and rubrics, then group similar answers to support instructor feedback.","A semantic feature-wise transformation","2021 · 2023"),
-("Human review and selective prediction","Methods that identify when an automated grading system should defer to a person.","Learning when to defer","2023 · 2024"),
-("SciEval","A benchmark of 273 K–12 science lessons, assessed against 13 criteria from the EQuIP rubric.","SciEval","2026")]),
-("literacy","02","Reading & language","Tools for creating and studying reading experiences","I work with literacy researchers on story generation, dialogic reading, and evaluation of instructional materials. The focus is on how these tools fit the work of educators and the needs of beginning readers.",[
-("StoryLab","A system for teachers to guide the generation of illustrated stories for young learners.","StoryLab","2025"),
-("AI Reading Enhancer","AI technical lead with X. Christine Wang and the Center for Early Literacy and Responsible AI. Personalized decodable books for K–2 readers and evaluation rubrics co-designed with literacy experts.","AIRE:","Since January 2025 · AERA 2026 poster"),
-("Dialogic reading","Studies of bilingual English learning and comparisons between reading with a parent and a conversational agent.","bilingual conversational agent","2025")]),
-("interaction","03","Multimodal learning","Understanding learning through interaction","I study the language and behavior in parent-child and child-robot interactions, combining multimodal data with questions from education and developmental research.",[
-("ASD-HI and PaiCoach","Research lead with Jinjun Xiong. A parent–child interaction dataset, multimodal assessment of home interventions, and AI-supported parent coaching.","PaiCoach","Since November 2024"),
-("Embodied reading companions","Feasibility research on an LLM-powered humanoid robot as a reading companion for children's AI literacy.","Humanoid Robot","2026"),
-("LLM4Art","Research lead with Kyunghee Pyun at the Fashion Institute of Technology. Art interpretation datasets, model evaluation, and LLM-based tools for art education.","LLM4Art","Since July 2025"),
-("LLM4Simulation","Research lead with Xinxia Li at George Washington University. Interactive dyslexia simulations combining language models and virtual reality for public awareness and special-education training.",None,"Since January 2025")])
-]
 
 def research():
     body = intro("Research", "Paper highlights", "Figures and short summaries from my papers, ordered by year. Select a figure to see its source.")
     body += '<div class="wrap jump-links" aria-label="Research sections"><a href="#paper-highlights">Papers</a><a href="#leadership">Research leadership</a><a href="#ongoing">Research areas &amp; projects</a><a href="#future">Future directions</a><a href="#resources">Datasets &amp; software</a><a href="/publications/#publication-map">Fields &amp; venues</a></div>'
     body += f'<section class="wrap section" id="paper-highlights" aria-label="Paper highlights">{render_highlights(PUBS, HIGHLIGHTS)}<p class="section-end">The <a href="/publications/">full publication list</a> also includes posters and dataset records.</p></section>'
     body += f'<section class="wrap section research-section" id="leadership"><h2>Research leadership</h2><p>During my postdoctoral appointment at the University at Buffalo’s Institute for Artificial Intelligence and Data Science (IAD), Aug 2024–Aug 2026, I worked with <a href="{E(PROFILE["mentor_url"])}">Dr. Jinjun Xiong</a> and served in two AI Team Lead roles:</p>{leadership_list()}</section>'
-    body += '<section class="wrap section research-section" id="ongoing"><h2>Research areas &amp; projects</h2>'
-    for slug, num, label, title, text, projects in PROJECTS:
-        body += f'<details class="research-area" id="{slug}"><summary>{label}</summary><p>{text}</p><ul class="project-list">'
-        for name, desc, match, date in projects:
-            paper = next((p for p in PUBS if match and match.lower() in p["title"].lower()), None)
-            link = f' <a href="/publications/#{paper["id"]}">Publication</a>.' if paper else ""
-            body += f'<li><h3>{name}</h3><p>{desc}{link}</p></li>'
-        body += '</ul></details>'
-    body += '''</section>
+    body += '<section class="wrap section research-section" id="ongoing"><h2>Projects by research area</h2><p>Explore related papers, datasets, and systems grouped by their shared research questions.</p><ul class="resource-list"><li id="assessment"><a href="/projects/#pedagogical-alignment">Pedagogical alignment &amp; assessment</a></li><li id="interaction"><a href="/projects/#human-ai-collaboration">Human–AI collaboration</a></li><li id="literacy"><a href="/projects/#personalized-learning">Personalized learning &amp; special education</a></li><li><a href="/projects/#earlier-nlp">Earlier NLP &amp; machine learning</a></li></ul></section>'
+    body += '''
 <section class="wrap section research-section prose" id="future"><h2>Future directions</h2><p>I plan to develop a theoretical framework for translating educational goals into computational tasks, informed by interdisciplinary collaboration, and an agent-based system to support task formulation and evaluation design. I also plan to investigate responsible AI use in education, including potential risks of emotional overreliance and declines in students’ independent reasoning.</p></section>
 <section class="wrap section" id="resources"><h2>Datasets &amp; software</h2><ul class="resource-list">
 <li><a href="https://doi.org/10.26208/JFMP-V777">I-STUDIO</a> — Short student answers to statistics questions, with assessment labels (2023).</li>
@@ -143,6 +129,16 @@ def research():
 <li><a href="https://github.com/ICT-BDA/EasyML">EasyML</a> — A dataflow-based system for machine-learning workflows.</li>
 </ul></section>'''
     write("research/index.html", layout("Paper Highlights | Zhaohui Li", "Figures and project summaries for 20 papers in AI, natural language processing, educational assessment, and early literacy, ordered by year.", body, "/research/"))
+
+def projects():
+    body = intro("Projects", "Research projects", "My research connects pedagogical alignment, human–AI collaboration, and personalized learning. Related papers, datasets, and systems are grouped around a shared research question.")
+    body += render_projects(PROJECT_DATA, PUBS, HIGHLIGHTS)
+    body += '''<section class="wrap section project-future" id="future-projects"><h2>Future directions</h2><p>Building on these projects, I plan to pursue three connected directions:</p><ul>
+<li><strong>Educational goals to AI tasks:</strong> LLM agents that propose rubrics and evaluation specifications for educator review.</li>
+<li><strong>AI that strengthens human connection:</strong> Agents that invite teacher, peer, and family participation while supporting independent thinking.</li>
+<li><strong>Personalized special-education support:</strong> Materials and coaching aligned with educator-approved Individualized Education Program (IEP) goals, with specialist review.</li>
+</ul><p class="section-end"><a href="/research/">Paper highlights by year</a> · <a href="/publications/">Full publication list</a></p></section>'''
+    write("projects/index.html", layout("Research Projects | Zhaohui Li", "Research projects in pedagogical alignment, human–AI collaboration, personalized learning, special education, and earlier NLP, with related papers and datasets.", body, "/projects/"))
 
 def publications():
     visible=[p for p in PUBS if p.get("status","")!="Status to confirm"]
@@ -206,7 +202,7 @@ def contact():
     write("cv/index.html",layout("CV & Contact | Zhaohui Li","Download Zhaohui Li's academic CV and find contact details and research profiles.",body,"/cv/"))
 
 def legacy():
-    mapping={"projects/":"/research/","about/":"/","archives/":"/publications/","categories/":"/research/","tags/":"/research/","c/":"/"}
+    mapping={"about/":"/","archives/":"/publications/","categories/":"/research/","tags/":"/research/","c/":"/"}
     for dirname,dest in mapping.items():
         paths=list((ROOT/dirname).rglob("*.html")) if (ROOT/dirname).exists() else [ROOT/dirname/"index.html"]
         for path in paths:
@@ -227,5 +223,5 @@ def metadata():
     write(".nojekyll","")
 
 if __name__=="__main__":
-    home(); research(); publications(); experience(); teaching(); contact(); legacy(); metadata()
+    home(); research(); projects(); publications(); experience(); teaching(); contact(); legacy(); metadata()
     print(f"Built academic site with {len(PUBS)} publication records.")

@@ -11,12 +11,13 @@ import xml.etree.ElementTree as ET
 from urllib.parse import unquote, urlsplit
 from publication_map import render_publication_map_svg
 from highlights import ordered_highlights
+from project_groups import validate_project_groups
 
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ["index.html"] + [
     f"{name}/index.html"
-    for name in ("research", "publications", "experience", "teaching", "cv", "blog")
+    for name in ("projects", "research", "publications", "experience", "teaching", "cv", "blog")
 ]
 VOID_TAGS = set("area base br col embed hr img input link meta param source track wbr".split())
 
@@ -31,6 +32,8 @@ class Page(HTMLParser):
         self.publications = []
         self.highlights = []
         self.images = []
+        self.projects = []
+        self.project_publications = []
         self.title = []
         self.count_text = []
         self.stack = []
@@ -52,6 +55,10 @@ class Page(HTMLParser):
             self.publications.append(element_id)
         if "data-highlight" in attrs:
             self.highlights.append(element_id)
+        if "data-project" in attrs:
+            self.projects.append(element_id)
+        if "data-project-publication" in attrs:
+            self.project_publications.append(attrs["data-project-publication"])
         if tag == "img":
             self.images.append(attrs)
         if tag not in VOID_TAGS:
@@ -178,6 +185,13 @@ def main():
             problem(ROOT / "publications/index.html", "missing publication map")
         highlights = [h for path in sorted((ROOT / "data").glob("highlights-*.json")) for h in json.loads(path.read_text())]
         ordered = ordered_highlights(publications, highlights)
+        project_data = json.loads((ROOT / "data/projects.json").read_text(encoding="utf-8"))
+        validate_project_groups(project_data, publications, highlights)
+        projects_page = read_page(ROOT / "projects/index.html")
+        if Counter(projects_page.projects) != Counter(project["id"] for project in project_data["projects"]):
+            problem(ROOT / "projects/index.html", "project cards do not match project data")
+        if Counter(projects_page.project_publications) != Counter(identifiers):
+            problem(ROOT / "projects/index.html", "project member links do not cover each publication and resource once")
         expected_highlights = [f'highlight-{p["id"]}' for p, _ in ordered]
         if read_page(ROOT / "research/index.html").highlights != expected_highlights:
             problem(ROOT / "research/index.html", "missing, extra, or out-of-order paper highlights")
@@ -197,7 +211,7 @@ def main():
         for error in errors:
             print(f"  - {error}")
         return 1
-    print(f"Site validation passed: {len(PAGES)} pages, {len(visible)} publication records, {len(ordered)} paper highlights, map taxonomy/SVG, Google Scholar, local links and assets verified.")
+    print(f"Site validation passed: {len(PAGES)} pages, {len(visible)} publication records, {len(ordered)} paper highlights, {len(project_data['projects'])} grouped projects, map taxonomy/SVG, Google Scholar, local links and assets verified.")
     return 0
 
 
