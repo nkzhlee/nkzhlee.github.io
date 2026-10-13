@@ -99,6 +99,21 @@
     ]
   },
   {
+    "id": "aire-aera-2026",
+    "title": "AIRE: AI Reading Enhancer for Personalized Decodable Texts in Early Literacy",
+    "authors": "Zhaohui Li, Qingxiao Zheng, Dancheng Liu, Tanya M. Christ, John Z. Strong, Laura S. Tortorelli, X. Christine Wang, Abeer Alwan, Dilek Hakkani Tur, and Jinjun Xiong",
+    "year": 2026,
+    "venue": "AERA 2026 Annual Meeting, Los Angeles, CA · Structured poster session 58.024",
+    "type": "poster",
+    "status": "Presented",
+    "links": [
+      {
+        "label": "Agenda",
+        "url": "https://www.aera.net/Portals/38/2026%20Program_Complete.pdf#page=404"
+      }
+    ]
+  },
+  {
     "id": "storylab-2025",
     "title": "StoryLab: Empowering Personalized Learning for Children Through Teacher-Guided Multimodal Story Generation",
     "authors": "Zhaohui Li, Feiwen Xiao, Jiaju Lin, Xiaohan Zou, Qingxiao Zheng, and Jinjun Xiong",

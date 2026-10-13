@@ -2,10 +2,12 @@
 from pathlib import Path
 from html import escape
 import json
+from publication_map import render_publication_map, render_publication_map_svg
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = json.loads((ROOT / "data/profile.json").read_text())
 PUBS = json.loads((ROOT / "data/publications.json").read_text()) if (ROOT / "data/publications.json").exists() else []
+TAXONOMY = json.loads((ROOT / "data/publication-map.json").read_text())
 BASE = PROFILE["base_url"].rstrip("/")
 CV = "/files/Zhaohui_Li_CV.pdf"
 E = escape
@@ -21,6 +23,7 @@ def layout(title, description, body, route="/"):
     person = {"@context": "https://schema.org", "@type": "Person", "name": "Zhaohui Li", "url": BASE,
               "jobTitle": PROFILE["role"], "affiliation": {"@type":"CollegeOrUniversity","name":PROFILE["institution"]},
               "sameAs":["https://orcid.org/0009-0002-0537-3546","https://github.com/nkzhlee"]}
+    map_assets = '<link rel="stylesheet" href="/css/publication-map.css"><script src="/js/publication-map.js" defer></script>' if route == "/publications/" else ""
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -39,6 +42,7 @@ def layout(title, description, body, route="/"):
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/css/academic.css">
 <script src="/js/academic.js" defer></script>
+{map_assets}
 <script type="application/ld+json">{json.dumps(person, ensure_ascii=False)}</script>
 </head>
 <body>
@@ -48,7 +52,7 @@ def layout(title, description, body, route="/"):
 <nav aria-label="Primary navigation">{nav}</nav>
 </div></header>
 <main id="main">{body}</main>
-<footer><div class="wrap footer-grid"><div><a class="footer-name" href="/">Zhaohui Li</a><p>Natural language processing &amp; AI for education</p></div><div class="footer-links"><a href="mailto:nkzhaohuilee@gmail.com">Email</a><a href="https://orcid.org/0009-0002-0537-3546">ORCID</a><a href="https://github.com/nkzhlee">GitHub</a><a href="{CV}">CV <span class="file-label">PDF</span></a></div></div><div class="wrap footer-bottom"><span>© 2026 Zhaohui Li</span><span>Updated September 2026</span></div></footer>
+<footer><div class="wrap footer-grid"><div><a class="footer-name" href="/">Zhaohui Li</a><p>Natural language processing &amp; AI for education</p></div><div class="footer-links"><a href="mailto:nkzhaohuilee@gmail.com">Email</a><a href="https://orcid.org/0009-0002-0537-3546">ORCID</a><a href="https://github.com/nkzhlee">GitHub</a><a href="{CV}">CV <span class="file-label">PDF</span></a></div></div><div class="wrap footer-bottom"><span>© 2026 Zhaohui Li</span><span>Updated {E(PROFILE["updated"])}</span></div></footer>
 </body></html>"""
 
 def intro(kicker, title, text):
@@ -66,7 +70,9 @@ def pub_card(p, compact=False):
         authors = authors.replace(name, f"<strong>{name}</strong>")
     status = p.get("status","")
     status_badge = f'<span class="status">{E(status)}</span>' if status and status.lower() not in ("published", "verified", "released", p["type"].lower()) else ""
-    data = E(" ".join(str(p.get(k,"")) for k in ("title","authors","year","venue","type")), quote=True)
+    classification = next((entry for entry in TAXONOMY["publications"] if entry["id"] == p["id"]), {})
+    topic_labels = [topic["label"] for topic in TAXONOMY["topics"] if topic["id"] in classification.get("topicIds", [])]
+    data = E(" ".join([*(str(p.get(k,"")) for k in ("title","authors","year","venue","type")), *topic_labels]), quote=True)
     return f'<article class="publication" data-publication data-search="{data}" data-type="{E(p["type"])}" data-year="{p.get("year") or ""}" id="{E(p["id"])}"><div class="publication-meta"><span>{p.get("year") or "Undated"}</span><span>{E(p["type"])}</span>{status_badge}</div><div class="publication-body"><h3>{title}</h3><p class="authors">{authors}</p><p class="venue">{E(p["venue"])}</p>{pub_links(p)}</div></article>'
 
 def home():
@@ -75,17 +81,17 @@ def home():
         match = next((p for p in PUBS if phrase.lower() in p["title"].lower()), None)
         if match: selected.append(pub_card(match, True))
     body = f'''<section class="profile wrap">
-<div class="profile-copy"><p class="eyebrow">Natural language processing · AI for education</p><h1>Zhaohui Li <span class="name-degree">Ph.D.</span></h1><p class="appointment">{E(PROFILE["role"])}<br><a href="{E(PROFILE["institution_url"])}">{E(PROFILE["institution"])}</a></p>
-<p class="bio-lead">I study how language and multimodal models can support educational assessment, early literacy, and parent-child communication.</p>
-<p>My research connects model development with datasets and evaluation designed with educators. I work on short-answer assessment, AI-assisted reading, and the analysis of parent-child interactions.</p>
+<div class="profile-copy"><p class="eyebrow">Natural language processing · AI for education</p><h1>Zhaohui Li <span class="name-degree">Ph.D.</span></h1><p class="appointment">{E(PROFILE["role"])}<br><a href="{E(PROFILE["institution_url"])}">{E(PROFILE["institution"])}</a> · {E(PROFILE["college"])}<br><span class="mentor">Mentor: <a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></span></p>
+<p class="bio-lead">I develop AI, particularly multimodal language models, to support teaching, learning, and human connection.</p>
+<p>My work bridges AI and education by translating educational goals into computational tasks. I develop algorithms, benchmark datasets, and systems for assessment and feedback, instructional material evaluation, storybook generation, and student behavior analysis.</p>
 <div class="profile-links"><a class="button" href="{CV}">Curriculum vitae <span class="file-label">PDF</span></a><a href="mailto:nkzhaohuilee@gmail.com">Email</a><a href="https://orcid.org/0009-0002-0537-3546">ORCID ↗</a><a href="https://github.com/nkzhlee">GitHub ↗</a></div></div>
 <figure class="profile-photo"><img src="/files/zhaohui-2026.jpg" alt="Zhaohui Li" width="1280" height="960" fetchpriority="high"><figcaption>Computer science · Learning sciences</figcaption></figure></section>
 <section class="research-overview section-tint"><div class="wrap"><div class="section-title"><div><p class="eyebrow">Research</p><h2>Assessment, literacy, and interaction</h2></div><a class="link-arrow" href="/research/">Research projects <span aria-hidden="true">→</span></a></div><div class="theme-grid">
 <article><span class="index">01</span><h3>Assessment &amp; feedback</h3><p>How can AI assess student reasoning, explain its judgments, and identify when human review is needed?</p><a href="/research/#assessment">Models, rubrics, and evaluation →</a></article>
 <article><span class="index">02</span><h3>Reading &amp; language</h3><p>How can language models help educators create and evaluate reading materials for young learners?</p><a href="/research/#literacy">Story generation and early literacy →</a></article>
 <article><span class="index">03</span><h3>Multimodal learning</h3><p>What can language, speech, and interaction data tell us about how children and families learn together?</p><a href="/research/#interaction">Parent-child and child-robot interaction →</a></article></div></div></section>
-<section class="wrap section"><div class="section-title"><div><p class="eyebrow">Selected publications</p><h2>Recent work</h2></div><a class="link-arrow" href="/publications/">All publications →</a></div><div class="publication-list">{"".join(selected)}</div></section>
-<section class="wrap section background-grid"><div><p class="eyebrow">Background</p><h2>From NLP to educational AI</h2><p>I received my Ph.D. in Computer Science from Penn State in 2024, advised by Rebecca J. Passonneau. My doctoral research focused on automated and semi-automated assessment of STEM reasoning.</p><p>At the University at Buffalo, I worked on AI for exceptional education and early literacy. I previously worked on machine reading comprehension and the open-source EasyML system.</p><a class="link-arrow" href="/experience/">Appointments, education, and funding →</a></div><aside class="academic-note"><p class="eyebrow">Academic activity</p><h3>Research, teaching, and service</h3><ul class="plain-list"><li>Teaching experience in artificial intelligence and natural language processing</li><li>Program committee and session chair service at AIED</li><li>Peer review for NLP, AI, and education venues</li></ul><a href="/teaching/">Teaching &amp; service →</a></aside></section>
+<section class="wrap section"><div class="section-title"><div><p class="eyebrow">Selected publications</p><h2>Recent work</h2></div><a class="link-arrow" href="/publications/">All publications →</a></div><aside class="publication-map-callout"><p>Shared questions across AI, education, and developmental research.</p><a class="link-arrow" href="/publications/#publication-map">Explore the publication map →</a></aside><div class="publication-list">{"".join(selected)}</div></section>
+<section class="wrap section background-grid"><div><p class="eyebrow">Background</p><h2>From NLP to educational AI</h2><p>I received my Ph.D. in Computer Science from Penn State in 2024, advised by Rebecca J. Passonneau. My doctoral research focused on automated and semi-automated assessment of STEM reasoning.</p><p>At the University at Buffalo, I led AI development for exceptional education and early literacy. I am now a postdoctoral associate at UT San Antonio, working with Dr. Jinjun Xiong. My long-term goal is reliable, responsible AI that promotes equitable, high-quality education.</p><a class="link-arrow" href="/experience/">Appointments, education, and funding →</a></div><aside class="academic-note"><p class="eyebrow">Academic activity</p><h3>Research, teaching, and service</h3><ul class="plain-list"><li>Co-PI on a $50,000 Organization for Autism Research grant for AI-supported parent coaching</li><li>Program committee: AIED 2025, AIED 2026, and LAK 2027</li><li>Teaching in artificial intelligence and NLP; NSF panel service</li></ul><a href="/teaching/">Teaching &amp; service →</a></aside></section>
 <section class="contact-band"><div class="wrap"><div><p class="eyebrow">Contact</p><h2>Research inquiries</h2><p>For research questions or collaboration, email me with a brief description of your work.</p></div><a class="contact-email" href="mailto:nkzhaohuilee@gmail.com">nkzhaohuilee@gmail.com <span aria-hidden="true">↗</span></a></div></section>'''
     write("index.html", layout("Zhaohui Li | AI for Education & Natural Language Processing", "Academic website of Zhaohui Li: research, publications, teaching, service, and CV in AI for education and natural language processing.", body))
 
@@ -96,18 +102,18 @@ PROJECTS = [
 ("SciEval","A benchmark of 273 K–12 science lessons, assessed against 13 criteria from the EQuIP rubric.","SciEval","2026")]),
 ("literacy","02","Reading & language","Tools for creating and studying reading experiences","I work with literacy researchers on story generation, dialogic reading, and evaluation of instructional materials. The focus is on how these tools fit the work of educators and the needs of beginning readers.",[
 ("StoryLab","A system for teachers to guide the generation of illustrated stories for young learners.","StoryLab","2025"),
-("AI Reading Enhancer","Ongoing work on generating decodable books and evaluating them with literacy experts.",None,"Ongoing"),
+("AI Reading Enhancer","AI technical lead with X. Christine Wang and the Center for Early Literacy and Responsible AI. Personalized decodable books for K–2 readers and evaluation rubrics co-designed with literacy experts.","AIRE:","Since January 2025 · AERA 2026 poster"),
 ("Dialogic reading","Studies of bilingual English learning and comparisons between reading with a parent and a conversational agent.","bilingual conversational agent","2025")]),
 ("interaction","03","Multimodal learning","Understanding learning through interaction","I study the language and behavior in parent-child and child-robot interactions, combining multimodal data with questions from education and developmental research.",[
-("ASD-HI and PaiCoach","Analysis of parent-child interactions during shared book reading, with expert review of AI-supported coaching feedback.","PaiCoach","2025 · 2026"),
+("ASD-HI and PaiCoach","Research lead with Jinjun Xiong. A parent–child interaction dataset, multimodal assessment of home interventions, and AI-supported parent coaching.","PaiCoach","Since November 2024"),
 ("Embodied reading companions","Feasibility research on an LLM-powered humanoid robot as a reading companion for children's AI literacy.","Humanoid Robot","2026"),
-("LLM4Art","Collaborative research on how language models interpret artworks.","LLM4Art","2026"),
-("Dyslexia simulation","Ongoing work on interactive simulations for educator training and disability awareness.",None,"Ongoing")])
+("LLM4Art","Research lead with Kyunghee Pyun at the Fashion Institute of Technology. Art interpretation datasets, model evaluation, and LLM-based tools for art education.","LLM4Art","Since July 2025"),
+("LLM4Simulation","Research lead with Xinxia Li at George Washington University. Interactive dyslexia simulations combining language models and virtual reality for public awareness and special-education training.",None,"Since January 2025")])
 ]
 
 def research():
-    body=intro("Research","AI in educational practice","My work brings together natural language processing, multimodal models, and educational assessment. These projects connect technical questions to specific teaching and learning tasks.")
-    body+='<div class="wrap jump-links" aria-label="Research areas"><a href="#assessment">Assessment</a><a href="#literacy">Early literacy</a><a href="#interaction">Multimodal learning</a><a href="#resources">Datasets & software</a></div>'
+    body=intro("Research","AI in educational practice","I translate educational goals into computational tasks, developing algorithms, benchmark datasets, and systems that support teaching, learning, and human connection.")
+    body+='<div class="wrap jump-links" aria-label="Research areas"><a href="#assessment">Assessment</a><a href="#literacy">Early literacy</a><a href="#interaction">Multimodal learning</a><a href="#future">Future directions</a><a href="#resources">Datasets & software</a></div>'
     for slug,num,label,title,text,projects in PROJECTS:
         cards=[]
         for name,desc,match,date in projects:
@@ -115,9 +121,16 @@ def research():
             link=f'<a href="/publications/#{paper["id"]}">Related publication →</a>' if paper else '<a href="mailto:nkzhaohuilee@gmail.com">Ask about this work →</a>'
             cards.append(f'<article class="project"><p class="small-label">{date}</p><h3>{name}</h3><p>{desc}</p>{link}</article>')
         body+=f'<section id="{slug}" class="wrap section research-section"><div class="research-heading"><span class="index">{num}</span><div><p class="eyebrow">{label}</p><h2>{title}</h2><p>{text}</p></div></div><div class="project-grid">{"".join(cards)}</div></section>'
-    body+='''<section class="section-tint section" id="resources"><div class="wrap"><p class="eyebrow">Research resources</p><h2>Datasets &amp; software</h2><div class="resource-list">
+    body+='''<section class="wrap section research-section" id="future"><p class="eyebrow">Future directions</p><h2>From educational goals to responsible AI</h2><p class="section-intro">I will continue interdisciplinary collaborations to address specific educational needs. My future agenda connects a theory of task design, agent-based automation, and responsible use of AI.</p><div class="project-grid">
+<article class="project"><p class="small-label">01 · Educational goals</p><h3>A framework for task design</h3><p>Develop a theoretical framework for translating pedagogical goals into well-defined computational tasks, informed by collaboration across disciplines.</p></article>
+<article class="project"><p class="small-label">02 · Agent-based systems</p><h3>Automating parts of the process</h3><p>Build an agent-based system to support task formulation and evaluation design, reducing the effort needed to develop AI for educational applications.</p></article>
+<article class="project"><p class="small-label">03 · Responsible AI</p><h3>Learning and human connection</h3><p>Investigate potential risks of emotional overreliance on AI and declines in students’ independent reasoning, with the aim of supporting learning and human connection in the era of AI.</p></article>
+</div></section>
+<section class="section-tint section" id="resources"><div class="wrap"><p class="eyebrow">Research resources</p><h2>Datasets &amp; software</h2><div class="resource-list">
 <article><span class="small-label">Dataset · 2023</span><h3>I-STUDIO</h3><p>A dataset of short student answers to statistics questions, with assessment labels.</p><a href="https://doi.org/10.26208/JFMP-V777">Dataset record ↗</a></article>
 <article><span class="small-label">Dataset · 2022</span><h3>Physics lab report assessment</h3><p>Data for machine learning on rubric-based assessment of physics lab reports.</p><a href="https://doi.org/10.26208/BWE2-BR31">Penn State Data Commons ↗</a></article>
+<article><span class="small-label">Benchmark · 2026</span><h3>SciEval</h3><p>A benchmark for evaluating K–12 science instructional materials against pedagogical criteria.</p><a href="/publications/#scieval-2026">Benchmark publication →</a></article>
+<article><span class="small-label">Dataset · 2025</span><h3>ASD-HI</h3><p>Parent–child interaction data for automated assessment of home interventions for autistic children.</p><a href="/publications/#asd-hi-2025">Dataset publication →</a></article>
 <article><span class="small-label">Open-source software</span><h3>EasyML</h3><p>A dataflow-based system for applying machine learning algorithms to real-world tasks.</p><a href="https://github.com/ICT-BDA/EasyML">Repository on GitHub ↗</a></article>
 </div></div></section>'''
     write("research/index.html",layout("Research | Zhaohui Li","Research in educational assessment, early literacy, parent-child interaction, and multimodal learning; datasets and open-source software.",body,"/research/"))
@@ -128,30 +141,32 @@ def publications():
     years=sorted(set(p["year"] for p in visible if p.get("year")),reverse=True)
     controls=f'''<div class="publication-tools"><div class="search-field"><label for="publication-search">Search publications</label><input type="search" id="publication-search" placeholder="Title, author, venue, or keyword" autocomplete="off"></div><div><label for="publication-type">Type</label><select id="publication-type"><option value="">All types</option>{"".join(f'<option>{E(t)}</option>' for t in types)}</select></div><div><label for="publication-year">Year</label><select id="publication-year"><option value="">All years</option>{"".join(f'<option>{y}</option>' for y in years)}</select></div></div><div class="result-toolbar"><p id="publication-count" role="status" aria-live="polite">{len(visible)} publications and research resources</p><button id="reset-filters" type="button">Reset filters</button></div>'''
     body=intro("Publications","Papers, datasets & preprints","Research in natural language processing, educational assessment, early literacy, and multimodal learning.")
-    body+=f'<section class="wrap section publications-section" aria-labelledby="publication-list-heading"><h2 class="visually-hidden" id="publication-list-heading">Publication list</h2>{controls}<noscript><p>All publications are shown below. Search and filters require JavaScript.</p></noscript><div class="publication-list">{"".join(pub_card(p) for p in visible)}</div><p id="no-results" hidden>No publications match these filters. Try another term or reset the filters.</p></section>'
+    body+='<div class="wrap jump-links" aria-label="Publication sections"><a href="#publication-map">Communities & shared topics</a><a href="#publication-list">Full publication list</a><a href="/files/publication-map.svg" download>Download figure (SVG)</a></div>'
+    body+=render_publication_map(visible, TAXONOMY)
+    write("files/publication-map.svg", render_publication_map_svg(visible, TAXONOMY))
+    body+=f'<section class="wrap section publications-section" id="publication-list" aria-labelledby="publication-list-heading"><h2 id="publication-list-heading">Full publication list</h2>{controls}<noscript><p>All publications are shown below. Search and filters require JavaScript.</p></noscript><div class="publication-list">{"".join(pub_card(p) for p in visible)}</div><p id="no-results" hidden>No publications match these filters. Try another term or reset the filters.</p></section>'
     write("publications/index.html",layout("Publications | Zhaohui Li","Publications by Zhaohui Li, with searchable titles, years, publication types, and links to papers and datasets.",body,"/publications/"))
 
 def timeline_row(date,title,org,detail=""):
     return f'<article class="timeline-row"><p class="timeline-date">{date}</p><div><h3>{title}</h3><p class="organization">{org}</p>{f"<p>{detail}</p>" if detail else ""}</div></article>'
 
 def experience():
-    appointments = timeline_row("Sep 2026–present","Postdoctoral Associate","UT San Antonio · College of AI, Cyber and Computing") if PROFILE["institution"].startswith("UT San") else ""
-    appointments += timeline_row("Aug 2024–Aug 2026" if appointments else "Aug 2024–present","Postdoctoral Associate","University at Buffalo · Institute for Artificial Intelligence and Data Science","AI team lead for the National AI Institute for Exceptional Education and the Center for Early Literacy and Responsible AI; mentor: Jinjun Xiong.")
-    appointments += timeline_row("2019–2024","Graduate Research Assistant","Penn State · Natural Language Processing Lab","Department of Computer Science and Engineering; advisor: Rebecca J. Passonneau.")
-    appointments += timeline_row("Feb–Aug 2019","Research Intern","Baidu Research · Big Data Lab","Mentor: Jun Huan.")
+    mentor = f'Mentor: <a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a>.'
+    appointments = timeline_row("Sep 2026–present","Postdoctoral Associate","UT San Antonio · College of AI, Cyber and Computing",mentor)
+    appointments += timeline_row("Aug 2024–Aug 2026","Postdoctoral Associate","University at Buffalo · Institute for Artificial Intelligence and Data Science","AI team lead for the National AI Institute for Exceptional Education and the Center for Early Literacy and Responsible AI. " + mentor)
     body=intro("Academic background","Experience","Academic appointments, education, research support, and selected recognition.")
     body+=f'<div class="wrap experience-layout"><nav class="section-nav" aria-label="On this page"><a href="#appointments">Appointments</a><a href="#education">Education</a><a href="#funding">Research support</a><a href="#recognition">Recognition</a></nav><div>'
     body+=f'<section class="section" id="appointments"><h2>Appointments</h2><div class="timeline">{appointments}</div></section>'
-    education=timeline_row("2019–2024","Ph.D., Computer Science","Pennsylvania State University","Advisor: Rebecca J. Passonneau. Dissertation: Automated and Semi-Automated Assessment of STEM Reasoning Questions.")
-    education+=timeline_row("2012–2016","B.S., Computer Science and Engineering","Nankai University")
+    education=timeline_row("Aug 2019–May 2024","Ph.D., Computer Science","The Pennsylvania State University","Advisor: Rebecca J. Passonneau. Dissertation: Automated and Semi-Automated Assessment of STEM Reasoning Questions. Best Doctoral Dissertation Award.")
+    education+=timeline_row("Aug 2012–Jun 2016","B.S., Computer Science and Engineering","Nankai University","Advisors: Jun Xu and Jie Liu. Thesis: BDA: Big Data Analysis as a Service. Related software: <a href=\"https://github.com/ICT-BDA/EasyML\">EasyML</a>.")
     body+=f'<section class="section" id="education"><h2>Education</h2><div class="timeline">{education}</div></section>'
     body+='''<section class="section" id="funding"><h2>Research support</h2><p class="section-intro">Projects I have contributed to, with my role stated for each. The dates below describe the funded projects.</p><div class="funding-list">
-<article><span class="small-label">2026–2027 · Co-principal investigator</span><h3>AI-supported parent coaching</h3><p>Organization for Autism Research · $50,000</p><p>Parent-implemented communication interventions for children with autism.</p></article>
-<article><span class="small-label">2023–2027 · Technical leadership</span><h3>National AI Institute for Exceptional Education</h3><p>National Science Foundation · Award 2229873</p><p>AI development with Jinjun Xiong’s team at the University at Buffalo.</p></article>
-<article><span class="small-label">2024–2029 · Technical leadership</span><h3>Center for Early Literacy and Responsible AI</h3><p>Institute of Education Sciences · Award R305C240046</p><p>AI tools for early literacy, developed with literacy researchers and educators.</p></article>
-<article><span class="small-label">2023–2025 · Research contributor</span><h3>Project CLASSIFIES</h3><p>National Science Foundation · IUSE Award 2236150</p><p>NLP algorithm development and technical proposal contributions with Rebecca J. Passonneau.</p></article>
+<article><span class="small-label">Feb 2026–Dec 2027 · Co-principal investigator</span><h3>AI-supported parent coaching</h3><p>Organization for Autism Research · $50,000</p><p>Study of Parent’s AI Coach for Parent-Implemented Communication Interventions for Children with ASD.</p></article>
+<article><span class="small-label">Jan 2023–Dec 2027 · Technical lead</span><h3>National AI Institute for Exceptional Education</h3><p>National Science Foundation · Award 2229873 · $20 million total institute award</p><p>Supporting Jinjun Xiong (Co-PI) in developing AI for challenges in special education.</p></article>
+<article><span class="small-label">Sep 2024–Aug 2029 · Technical lead</span><h3>Center for Early Literacy and Responsible AI</h3><p>Institute of Education Sciences · Award R305C240046 · $10 million total center award</p><p>Supporting Jinjun Xiong (Co-PI) in developing responsible AI tools for early literacy and diverse learners.</p></article>
+<article><span class="small-label">Mar 2023–Feb 2025 · Research contributor</span><h3>Project CLASSIFIES</h3><p>National Science Foundation · IUSE Award 2236150 · $300,000 total project award</p><p>NLP algorithm development and technical proposal contributions with Rebecca J. Passonneau (Co-PI).</p></article>
 <article><span class="small-label">2023–2024 · Principal investigator</span><h3>Interactive e-books for children</h3><p>Nittany AI Challenge · Penn State · $5,000</p></article>
-</div></section>
+</div><div class="proposal-note"><p class="small-label">Proposal in submission · Since July 2025</p><h3>AI-automated behavioral support plans</h3><p>Co-PI on a Spencer Foundation Large Research Grant on Education proposal for young children with autism spectrum disorder. Program funding range: $125,000–$500,000. This proposal is not listed as an awarded grant.</p></div></section>
 <section class="section" id="recognition"><h2>Selected recognition</h2><div class="timeline">
 <article class="timeline-row"><p class="timeline-date">2024</p><div><h3>Best Doctoral Dissertation in an AI-Related Discipline Award</h3><p><a href="https://ai.psu.edu/news/ai-related-dissertation-contest-finalist-winner-reflect-on-process">Pennsylvania State University ↗</a></p></div></article>
 <article class="timeline-row"><p class="timeline-date">2018</p><div><h3>Best Paper Nominee</h3><p>China Conference on Information Retrieval</p></div></article>
@@ -168,7 +183,7 @@ def teaching():
     body+=timeline_row("February 2022","NSF Argumentation Workshop","PACE Lab · Illinois State University","Invited speaker on AI-assisted assessment.")
     body+='''</div></section><section class="section"><p class="eyebrow">Service</p><h2>Reviewing & community</h2><div class="service-list">
 <article><h3>Session chair</h3><p>AIED 2025 and 2026</p><p>Language learning and story generation; AI agents for education.</p></article>
-<article><h3>Program committee</h3><p>AIED 2025 and 2026</p></article>
+<article><h3>Program committee</h3><p>AIED 2025, AIED 2026, and LAK 2027</p></article>
 <article><h3>Peer review</h3><p>ACL Rolling Review, AAAI, AIED, and SIGIR</p></article>
 <article><h3>Grant review</h3><p>NSF panel service in the Division of Research on Learning.</p></article>
 <article><h3>Student volunteer</h3><p>AAAI 2019</p></article>
@@ -177,7 +192,7 @@ def teaching():
 
 def contact():
     body=intro("CV & contact","Academic CV and contact","My CV contains a detailed record of appointments, education, publications, research projects, teaching, and service.")
-    body=f'''{body}<section class="wrap section contact-layout"><div class="cv-panel"><p class="eyebrow">Curriculum vitae</p><h2>Zhaohui Li, Ph.D.</h2><p>Academic CV · Updated September 2026</p><a class="button" href="{CV}">Open CV <span class="file-label">PDF</span></a><a class="download-link" href="{CV}" download="Zhaohui_Li_CV.pdf">Download a copy ↓</a></div><div class="contact-details"><h2>Contact</h2><dl><dt>Email</dt><dd><a href="mailto:nkzhaohuilee@gmail.com">nkzhaohuilee@gmail.com</a></dd><dt>Current appointment</dt><dd>{E(PROFILE["role"])}<br>{E(PROFILE["institution"])}</dd><dt>Research profiles</dt><dd><a href="https://orcid.org/0009-0002-0537-3546">ORCID: 0009-0002-0537-3546 ↗</a><br><a href="https://github.com/nkzhlee">GitHub: nkzhlee ↗</a></dd></dl><p>For collaboration inquiries, please include your research question and a link to relevant work.</p></div></section>'''
+    body=f'''{body}<section class="wrap section contact-layout"><div class="cv-panel"><p class="eyebrow">Curriculum vitae</p><h2>Zhaohui Li, Ph.D.</h2><p>Academic CV · Updated {E(PROFILE["cv_updated"])}</p><a class="button" href="{CV}">Open CV <span class="file-label">PDF</span></a><a class="download-link" href="{CV}" download="Zhaohui_Li_CV.pdf">Download a copy ↓</a></div><div class="contact-details"><h2>Contact</h2><dl><dt>Email</dt><dd><a href="mailto:nkzhaohuilee@gmail.com">nkzhaohuilee@gmail.com</a></dd><dt>Current appointment</dt><dd>{E(PROFILE["role"])}<br>{E(PROFILE["college"])}<br>{E(PROFILE["institution"])}</dd><dt>Mentor</dt><dd><a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></dd><dt>Research profiles</dt><dd><a href="https://orcid.org/0009-0002-0537-3546">ORCID: 0009-0002-0537-3546 ↗</a><br><a href="https://github.com/nkzhlee">GitHub: nkzhlee ↗</a></dd></dl><p>For collaboration inquiries, please include your research question and a link to relevant work.</p></div></section>'''
     write("cv/index.html",layout("CV & Contact | Zhaohui Li","Download Zhaohui Li's academic CV and find contact details and research profiles.",body,"/cv/"))
 
 def legacy():
@@ -194,7 +209,7 @@ def legacy():
 
 def metadata():
     routes=[u for u,_ in NAV]
-    write("sitemap.xml",'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{BASE}{u}</loc><lastmod>2026-09-17</lastmod></url>' for u in routes)+'</urlset>\n')
+    write("sitemap.xml",'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{BASE}{u}</loc><lastmod>{PROFILE["updated_date"]}</lastmod></url>' for u in routes)+'</urlset>\n')
     write("robots.txt",f"User-agent: *\nAllow: /\nSitemap: {BASE}/sitemap.xml\n")
     body=intro("404","This page isn’t here.","The link may point to an older page. You can find my current work through the links below.")
     body+='<section class="wrap section"><div class="profile-links"><a class="button" href="/">Academic profile</a><a href="/publications/">Publications</a><a href="/research/">Research</a></div></section>'

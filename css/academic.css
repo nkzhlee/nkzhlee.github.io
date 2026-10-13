@@ -47,6 +47,11 @@ p { margin-bottom: 20px; }
 .name-degree { font: 400 1.1rem var(--sans); color: var(--muted); margin-left: 16px; letter-spacing: 0; white-space: nowrap; }
 .appointment { color: var(--muted); font-size: 1.05rem; line-height: 1.6; margin-bottom: 32px; }
 .appointment a { text-decoration: none; color: var(--green); }
+.appointment .mentor { font-size: .88rem; }
+.publication-map-callout { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 28px; padding: 22px 0; border-top: 1px solid var(--rule); }
+.publication-map-callout p { margin: 0; color: var(--muted); font-size: .9rem; }
+.proposal-note { margin-top: 38px; border-top: 1px solid var(--rule); padding-top: 26px; }
+.proposal-note p:last-child { color: var(--muted); font-size: .9rem; }
 .bio-lead { font-family: var(--serif); font-size: 1.47rem; line-height: 1.5; letter-spacing: -.015em; }
 .profile-copy > p:not(.eyebrow):not(.appointment):not(.bio-lead) { color: var(--muted); }
 .profile-photo { margin: 3px 0 0; }

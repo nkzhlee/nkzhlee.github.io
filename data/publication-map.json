@@ -1,0 +1,90 @@
+{
+  "title": "Research across communities",
+  "description": "Publication venues and research themes across the 23 works in my CV. Select a shared topic or a venue–topic connection to explore the related work.",
+  "note": "Colors indicate curated venue-community groups, not rankings or exclusive discipline classifications. Topics are overlapping, title- and project-based annotations; a work can appear in multiple topic columns. Counts represent works, not citations. Gray rows distinguish dataset and preprint repositories from conference and journal venues.",
+  "communities": [
+    {
+      "id": "computing",
+      "label": "AI, NLP & information retrieval",
+      "color": "#2864a0",
+      "description": "Computing venues spanning AI, language processing, information retrieval, and machine learning."
+    },
+    {
+      "id": "aied",
+      "label": "AI in education & learning analytics",
+      "color": "#087f7a",
+      "description": "Venues at the intersection of AI, education, and learning analytics."
+    },
+    {
+      "id": "education",
+      "label": "Education & interdisciplinary research",
+      "color": "#a56213",
+      "description": "Educational research and technology venues, plus a multidisciplinary applied-sciences journal hosting work on physics assessment."
+    },
+    {
+      "id": "autism",
+      "label": "Autism & developmental research",
+      "color": "#885aa8",
+      "description": "Autism and developmental research, including AI-supported parent coaching."
+    },
+    {
+      "id": "resources",
+      "label": "Datasets & preprints",
+      "color": "#64748b",
+      "description": "A neutral repository channel, not a research community or a claim of peer review."
+    }
+  ],
+  "topics": [
+    { "id": "assessment-feedback", "label": "Assessment & feedback", "description": "Assessment of learner responses, interventions, or instructional materials, and formative feedback." },
+    { "id": "reading-literacy", "label": "Reading & literacy", "description": "Early literacy, dialogic reading, reading companions, and educational story generation." },
+    { "id": "human-ai-interaction", "label": "Human–AI collaboration", "description": "Human-guided AI, AI-supported parent coaching, conversational or embodied companions, and human oversight." },
+    { "id": "models-language", "label": "NLP & ML methods", "description": "Language understanding, response assessment models, selective prediction, and machine-learning tools." },
+    { "id": "generative-ai", "label": "Generative & multimodal AI", "description": "LLM-based assessment, conversational systems, and text or visual-content generation and interpretation." },
+    { "id": "datasets-benchmarks", "label": "Datasets & benchmarks", "description": "Works introducing the I-STUDIO, physics lab-report, SciEval, and ASD-HI resources." },
+    { "id": "art-interpretation", "label": "Art interpretation", "description": "Visual-art interpretation and public art education." }
+  ],
+  "venues": [
+    { "id": "emnlp", "label": "EMNLP / Findings", "longLabel": "Empirical Methods in Natural Language Processing, including Findings", "communityId": "computing" },
+    { "id": "aaai", "label": "AAAI", "longLabel": "AAAI Conference on Artificial Intelligence", "communityId": "computing" },
+    { "id": "computing-conference", "label": "Computing Conference", "longLabel": "Computing Conference", "communityId": "computing" },
+    { "id": "ccir", "label": "CCIR", "longLabel": "China Conference on Information Retrieval", "communityId": "computing" },
+    { "id": "cikm", "label": "CIKM", "longLabel": "ACM International Conference on Information and Knowledge Management", "communityId": "computing" },
+    { "id": "nlpcc", "label": "NLPCC", "longLabel": "Natural Language Processing and Chinese Computing", "communityId": "computing" },
+    { "id": "aied", "label": "AIED", "longLabel": "International Conference on Artificial Intelligence in Education, including companion proceedings", "communityId": "aied" },
+    { "id": "aied-workshop", "label": "AIED workshop", "longLabel": "Workshop on Epistemics and Decision-Making in AI-Supported Education at AIED", "communityId": "aied" },
+    { "id": "lak", "label": "LAK", "longLabel": "International Conference on Learning Analytics & Knowledge, companion proceedings", "communityId": "aied" },
+    { "id": "caeai", "label": "Computers & Education: AI", "longLabel": "Computers and Education: Artificial Intelligence", "communityId": "aied" },
+    { "id": "aera", "label": "AERA · poster", "longLabel": "American Educational Research Association Annual Meeting, structured poster presentation", "communityId": "education" },
+    { "id": "bjet", "label": "BJET", "longLabel": "British Journal of Educational Technology", "communityId": "education" },
+    { "id": "icots", "label": "ICOTS", "longLabel": "International Conference on Teaching Statistics", "communityId": "education" },
+    { "id": "ejas", "label": "European J. Applied Sciences", "longLabel": "European Journal of Applied Sciences", "communityId": "education" },
+    { "id": "jadd", "label": "J. Autism & Dev. Disorders", "longLabel": "Journal of Autism and Developmental Disorders", "communityId": "autism" },
+    { "id": "data-commons", "label": "Penn State Data Commons", "longLabel": "Penn State Data Commons, dataset repository", "communityId": "resources" },
+    { "id": "arxiv", "label": "arXiv", "longLabel": "arXiv, preprint repository", "communityId": "resources" }
+  ],
+  "publications": [
+    { "id": "paicoach-2026", "communityId": "autism", "venueId": "jadd", "topicIds": ["assessment-feedback", "reading-literacy", "human-ai-interaction", "generative-ai"] },
+    { "id": "robot-reading-2026", "communityId": "aied", "venueId": "aied", "topicIds": ["reading-literacy", "human-ai-interaction", "generative-ai"] },
+    { "id": "scieval-2026", "communityId": "aied", "venueId": "aied", "topicIds": ["assessment-feedback", "generative-ai", "datasets-benchmarks"] },
+    { "id": "llm4art-2026", "communityId": "aied", "venueId": "lak", "topicIds": ["generative-ai", "art-interpretation"] },
+    { "id": "judging-judges-2026", "communityId": "computing", "venueId": "computing-conference", "topicIds": ["assessment-feedback", "human-ai-interaction", "generative-ai"] },
+    { "id": "aire-aera-2026", "communityId": "education", "venueId": "aera", "topicIds": ["reading-literacy", "generative-ai"] },
+    { "id": "storylab-2025", "communityId": "aied", "venueId": "aied", "topicIds": ["reading-literacy", "human-ai-interaction", "generative-ai"] },
+    { "id": "asd-hi-2025", "communityId": "aied", "venueId": "aied", "topicIds": ["assessment-feedback", "generative-ai", "datasets-benchmarks"] },
+    { "id": "bilingual-agent-2025", "communityId": "aied", "venueId": "caeai", "topicIds": ["reading-literacy", "human-ai-interaction", "generative-ai"] },
+    { "id": "dialogic-reading-2025", "communityId": "education", "venueId": "bjet", "topicIds": ["reading-literacy", "human-ai-interaction"] },
+    { "id": "demonstration-examples-2025", "communityId": "aied", "venueId": "aied-workshop", "topicIds": ["assessment-feedback", "generative-ai"] },
+    { "id": "joint-selective-2024", "communityId": "resources", "venueId": "arxiv", "topicIds": ["models-language"] },
+    { "id": "asrrn-2023", "communityId": "computing", "venueId": "emnlp", "topicIds": ["assessment-feedback", "models-language"] },
+    { "id": "defer-grading-2023", "communityId": "aied", "venueId": "aied", "topicIds": ["assessment-feedback", "human-ai-interaction", "models-language"] },
+    { "id": "istudio-2023", "communityId": "resources", "venueId": "data-commons", "topicIds": ["assessment-feedback", "datasets-benchmarks"] },
+    { "id": "physics-assessment-2023", "communityId": "education", "venueId": "ejas", "topicIds": ["assessment-feedback"] },
+    { "id": "formative-feedback-2022", "communityId": "education", "venueId": "icots", "topicIds": ["assessment-feedback"] },
+    { "id": "physics-dataset-2022", "communityId": "resources", "venueId": "data-commons", "topicIds": ["assessment-feedback", "datasets-benchmarks"] },
+    { "id": "sfrn-2021", "communityId": "computing", "venueId": "emnlp", "topicIds": ["assessment-feedback", "models-language"] },
+    { "id": "main-content-2019", "communityId": "computing", "venueId": "aaai", "topicIds": ["models-language"] },
+    { "id": "hierarchical-answer-2018", "communityId": "computing", "venueId": "ccir", "topicIds": ["models-language"] },
+    { "id": "dataflow-2016", "communityId": "computing", "venueId": "cikm", "topicIds": ["models-language"] },
+    { "id": "word-vectors-2014", "communityId": "computing", "venueId": "nlpcc", "topicIds": ["models-language"] }
+  ]
+}

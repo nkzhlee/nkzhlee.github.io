@@ -7,7 +7,9 @@ import json
 from pathlib import Path
 import re
 import sys
+import xml.etree.ElementTree as ET
 from urllib.parse import unquote, urlsplit
+from publication_map import render_publication_map_svg
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -123,7 +125,7 @@ def main():
                 if fragment and fragment not in read_page(target).ids:
                     problem(path, f"line {line}: missing fragment target for {reference!r}")
 
-    for asset in ("files/Zhaohui_Li_CV.pdf", "files/zhaohui-2026.jpg"):
+    for asset in ("files/Zhaohui_Li_CV.pdf", "files/zhaohui-2026.jpg", "files/publication-map.svg"):
         path = ROOT / asset
         if not path.is_file() or path.stat().st_size == 0:
             problem(path, "missing or empty required asset")
@@ -149,7 +151,17 @@ def main():
             count = re.match(r"\s*(\d+)\b", "".join(page.count_text))
             if not count or int(count.group(1)) != len(visible):
                 problem(ROOT / "publications/index.html", f"displayed count must be {len(visible)}")
-    except (OSError, ValueError) as exc:
+        taxonomy_path = ROOT / "data/publication-map.json"
+        taxonomy = json.loads(taxonomy_path.read_text(encoding="utf-8"))
+        expected_figure = render_publication_map_svg([p for p in publications if p["id"] in visible], taxonomy)
+        figure_path = ROOT / "files/publication-map.svg"
+        figure_source = figure_path.read_text(encoding="utf-8")
+        ET.fromstring(figure_source)
+        if figure_source != expected_figure:
+            problem(figure_path, "stale figure: rerun scripts/build_site.py")
+        if "publication-map" not in read_page(ROOT / "publications/index.html").ids:
+            problem(ROOT / "publications/index.html", "missing publication map")
+    except (OSError, ValueError, KeyError, ET.ParseError) as exc:
         problem(data_path, str(exc))
 
     if errors:
@@ -157,7 +169,7 @@ def main():
         for error in errors:
             print(f"  - {error}")
         return 1
-    print(f"Site validation passed: {len(PAGES)} pages, {len(visible)} publication records, local links and assets verified.")
+    print(f"Site validation passed: {len(PAGES)} pages, {len(visible)} publication records, map taxonomy/SVG, local links and assets verified.")
     return 0
 
 
