@@ -53,6 +53,8 @@ p { margin-bottom: 16px; }
 .home-notes h2 { font-size: 1.15rem; margin-bottom: 12px; }
 .home-notes ul { margin: 0; padding-left: 20px; font-size: .91rem; }
 .home-notes li { padding: 3px 0; }
+.home-notes > p { font-size: .91rem; margin-bottom: 8px; }
+.home-notes .leadership-list { margin-bottom: 12px; }
 .section-end { margin: 22px 0 0; font-size: .88rem; }
 .page-intro { padding-block: 38px 24px; }
 .page-lead { color: var(--muted); max-width: 800px; margin-bottom: 0; }
@@ -117,6 +119,7 @@ p { margin-bottom: 16px; }
 .teaching-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 45px; }
 .teaching-grid .timeline-row { grid-template-columns: 85px minmax(0,1fr); }
 .service-list { margin-top: 22px; }
+.service-heading { margin-top: 30px; }
 .service-list article { padding: 22px 0; border-top: 1px solid var(--rule); }
 .service-list p { font-size: .88rem; color: var(--muted); margin-bottom: 7px; }
 .contact-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; }
