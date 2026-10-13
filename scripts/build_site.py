@@ -3,11 +3,13 @@ from pathlib import Path
 from html import escape
 import json
 from publication_map import render_publication_map, render_publication_map_svg
+from highlights import render_highlights
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = json.loads((ROOT / "data/profile.json").read_text())
 PUBS = json.loads((ROOT / "data/publications.json").read_text()) if (ROOT / "data/publications.json").exists() else []
 TAXONOMY = json.loads((ROOT / "data/publication-map.json").read_text())
+HIGHLIGHTS = [entry for path in sorted((ROOT / "data").glob("highlights-*.json")) for entry in json.loads(path.read_text())]
 BASE = PROFILE["base_url"].rstrip("/")
 CV = "/files/Zhaohui_Li_CV.pdf"
 E = escape
@@ -22,7 +24,7 @@ def layout(title, description, body, route="/"):
     nav = "".join(f'<a href="{url}"{chr(32)+"aria-current="+chr(34)+"page"+chr(34) if route == url else ""}>{label}</a>' for url, label in NAV)
     person = {"@context": "https://schema.org", "@type": "Person", "name": "Zhaohui Li", "url": BASE,
               "jobTitle": PROFILE["role"], "affiliation": {"@type":"CollegeOrUniversity","name":PROFILE["institution"]},
-              "sameAs":["https://orcid.org/0009-0002-0537-3546","https://github.com/nkzhlee"]}
+              "sameAs":[PROFILE["scholar_url"],"https://github.com/nkzhlee"]}
     map_assets = '<link rel="stylesheet" href="/css/publication-map.css"><script src="/js/publication-map.js" defer></script>' if route == "/publications/" else ""
     return f"""<!doctype html>
 <html lang="en">
@@ -30,7 +32,7 @@ def layout(title, description, body, route="/"):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{E(description)}">
-<meta name="theme-color" content="#143f3e">
+<meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{E(title)}">
 <meta property="og:description" content="{E(description)}">
@@ -42,21 +44,22 @@ def layout(title, description, body, route="/"):
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/css/academic.css">
 <script src="/js/academic.js" defer></script>
+<script src="/js/highlights.js" defer></script>
 {map_assets}
 <script type="application/ld+json">{json.dumps(person, ensure_ascii=False)}</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="wrap header-inner">
-<a class="wordmark" href="/" aria-label="Zhaohui Li, home">Zhaohui Li<span>AI · Language · Education</span></a>
+<a class="wordmark" href="/" aria-label="Zhaohui Li, home">Zhaohui Li</a>
 <nav aria-label="Primary navigation">{nav}</nav>
 </div></header>
 <main id="main">{body}</main>
-<footer><div class="wrap footer-grid"><div><a class="footer-name" href="/">Zhaohui Li</a><p>Natural language processing &amp; AI for education</p></div><div class="footer-links"><a href="mailto:nkzhaohuilee@gmail.com">Email</a><a href="https://orcid.org/0009-0002-0537-3546">ORCID</a><a href="https://github.com/nkzhlee">GitHub</a><a href="{CV}">CV <span class="file-label">PDF</span></a></div></div><div class="wrap footer-bottom"><span>© 2026 Zhaohui Li</span><span>Updated {E(PROFILE["updated"])}</span></div></footer>
+<footer><div class="wrap footer-bottom"><span>© 2026 Zhaohui Li · Updated {E(PROFILE["updated"])}</span><div class="footer-links"><a href="mailto:nkzhaohuilee@gmail.com">Email</a><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="https://github.com/nkzhlee">GitHub</a><a href="{CV}">CV (PDF)</a></div></div></footer>
 </body></html>"""
 
 def intro(kicker, title, text):
-    return f'<header class="page-intro wrap"><p class="eyebrow">{kicker}</p><h1>{title}</h1><p class="page-lead">{text}</p></header>'
+    return f'<header class="page-intro wrap"><h1>{title}</h1><p class="page-lead">{text}</p></header>'
 
 def pub_links(p):
     links = "".join(f'<a href="{E(x["url"])}">{E(x["label"])} <span aria-hidden="true">↗</span></a>' for x in p.get("links",[]))
@@ -69,30 +72,29 @@ def pub_card(p, compact=False):
     for name in ["Zhaohui Li", "Li, Z."]:
         authors = authors.replace(name, f"<strong>{name}</strong>")
     status = p.get("status","")
+    author_note = f'<p class="authors">{E(p["authorNote"])}</p>' if p.get("authorNote") else ""
     status_badge = f'<span class="status">{E(status)}</span>' if status and status.lower() not in ("published", "verified", "released", p["type"].lower()) else ""
     classification = next((entry for entry in TAXONOMY["publications"] if entry["id"] == p["id"]), {})
     topic_labels = [topic["label"] for topic in TAXONOMY["topics"] if topic["id"] in classification.get("topicIds", [])]
     data = E(" ".join([*(str(p.get(k,"")) for k in ("title","authors","year","venue","type")), *topic_labels]), quote=True)
-    return f'<article class="publication" data-publication data-search="{data}" data-type="{E(p["type"])}" data-year="{p.get("year") or ""}" id="{E(p["id"])}"><div class="publication-meta"><span>{p.get("year") or "Undated"}</span><span>{E(p["type"])}</span>{status_badge}</div><div class="publication-body"><h3>{title}</h3><p class="authors">{authors}</p><p class="venue">{E(p["venue"])}</p>{pub_links(p)}</div></article>'
+    return f'<article class="publication" data-publication data-search="{data}" data-type="{E(p["type"])}" data-year="{p.get("year") or ""}" id="{E(p["id"])}"><div class="publication-meta"><span>{p.get("year") or "Undated"}</span><span>{E(p["type"])}</span>{status_badge}</div><div class="publication-body"><h3>{title}</h3><p class="authors">{authors}</p>{author_note}<p class="venue">{E(p["venue"])}</p>{pub_links(p)}</div></article>'
 
 def home():
-    selected = []
-    for phrase in ("PaiCoach", "SciEval", "StoryLab"):
-        match = next((p for p in PUBS if phrase.lower() in p["title"].lower()), None)
-        if match: selected.append(pub_card(match, True))
     body = f'''<section class="profile wrap">
-<div class="profile-copy"><p class="eyebrow">Natural language processing · AI for education</p><h1>Zhaohui Li <span class="name-degree">Ph.D.</span></h1><p class="appointment">{E(PROFILE["role"])}<br><a href="{E(PROFILE["institution_url"])}">{E(PROFILE["institution"])}</a> · {E(PROFILE["college"])}<br><span class="mentor">Mentor: <a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></span></p>
-<p class="bio-lead">I develop AI, particularly multimodal language models, to support teaching, learning, and human connection.</p>
-<p>My work bridges AI and education by translating educational goals into computational tasks. I develop algorithms, benchmark datasets, and systems for assessment and feedback, instructional material evaluation, storybook generation, and student behavior analysis.</p>
-<div class="profile-links"><a class="button" href="{CV}">Curriculum vitae <span class="file-label">PDF</span></a><a href="mailto:nkzhaohuilee@gmail.com">Email</a><a href="https://orcid.org/0009-0002-0537-3546">ORCID ↗</a><a href="https://github.com/nkzhlee">GitHub ↗</a></div></div>
-<figure class="profile-photo"><img src="/files/zhaohui-2026.jpg" alt="Zhaohui Li" width="1280" height="960" fetchpriority="high"><figcaption>Computer science · Learning sciences</figcaption></figure></section>
-<section class="research-overview section-tint"><div class="wrap"><div class="section-title"><div><p class="eyebrow">Research</p><h2>Assessment, literacy, and interaction</h2></div><a class="link-arrow" href="/research/">Research projects <span aria-hidden="true">→</span></a></div><div class="theme-grid">
-<article><span class="index">01</span><h3>Assessment &amp; feedback</h3><p>How can AI assess student reasoning, explain its judgments, and identify when human review is needed?</p><a href="/research/#assessment">Models, rubrics, and evaluation →</a></article>
-<article><span class="index">02</span><h3>Reading &amp; language</h3><p>How can language models help educators create and evaluate reading materials for young learners?</p><a href="/research/#literacy">Story generation and early literacy →</a></article>
-<article><span class="index">03</span><h3>Multimodal learning</h3><p>What can language, speech, and interaction data tell us about how children and families learn together?</p><a href="/research/#interaction">Parent-child and child-robot interaction →</a></article></div></div></section>
-<section class="wrap section"><div class="section-title"><div><p class="eyebrow">Selected publications</p><h2>Recent work</h2></div><a class="link-arrow" href="/publications/">All publications →</a></div><aside class="publication-map-callout"><p>Shared questions across AI, education, and developmental research.</p><a class="link-arrow" href="/publications/#publication-map">Explore the publication map →</a></aside><div class="publication-list">{"".join(selected)}</div></section>
-<section class="wrap section background-grid"><div><p class="eyebrow">Background</p><h2>From NLP to educational AI</h2><p>I received my Ph.D. in Computer Science from Penn State in 2024, advised by Rebecca J. Passonneau. My doctoral research focused on automated and semi-automated assessment of STEM reasoning.</p><p>At the University at Buffalo, I led AI development for exceptional education and early literacy. I am now a postdoctoral associate at UT San Antonio, working with Dr. Jinjun Xiong. My long-term goal is reliable, responsible AI that promotes equitable, high-quality education.</p><a class="link-arrow" href="/experience/">Appointments, education, and funding →</a></div><aside class="academic-note"><p class="eyebrow">Academic activity</p><h3>Research, teaching, and service</h3><ul class="plain-list"><li>Co-PI on a $50,000 Organization for Autism Research grant for AI-supported parent coaching</li><li>Program committee: AIED 2025, AIED 2026, and LAK 2027</li><li>Teaching in artificial intelligence and NLP; NSF panel service</li></ul><a href="/teaching/">Teaching &amp; service →</a></aside></section>
-<section class="contact-band"><div class="wrap"><div><p class="eyebrow">Contact</p><h2>Research inquiries</h2><p>For research questions or collaboration, email me with a brief description of your work.</p></div><a class="contact-email" href="mailto:nkzhaohuilee@gmail.com">nkzhaohuilee@gmail.com <span aria-hidden="true">↗</span></a></div></section>'''
+<figure class="profile-photo"><img src="/files/zhaohui-2026.jpg" alt="Zhaohui Li" width="1280" height="960" fetchpriority="high"></figure>
+<div class="profile-copy"><h1>Zhaohui Li <span class="name-degree">Ph.D.</span></h1>
+<p class="appointment">{E(PROFILE["role"])}<br>{E(PROFILE["college"])}<br><a href="{E(PROFILE["institution_url"])}">{E(PROFILE["institution"])}</a><br><span class="mentor">Mentor: <a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></span></p>
+<p>I study natural language processing and AI for education. My work includes automated assessment and feedback, evaluation of instructional materials, story generation, and analysis of parent–child interactions.</p>
+<p>I received my Ph.D. in Computer Science from Penn State in 2024, advised by <a href="https://scholar.google.com/citations?hl=en&amp;user=jb9VOp0AAAAJ">Rebecca J. Passonneau</a>. Before joining UT San Antonio, I was a postdoctoral associate at the University at Buffalo, where I led AI development for exceptional education and early literacy.</p>
+<div class="profile-links"><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="mailto:nkzhaohuilee@gmail.com">Email</a><a href="{CV}">CV (PDF)</a><a href="https://github.com/nkzhlee">GitHub</a></div></div></section>
+<section class="wrap section home-notes"><h2>Research &amp; service</h2><ul>
+<li>Co-PI on a $50,000 Organization for Autism Research grant for AI-supported parent coaching (2026–2027).</li>
+<li>Program committee member for AIED 2025, AIED 2026, and LAK 2027.</li>
+<li><a href="/publications/#aire-aera-2026">AIRE poster at AERA 2026</a>: personalized decodable texts for early literacy.</li>
+</ul></section>
+<section class="wrap section"><div class="section-title"><h2>Recent papers</h2><a href="/research/">All {len(HIGHLIGHTS)} paper highlights →</a></div>
+{render_highlights(PUBS, HIGHLIGHTS, limit=6)}
+<p class="section-end"><a href="/research/">More paper highlights</a> · <a href="/publications/">Full publication list</a> · <a href="/publications/#publication-map">Fields &amp; venues</a></p></section>'''
     write("index.html", layout("Zhaohui Li | AI for Education & Natural Language Processing", "Academic website of Zhaohui Li: research, publications, teaching, service, and CV in AI for education and natural language processing.", body))
 
 PROJECTS = [
@@ -112,28 +114,27 @@ PROJECTS = [
 ]
 
 def research():
-    body=intro("Research","AI in educational practice","I translate educational goals into computational tasks, developing algorithms, benchmark datasets, and systems that support teaching, learning, and human connection.")
-    body+='<div class="wrap jump-links" aria-label="Research areas"><a href="#assessment">Assessment</a><a href="#literacy">Early literacy</a><a href="#interaction">Multimodal learning</a><a href="#future">Future directions</a><a href="#resources">Datasets & software</a></div>'
-    for slug,num,label,title,text,projects in PROJECTS:
-        cards=[]
-        for name,desc,match,date in projects:
-            paper = next((p for p in PUBS if match and match.lower() in p["title"].lower()),None)
-            link=f'<a href="/publications/#{paper["id"]}">Related publication →</a>' if paper else '<a href="mailto:nkzhaohuilee@gmail.com">Ask about this work →</a>'
-            cards.append(f'<article class="project"><p class="small-label">{date}</p><h3>{name}</h3><p>{desc}</p>{link}</article>')
-        body+=f'<section id="{slug}" class="wrap section research-section"><div class="research-heading"><span class="index">{num}</span><div><p class="eyebrow">{label}</p><h2>{title}</h2><p>{text}</p></div></div><div class="project-grid">{"".join(cards)}</div></section>'
-    body+='''<section class="wrap section research-section" id="future"><p class="eyebrow">Future directions</p><h2>From educational goals to responsible AI</h2><p class="section-intro">I will continue interdisciplinary collaborations to address specific educational needs. My future agenda connects a theory of task design, agent-based automation, and responsible use of AI.</p><div class="project-grid">
-<article class="project"><p class="small-label">01 · Educational goals</p><h3>A framework for task design</h3><p>Develop a theoretical framework for translating pedagogical goals into well-defined computational tasks, informed by collaboration across disciplines.</p></article>
-<article class="project"><p class="small-label">02 · Agent-based systems</p><h3>Automating parts of the process</h3><p>Build an agent-based system to support task formulation and evaluation design, reducing the effort needed to develop AI for educational applications.</p></article>
-<article class="project"><p class="small-label">03 · Responsible AI</p><h3>Learning and human connection</h3><p>Investigate potential risks of emotional overreliance on AI and declines in students’ independent reasoning, with the aim of supporting learning and human connection in the era of AI.</p></article>
-</div></section>
-<section class="section-tint section" id="resources"><div class="wrap"><p class="eyebrow">Research resources</p><h2>Datasets &amp; software</h2><div class="resource-list">
-<article><span class="small-label">Dataset · 2023</span><h3>I-STUDIO</h3><p>A dataset of short student answers to statistics questions, with assessment labels.</p><a href="https://doi.org/10.26208/JFMP-V777">Dataset record ↗</a></article>
-<article><span class="small-label">Dataset · 2022</span><h3>Physics lab report assessment</h3><p>Data for machine learning on rubric-based assessment of physics lab reports.</p><a href="https://doi.org/10.26208/BWE2-BR31">Penn State Data Commons ↗</a></article>
-<article><span class="small-label">Benchmark · 2026</span><h3>SciEval</h3><p>A benchmark for evaluating K–12 science instructional materials against pedagogical criteria.</p><a href="/publications/#scieval-2026">Benchmark publication →</a></article>
-<article><span class="small-label">Dataset · 2025</span><h3>ASD-HI</h3><p>Parent–child interaction data for automated assessment of home interventions for autistic children.</p><a href="/publications/#asd-hi-2025">Dataset publication →</a></article>
-<article><span class="small-label">Open-source software</span><h3>EasyML</h3><p>A dataflow-based system for applying machine learning algorithms to real-world tasks.</p><a href="https://github.com/ICT-BDA/EasyML">Repository on GitHub ↗</a></article>
-</div></div></section>'''
-    write("research/index.html",layout("Research | Zhaohui Li","Research in educational assessment, early literacy, parent-child interaction, and multimodal learning; datasets and open-source software.",body,"/research/"))
+    body = intro("Research", "Paper highlights", "Figures and short summaries from my papers, ordered by year. Select a figure to see its source.")
+    body += '<div class="wrap jump-links" aria-label="Research sections"><a href="#paper-highlights">Papers</a><a href="#ongoing">Research areas &amp; projects</a><a href="#future">Future directions</a><a href="#resources">Datasets &amp; software</a><a href="/publications/#publication-map">Fields &amp; venues</a></div>'
+    body += f'<section class="wrap section" id="paper-highlights" aria-label="Paper highlights">{render_highlights(PUBS, HIGHLIGHTS)}<p class="section-end">The <a href="/publications/">full publication list</a> also includes posters and dataset records.</p></section>'
+    body += '<section class="wrap section research-section" id="ongoing"><h2>Research areas &amp; projects</h2>'
+    for slug, num, label, title, text, projects in PROJECTS:
+        body += f'<details class="research-area" id="{slug}"><summary>{label}</summary><p>{text}</p><ul class="project-list">'
+        for name, desc, match, date in projects:
+            paper = next((p for p in PUBS if match and match.lower() in p["title"].lower()), None)
+            link = f' <a href="/publications/#{paper["id"]}">Publication</a>.' if paper else ""
+            body += f'<li><h3>{name}</h3><p>{desc}{link}</p></li>'
+        body += '</ul></details>'
+    body += '''</section>
+<section class="wrap section research-section prose" id="future"><h2>Future directions</h2><p>I plan to develop a theoretical framework for translating educational goals into computational tasks, informed by interdisciplinary collaboration, and an agent-based system to support task formulation and evaluation design. I also plan to investigate responsible AI use in education, including potential risks of emotional overreliance and declines in students’ independent reasoning.</p></section>
+<section class="wrap section" id="resources"><h2>Datasets &amp; software</h2><ul class="resource-list">
+<li><a href="https://doi.org/10.26208/JFMP-V777">I-STUDIO</a> — Short student answers to statistics questions, with assessment labels (2023).</li>
+<li><a href="https://doi.org/10.26208/BWE2-BR31">Physics lab report assessment</a> — Rubric-based assessment data for machine learning (2022).</li>
+<li><a href="/publications/#scieval-2026">SciEval</a> — A benchmark for evaluating K–12 science instructional materials (2026).</li>
+<li><a href="/publications/#asd-hi-2025">ASD-HI</a> — Parent–child interaction data for automated assessment of home interventions (2025).</li>
+<li><a href="https://github.com/ICT-BDA/EasyML">EasyML</a> — A dataflow-based system for machine-learning workflows.</li>
+</ul></section>'''
+    write("research/index.html", layout("Paper Highlights | Zhaohui Li", "Figures and project summaries for 20 papers in AI, natural language processing, educational assessment, and early literacy, ordered by year.", body, "/research/"))
 
 def publications():
     visible=[p for p in PUBS if p.get("status","")!="Status to confirm"]
@@ -192,7 +193,7 @@ def teaching():
 
 def contact():
     body=intro("CV & contact","Academic CV and contact","My CV contains a detailed record of appointments, education, publications, research projects, teaching, and service.")
-    body=f'''{body}<section class="wrap section contact-layout"><div class="cv-panel"><p class="eyebrow">Curriculum vitae</p><h2>Zhaohui Li, Ph.D.</h2><p>Academic CV · Updated {E(PROFILE["cv_updated"])}</p><a class="button" href="{CV}">Open CV <span class="file-label">PDF</span></a><a class="download-link" href="{CV}" download="Zhaohui_Li_CV.pdf">Download a copy ↓</a></div><div class="contact-details"><h2>Contact</h2><dl><dt>Email</dt><dd><a href="mailto:nkzhaohuilee@gmail.com">nkzhaohuilee@gmail.com</a></dd><dt>Current appointment</dt><dd>{E(PROFILE["role"])}<br>{E(PROFILE["college"])}<br>{E(PROFILE["institution"])}</dd><dt>Mentor</dt><dd><a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></dd><dt>Research profiles</dt><dd><a href="https://orcid.org/0009-0002-0537-3546">ORCID: 0009-0002-0537-3546 ↗</a><br><a href="https://github.com/nkzhlee">GitHub: nkzhlee ↗</a></dd></dl><p>For collaboration inquiries, please include your research question and a link to relevant work.</p></div></section>'''
+    body=f'''{body}<section class="wrap section contact-layout"><div class="cv-panel"><p class="eyebrow">Curriculum vitae</p><h2>Zhaohui Li, Ph.D.</h2><p>Academic CV · Updated {E(PROFILE["cv_updated"])}</p><a class="button" href="{CV}">Open CV <span class="file-label">PDF</span></a><a class="download-link" href="{CV}" download="Zhaohui_Li_CV.pdf">Download a copy ↓</a></div><div class="contact-details"><h2>Contact</h2><dl><dt>Email</dt><dd><a href="mailto:nkzhaohuilee@gmail.com">nkzhaohuilee@gmail.com</a></dd><dt>Current appointment</dt><dd>{E(PROFILE["role"])}<br>{E(PROFILE["college"])}<br>{E(PROFILE["institution"])}</dd><dt>Mentor</dt><dd><a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></dd><dt>Research profiles</dt><dd><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><br><a href="https://github.com/nkzhlee">GitHub: nkzhlee ↗</a></dd></dl><p>For collaboration inquiries, please include your research question and a link to relevant work.</p></div></section>'''
     write("cv/index.html",layout("CV & Contact | Zhaohui Li","Download Zhaohui Li's academic CV and find contact details and research profiles.",body,"/cv/"))
 
 def legacy():

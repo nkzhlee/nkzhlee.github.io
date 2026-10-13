@@ -10,6 +10,7 @@ import sys
 import xml.etree.ElementTree as ET
 from urllib.parse import unquote, urlsplit
 from publication_map import render_publication_map_svg
+from highlights import ordered_highlights
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,6 +29,8 @@ class Page(HTMLParser):
         self.meta = {}
         self.refs = []
         self.publications = []
+        self.highlights = []
+        self.images = []
         self.title = []
         self.count_text = []
         self.stack = []
@@ -47,6 +50,10 @@ class Page(HTMLParser):
                 self.refs.append((attrs[attribute], self.getpos()[0]))
         if "data-publication" in attrs:
             self.publications.append(element_id)
+        if "data-highlight" in attrs:
+            self.highlights.append(element_id)
+        if tag == "img":
+            self.images.append(attrs)
         if tag not in VOID_TAGS:
             self.stack.append((tag, element_id))
 
@@ -87,6 +94,14 @@ def main():
             problem(path, "missing generated page")
             continue
         page = read_page(path)
+        source = path.read_text(encoding="utf-8")
+        if "orcid.org" in source or "ORCID" in source:
+            problem(path, "ORCID remains after replacement with Google Scholar")
+        if "scholar.google.com/citations?user=FuS676UAAAAJ" not in source:
+            problem(path, "missing Google Scholar profile link")
+        for image in page.images:
+            if not image.get("alt", "").strip():
+                problem(path, f"missing descriptive image alt text: {image.get('src')}")
         for tag in ("h1", "main", "title"):
             if page.tags[tag] != 1:
                 problem(path, f"expected one <{tag}>, found {page.tags[tag]}")
@@ -161,6 +176,19 @@ def main():
             problem(figure_path, "stale figure: rerun scripts/build_site.py")
         if "publication-map" not in read_page(ROOT / "publications/index.html").ids:
             problem(ROOT / "publications/index.html", "missing publication map")
+        highlights = [h for path in sorted((ROOT / "data").glob("highlights-*.json")) for h in json.loads(path.read_text())]
+        ordered = ordered_highlights(publications, highlights)
+        expected_highlights = [f'highlight-{p["id"]}' for p, _ in ordered]
+        if read_page(ROOT / "research/index.html").highlights != expected_highlights:
+            problem(ROOT / "research/index.html", "missing, extra, or out-of-order paper highlights")
+        for record in highlights:
+            image = ROOT / record["image"].lstrip("/")
+            if not image.is_file() or image.stat().st_size == 0:
+                problem(image, "missing or empty paper figure")
+            if not record["imageAlt"] or not record["summary"] or not record["sourceUrl"].startswith("https://"):
+                raise ValueError(f"Incomplete highlight: {record['id']}")
+            if record["sourcePage"] < 1 or len(record["crop"]) != 4 or min(record["imageWidth"], record["imageHeight"]) < 1:
+                raise ValueError(f"Invalid figure provenance or dimensions: {record['id']}")
     except (OSError, ValueError, KeyError, ET.ParseError) as exc:
         problem(data_path, str(exc))
 
@@ -169,7 +197,7 @@ def main():
         for error in errors:
             print(f"  - {error}")
         return 1
-    print(f"Site validation passed: {len(PAGES)} pages, {len(visible)} publication records, map taxonomy/SVG, local links and assets verified.")
+    print(f"Site validation passed: {len(PAGES)} pages, {len(visible)} publication records, {len(ordered)} paper highlights, map taxonomy/SVG, Google Scholar, local links and assets verified.")
     return 0
 
 

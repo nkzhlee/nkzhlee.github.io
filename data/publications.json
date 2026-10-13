@@ -59,7 +59,8 @@
   {
     "id": "llm4art-2026",
     "title": "LLM4Art: Using Large Language Models for Art Interpretation",
-    "authors": "Naiquan Li, Dancheng Liu, Yuting Hu, Chenhui Xu, Shenghao Chao, Zhaohui Li, and Jinjun Xiong",
+    "authors": "Zhaohui Li, Naiquan Li, Dancheng Liu, Yuting Hu, Chenhui Xu, Shenghao Chao, and Jinjun Xiong",
+    "authorNote": "Zhaohui Li and Naiquan Li contributed equally.",
     "year": 2026,
     "venue": "LAK 2026 Companion Proceedings, pp. 246–248",
     "type": "conference",
@@ -146,7 +147,7 @@
   {
     "id": "bilingual-agent-2025",
     "title": "Leveraging an LLM-enhanced bilingual conversational agent for EFL children’s dialogic reading: Insights from children, parents, and educators",
-    "authors": "Feiwen Xiao, Zhaohui Li, Jiaju Lin, Xiaohan Zou, Dandan Yang, Ellen Wenting Zou, and Jinjun Xiong",
+    "authors": "Feiwen Xiao, Zhaohui Li, Jiaju Lin, Xiaohan Zou, Dandan Yang, Wenting Zou, and Jinjun Xiong",
     "year": 2025,
     "venue": "Computers and Education: Artificial Intelligence, article 100484",
     "type": "journal",
