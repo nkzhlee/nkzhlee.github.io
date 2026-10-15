@@ -2,15 +2,15 @@
   {
     "id": "paicoach-2026",
     "summary": "PaiCoach combines AI-generated feedback with human review to support parent-led communication interventions. A four-family single-case study found improvements in parent implementation and child responsiveness, while showing the continued need for expert oversight.",
-    "image": "/files/paper-figures/paicoach-2026.webp",
-    "imageAlt": "Four stacked line charts tracking parent intervention fidelity and child responsiveness across baseline, AI-supported coaching, and maintenance sessions.",
-    "figureLabel": "Figure 2",
+    "image": "/files/paper-figures/paicoach-2026-figure-1.webp",
+    "imageAlt": "PaiCoach interaction workflow from login and video upload through AI analysis, human review, parent feedback, and chatbot support.",
+    "figureLabel": "Figure 1",
     "sourcePdf": "2026-paicoach.pdf",
-    "sourcePage": 8,
+    "sourcePage": 6,
     "sourceUrl": "https://doi.org/10.1007/s10803-026-07519-6",
-    "crop": [50, 419, 545, 692],
+    "crop": [51.02359, 57.99985, 544.463579, 211.839847],
     "imageWidth": 900,
-    "imageHeight": 496
+    "imageHeight": 281
   },
   {
     "id": "robot-reading-2026",

@@ -188,7 +188,7 @@
       "summary": "ASD-HI benchmarks detection and assessment of communication strategies in parent-child home interventions for autistic children. PaiCoach builds on this work to generate feedback tailored to shared-reading sessions. A four-family study found preliminary improvements under an AI-assisted workflow in which specialists corrected strategy codes and reviewed every feedback message before delivery.",
       "publicationIds": ["paicoach-2026", "asd-hi-2025"],
       "figureId": "paicoach-2026",
-      "figureTitle": "Parent implementation and child responsiveness",
+      "figureTitle": "PaiCoach system workflow",
       "role": "Research lead",
       "evidence": [
         {"document": "research-statement", "pages": [1, 2, 3]},
