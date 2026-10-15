@@ -54,15 +54,15 @@
   {
     "id": "judging-judges-2026",
     "summary": "Two science education experts review evaluations from GPT, Claude, and Gemini across 12 curriculum units. The study distinguishes agreement on numerical scores from agreement on reasoning and suggestions, revealing where model judgments depart from educational expertise.",
-    "image": "/files/paper-figures/judging-judges-2026.webp",
-    "imageAlt": "Six grouped bar charts compare two experts' agreement with LLM scores, reasoning, and suggestions across science topics and model families.",
-    "figureLabel": "Figure 2",
+    "image": "/files/paper-figures/judging-judges-2026-figure-1.webp",
+    "imageAlt": "Workflow combining learning activities, the EQuIP rubric, and prompts for LLM evaluation, followed by expert validation and analysis of human-AI agreement.",
+    "figureLabel": "Figure 1",
     "sourcePdf": "2026-judging-judges.pdf",
-    "sourcePage": 9,
+    "sourcePage": 5,
     "sourceUrl": "https://doi.org/10.1007/978-3-032-24807-7_31",
-    "crop": [133, 114, 482, 325],
+    "crop": [134.765, 318.3806, 480.5642, 446.759],
     "imageWidth": 900,
-    "imageHeight": 544
+    "imageHeight": 334
   },
   {
     "id": "storylab-2025",
