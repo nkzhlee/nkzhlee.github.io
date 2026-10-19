@@ -32,16 +32,26 @@
   "projects": [
     {
       "id": "science-instructional-materials",
-      "title": "Evaluating K-12 science instructional materials",
+      "title": "SciEval: evaluating K–12 science instructional materials",
       "themeId": "pedagogical-alignment",
       "relatedThemeIds": ["human-ai-collaboration"],
+      "selectedOrder": 1,
       "status": "Ongoing project",
-      "timeframe": "July 2025-present",
-      "summary": "SciEval and Judging the Judges examine how language models evaluate K-12 science lessons using educator-defined criteria. SciEval supplies a rubric-based benchmark with scores and evidence; expert review in Judging the Judges identifies where model scores, explanations, and suggestions depart from instructional context.",
+      "timeframe": "July 2025–present",
+      "summary": "I lead task formulation, rubric co-design, and model fine-tuning for evaluating science instructional materials. SciEval provides a rubric-based benchmark with scores and evidence; Judging the Judges uses expert review to examine where model scores, explanations, and suggestions depart from instructional context.",
       "publicationIds": ["scieval-2026", "judging-judges-2026"],
       "figureId": "scieval-2026",
       "figureTitle": "Connecting lesson content with evaluation criteria",
       "role": "Research lead",
+      "mentor": {"name": "Jinjun Xiong", "url": "https://www.xlab-ub.com/", "affiliation": "The University of Texas at San Antonio", "affiliationUrl": "https://www.utsa.edu/"},
+      "collaborators": [
+        {"name": "Tingting Li", "affiliation": "Washington State University"},
+        {"name": "Peng He", "affiliation": "Washington State University"}
+      ],
+      "updates": [
+        {"label": "In development", "text": "A classroom platform to help teachers understand, evaluate, and adapt STEM instructional materials."},
+        {"label": "Proposal in preparation", "text": "NSF STEM K–12."}
+      ],
       "evidence": [
         {"document": "research-statement", "pages": [1, 2]},
         {"document": "cv", "pages": [2, 3, 4]}
@@ -49,15 +59,23 @@
     },
     {
       "id": "short-answer-assessment",
-      "title": "Short-answer assessment and formative feedback",
+      "aliases": ["science-essay-assessment"],
+      "title": "Automated formative assessment of STEM short responses",
       "themeId": "pedagogical-alignment",
       "relatedThemeIds": [],
-      "status": "Research papers",
-      "timeframe": "2021-2023",
-      "summary": "SFRN and AsRRN represent relationships among questions, reference answers, and student responses for automated assessment. Related work on statistics responses contributes the I-STUDIO dataset, human-scoring procedures, and exploratory feedback grouping, connecting model design with reliable labels and the instructional purpose of formative feedback.",
-      "publicationIds": ["asrrn-2023", "istudio-2023", "formative-feedback-2022", "sfrn-2021"],
+      "selectedOrder": 6,
+      "status": "Doctoral research",
+      "timeframe": "Aug 2019–May 2024",
+      "summary": "I developed SFRN and AsRRN to represent relationships among questions, reference responses, and student answers for automated assessment, and investigated demonstration examples for LLM assessment of science essays. Related work studies how assessed responses can be grouped to support formative feedback.",
+      "publicationIds": ["demonstration-examples-2025", "asrrn-2023", "formative-feedback-2022", "sfrn-2021"],
       "figureId": "asrrn-2023",
       "figureTitle": "AsRRN models the assessment context",
+      "role": "Research lead",
+      "mentor": {"name": "Rebecca J. Passonneau", "url": "https://scholar.google.com/citations?hl=en&user=jb9VOp0AAAAJ", "affiliation": "The Pennsylvania State University"},
+      "collaborators": [
+        {"name": "Matthew D. Beckman", "url": "https://science.psu.edu/stat/people/mdb268", "affiliation": "The Pennsylvania State University"},
+        {"name": "Sadhana Puntambekar", "url": "https://edpsych.education.wisc.edu/fac-staff/puntambekar-sadhana/", "affiliation": "University of Wisconsin–Madison"}
+      ],
       "evidence": [
         {"document": "research-statement", "pages": [1, 2]},
         {"document": "cv", "pages": [2, 3]}
@@ -65,48 +83,43 @@
     },
     {
       "id": "physics-lab-assessment",
-      "title": "Reliable assessment of physics lab reports",
+      "title": "STEM assessment datasets and human scoring rubrics",
       "themeId": "pedagogical-alignment",
       "relatedThemeIds": [],
-      "status": "Research papers",
-      "timeframe": "2022-2023",
-      "summary": "This research pairs a physics lab-report dataset with a study of rubric-based assessment reliability. Comparing routine classroom grades with trained raters' judgments shows why the target label needs scrutiny. Detailed rubrics make expectations and evidence more explicit before those judgments become targets for machine learning.",
-      "publicationIds": ["physics-assessment-2023", "physics-dataset-2022"],
+      "selectedOrder": 7,
+      "status": "Doctoral research",
+      "timeframe": "Aug 2019–May 2024",
+      "summary": "I contributed to the I-STUDIO and physics lab-report datasets, including rubric development and human-scoring procedures for automated assessment. Related research compares routine physics classroom grades with trained raters' judgments, showing why target labels need scrutiny and how detailed rubrics make expectations and evidence explicit before those judgments become targets for machine learning.",
+      "publicationIds": ["istudio-2023", "physics-assessment-2023", "physics-dataset-2022"],
       "figureId": "physics-assessment-2023",
       "figureTitle": "Performance across lab-report rubric dimensions",
+      "role": "Research lead",
+      "mentor": {"name": "Rebecca J. Passonneau", "url": "https://scholar.google.com/citations?hl=en&user=jb9VOp0AAAAJ", "affiliation": "The Pennsylvania State University"},
+      "collaborators": [
+        {"name": "Matthew D. Beckman", "url": "https://science.psu.edu/stat/people/mdb268", "affiliation": "The Pennsylvania State University"}
+      ],
       "evidence": [
         {"document": "research-statement", "pages": [2]},
         {"document": "cv", "pages": [3]}
       ]
     },
     {
-      "id": "science-essay-assessment",
-      "title": "LLM assessment of science essays",
-      "themeId": "pedagogical-alignment",
-      "relatedThemeIds": [],
-      "status": "Research papers",
-      "timeframe": "2025",
-      "summary": "This study examines how demonstration examples guide language models in identifying rubric-defined scientific ideas in student essays. It tests the number and quality of examples used in prompts, treating example design as part of the assessment task rather than relying only on general model capabilities.",
-      "publicationIds": ["demonstration-examples-2025"],
-      "figureId": "demonstration-examples-2025",
-      "figureTitle": "Scientific ideas and rubric-based essay feedback",
-      "evidence": [
-        {"document": "research-statement", "pages": [2]},
-        {"document": "cv", "pages": [2]}
-      ]
-    },
-    {
       "id": "llm4art",
-      "title": "LLM4Art: AI-assisted art interpretation",
+      "title": "LLM4Art: expert-guided art interpretation and evaluation",
       "themeId": "pedagogical-alignment",
       "relatedThemeIds": [],
       "status": "Ongoing project",
-      "timeframe": "July 2025-present",
-      "summary": "LLM4Art connects art scholars' expertise with language-model interpretation through prompts and evaluation rubrics for visual analysis, historical context, and cultural significance. A benchmark and prototype application support comparison of model interpretations, with ongoing work on art-focused datasets, model adaptation, and educational uses.",
+      "timeframe": "July 2025–present",
+      "selectedOrder": 5,
+      "summary": "I lead application and evaluation development, translating art scholars' expertise into prompts and rubrics for visual analysis, historical context, and cultural significance. A benchmark and prototype application support comparison of model interpretations, with ongoing work on art-focused datasets, model adaptation, and educational uses.",
       "publicationIds": ["llm4art-2026"],
       "figureId": "llm4art-2026",
       "figureTitle": "The LLM4Art interpretation workspace",
       "role": "Research lead",
+      "mentor": {"name": "Jinjun Xiong", "url": "https://www.xlab-ub.com/", "affiliation": "The University of Texas at San Antonio", "affiliationUrl": "https://www.utsa.edu/"},
+      "collaborators": [
+        {"name": "Kyunghee Pyun", "affiliation": "Fashion Institute of Technology"}
+      ],
       "evidence": [
         {"document": "research-statement", "pages": [2]},
         {"document": "cv", "pages": [2, 4]}
@@ -114,48 +127,44 @@
     },
     {
       "id": "selective-prediction",
-      "title": "Selective prediction and human deferral",
+      "title": "Human–AI collaboration: selective prediction and human deferral",
       "themeId": "human-ai-collaboration",
       "relatedThemeIds": ["pedagogical-alignment"],
-      "status": "Research papers",
-      "timeframe": "2023-2024",
-      "summary": "These studies ask when an automatic grader should predict and when it should defer to a person. The initial work evaluates a learned deferral policy in a held-out simulation using human reference labels. Subsequent work jointly trains assessment and deferral representations across four student-answer datasets.",
+      "selectedOrder": 8,
+      "status": "Doctoral research",
+      "timeframe": "Aug 2019–May 2024",
+      "summary": "I developed methods for automated assessment models to answer or defer to a person, including joint optimization of assessment and deferral representations. The initial work evaluates a learned deferral policy in a held-out simulation using human reference labels. Subsequent work jointly trains assessment and deferral representations across four student-answer datasets.",
       "publicationIds": ["joint-selective-2024", "defer-grading-2023"],
       "figureId": "joint-selective-2024",
       "figureTitle": "Joint training of assessment and deferral",
+      "role": "Research lead",
+      "mentor": {"name": "Rebecca J. Passonneau", "url": "https://scholar.google.com/citations?hl=en&user=jb9VOp0AAAAJ", "affiliation": "The Pennsylvania State University"},
+      "collaborators": [
+        {"name": "Sadhana Puntambekar", "url": "https://edpsych.education.wisc.edu/fac-staff/puntambekar-sadhana/", "affiliation": "University of Wisconsin–Madison"}
+      ],
       "evidence": [
         {"document": "research-statement", "pages": [2, 3]},
         {"document": "cv", "pages": [2]}
       ]
     },
     {
-      "id": "dialogic-reading",
-      "title": "Storio: AI-guided dialogic reading",
-      "themeId": "human-ai-collaboration",
-      "relatedThemeIds": ["personalized-learning"],
-      "status": "Research papers",
-      "timeframe": "2025",
-      "summary": "Two Storio studies examine bilingual conversational support during children's e-book reading. A design study explores responsive scaffolding with children, parents, and educators; a separate randomized study compares AI-guided and parent-led reading. Together they distinguish comprehension, vocabulary, retelling, and engagement to inform the design of learning partners.",
-      "publicationIds": ["bilingual-agent-2025", "dialogic-reading-2025"],
-      "figureId": "bilingual-agent-2025",
-      "figureTitle": "Bilingual dialogue and adaptive reading support",
-      "evidence": [
-        {"document": "research-statement", "pages": [3]},
-        {"document": "cv", "pages": [2]}
-      ]
-    },
-    {
       "id": "embodied-reading",
-      "title": "An embodied reading companion for AI literacy",
+      "aliases": ["dialogic-reading"],
+      "title": "Embodied AI: reading companions for children's AI literacy",
       "themeId": "human-ai-collaboration",
       "relatedThemeIds": ["personalized-learning"],
+      "selectedOrder": 3,
       "status": "Ongoing project",
-      "timeframe": "Nov 2025-present",
-      "summary": "An LLM-powered humanoid robot provides a platform for shared reading and early childhood AI literacy. The feasibility study evaluates structured dialogue policies with simulated child profiles and an expert. It examines interaction tradeoffs and informs future studies of physical presence, turn-taking, and participation by children and adults.",
-      "publicationIds": ["robot-reading-2026"],
+      "timeframe": "Nov 2024–present",
+      "summary": "I implement pedagogically structured dialogue for an LLM-powered reading robot. The feasibility study evaluates dialogue policies with simulated child profiles and an expert; it informs future studies of physical presence, turn-taking, and participation by children and adults. Related Storio studies examine bilingual conversational support in children's e-book reading: a design study with children, parents, and educators, and a separate randomized study comparing AI-guided and parent-led reading across comprehension, vocabulary, retelling, and engagement.",
+      "publicationIds": ["robot-reading-2026", "bilingual-agent-2025", "dialogic-reading-2025"],
       "figureId": "robot-reading-2026",
       "figureTitle": "The robot-assisted reading workflow",
       "role": "Research lead",
+      "mentor": {"name": "Jinjun Xiong", "url": "https://www.xlab-ub.com/", "affiliation": "The University of Texas at San Antonio", "affiliationUrl": "https://www.utsa.edu/"},
+      "collaborators": [
+        {"name": "Shiyang Jiang", "affiliation": "University of Pennsylvania"}
+      ],
       "evidence": [
         {"document": "research-statement", "pages": [3, 4]},
         {"document": "cv", "pages": [2, 3]}
@@ -163,16 +172,29 @@
     },
     {
       "id": "personalized-reading",
-      "title": "StoryLab and AIRE: personalized reading materials",
+      "title": "AIRE: decodable story generation and evaluation",
       "themeId": "personalized-learning",
       "relatedThemeIds": ["pedagogical-alignment", "human-ai-collaboration"],
+      "selectedOrder": 2,
       "status": "Ongoing project",
-      "timeframe": "Jan 2025-present",
-      "summary": "StoryLab combines teacher-defined learning goals with children's interests to generate stories, illustrations, and vocabulary support. AIRE extends this work to personalized decodable texts aligned with taught phonics patterns. Literacy experts' rubrics guide generation and review, while teachers can select and revise materials for their instruction.",
+      "timeframe": "July 2024–present",
+      "summary": "I lead AIRE development and co-design rubrics for phonics alignment, narrative coherence, and illustration quality with literacy experts. AIRE generates personalized decodable texts aligned with taught phonics patterns. Related work in StoryLab combines teacher-defined learning goals with children's interests to generate stories, illustrations, and vocabulary support, with teachers selecting and revising materials.",
       "publicationIds": ["aire-aera-2026", "storylab-2025"],
       "figureId": "storylab-2025",
-      "figureTitle": "Teacher-guided story generation and review",
-      "role": "AI technical lead",
+      "figureTitle": "Related StoryLab work: teacher-guided story generation and review",
+      "role": "Research lead",
+      "mentor": {"name": "Jinjun Xiong", "url": "https://www.xlab-ub.com/", "affiliation": "The University of Texas at San Antonio", "affiliationUrl": "https://www.utsa.edu/", "note": "CELaRAI co-PI"},
+      "collaborators": [
+        {"name": "Tanya Christ", "affiliation": "CELaRAI co-PI", "affiliationUrl": "https://earlyliteracyai.org/"},
+        {"name": "John Strong", "affiliation": "CELaRAI co-PI", "affiliationUrl": "https://earlyliteracyai.org/"},
+        {"name": "Laura Tortorelli", "affiliation": "CELaRAI co-PI", "affiliationUrl": "https://earlyliteracyai.org/"}
+      ],
+      "organizations": [
+        {"name": "Center for Early Literacy and Responsible AI (CELaRAI)", "url": "https://earlyliteracyai.org/", "affiliation": "University at Buffalo"}
+      ],
+      "updates": [
+        {"label": "Center funding", "text": "IES R305C240046 · $10 million total CELaRAI award · September 2024–August 2029."}
+      ],
       "evidence": [
         {"document": "research-statement", "pages": [2, 3]},
         {"document": "cv", "pages": [2, 3]}
@@ -180,16 +202,26 @@
     },
     {
       "id": "parent-coaching",
-      "title": "ASD-HI and PaiCoach: support for parent coaching",
+      "title": "PaiCoach: AI assessment and coaching for autism home interventions",
       "themeId": "personalized-learning",
       "relatedThemeIds": ["pedagogical-alignment", "human-ai-collaboration"],
+      "selectedOrder": 4,
       "status": "Ongoing project",
-      "timeframe": "Nov 2024-present",
-      "summary": "ASD-HI benchmarks detection and assessment of communication strategies in parent-child home interventions for autistic children. PaiCoach builds on this work to generate feedback tailored to shared-reading sessions. A four-family study found preliminary improvements under an AI-assisted workflow in which specialists corrected strategy codes and reviewed every feedback message before delivery.",
+      "timeframe": "Nov 2024–present",
+      "summary": "I lead ASD-HI benchmark and PaiCoach model development to assess parent–child home interventions and generate feedback for specialist review. ASD-HI benchmarks communication-strategy detection and assessment. A four-family PaiCoach study found preliminary improvements under an AI-assisted workflow in which specialists corrected strategy codes and reviewed every feedback message before delivery.",
       "publicationIds": ["paicoach-2026", "asd-hi-2025"],
       "figureId": "paicoach-2026",
       "figureTitle": "PaiCoach system workflow",
       "role": "Research lead",
+      "mentor": {"name": "Jinjun Xiong", "url": "https://www.xlab-ub.com/", "affiliation": "The University of Texas at San Antonio", "affiliationUrl": "https://www.utsa.edu/"},
+      "organizations": [
+        {"name": "National AI Institute for Exceptional Education (AI4EE / AI4ExceptionalEd)", "url": "https://www.buffalo.edu/ai4exceptionaled.html", "affiliation": "University at Buffalo"}
+      ],
+      "updates": [
+        {"label": "Submitted to LAK 2027", "text": "A new dataset for benchmarking speech recognition for autistic children."},
+        {"label": "Proposal in preparation", "text": "NSF Future CoRe."},
+        {"label": "Funded extension", "text": "Co-PI on the $50,000 OAR-funded PAC.AI project for AI-supported parent coaching (February 2026–December 2027).", "url": "https://researchautism.org/research-item/study-of-parents-ai-coach-for-parent-implemented-communication-interventions-for-children-with-asd/"}
+      ],
       "evidence": [
         {"document": "research-statement", "pages": [1, 2, 3]},
         {"document": "cv", "pages": [2, 3]}

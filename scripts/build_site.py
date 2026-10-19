@@ -67,7 +67,7 @@ def layout(title, description, body, route="/"):
 <nav aria-label="Primary navigation">{nav}</nav>
 </div></header>
 <main id="main">{body}</main>
-<footer><div class="wrap footer-bottom"><span>© 2026 Zhaohui Li · Updated {E(PROFILE["updated"])}</span><div class="footer-links"><a href="mailto:nkzhaohuilee@gmail.com">Email</a><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="https://github.com/nkzhlee">GitHub</a><a href="{CV}">CV (PDF)</a></div></div></footer>
+<footer><div class="wrap footer-bottom"><span>© 2026 Zhaohui Li · Updated {E(PROFILE["updated"])}</span><div class="footer-links"><a href="mailto:{E(PROFILE['email'])}">Email</a><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="https://github.com/nkzhlee">GitHub</a><a href="{CV}">CV (PDF)</a></div></div></footer>
 </body></html>"""
 
 def intro(kicker, title, text):
@@ -99,10 +99,10 @@ def home():
 <figure class="profile-photo"><img src="/files/zhaohui-2026.jpg" alt="Zhaohui Li" width="1280" height="960" fetchpriority="high"></figure>
 <div class="profile-copy"><h1>Zhaohui Li <span class="name-degree">Ph.D.</span></h1>
 <p class="appointment">{E(PROFILE["role"])}<br>{E(PROFILE["college"])}<br><a href="{E(PROFILE["institution_url"])}">{E(PROFILE["institution"])}</a><br><span class="mentor">Mentor: <a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></span></p>
-<p>I develop AI, particularly multimodal large language models, to support teaching, learning, and human connection. My work translates educational goals into computational tasks and builds algorithms, datasets, and systems for assessment and feedback, instructional material evaluation, storybook generation, and student behavior analysis. Through interdisciplinary collaboration, I aim to automate parts of task formulation and evaluation design and study risks such as emotional overreliance on AI and reduced independent reasoning. My goal is reliable, responsible AI that supports equitable, high-quality education.</p>
-<div class="profile-links"><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="mailto:nkzhaohuilee@gmail.com">Email</a><a href="{CV}">CV (PDF)</a><a href="https://github.com/nkzhlee">GitHub</a></div></div></section>
+<p>I develop human-centered AI for education, translating educational goals and expert knowledge into computational tasks. My work combines algorithms, benchmark datasets, and systems for assessment and feedback, instructional material evaluation, early literacy, and parent–child interaction. I collaborate with educators to build reliable, responsible AI that supports teaching, learning, and human connection.</p>
+<div class="profile-links"><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="mailto:{E(PROFILE['email'])}">Email</a><a href="{CV}">CV (PDF)</a><a href="https://github.com/nkzhlee">GitHub</a></div></div></section>
 <section class="wrap section home-notes" id="research-experience"><h2>Research Experience</h2>
-<p class="research-background">I received my Ph.D. in Computer Science from The Pennsylvania State University in 2024, advised by <a href="https://scholar.google.com/citations?hl=en&amp;user=jb9VOp0AAAAJ">Dr. Rebecca J. Passonneau</a> in the <a href="https://www.nlplab.psu.edu/">Natural Language Processing Lab</a>. My dissertation on automated assessment of STEM reasoning received the Best Doctoral Dissertation Award. Before joining UT San Antonio, I was a postdoctoral associate at the University at Buffalo’s Institute for Artificial Intelligence and Data Science (IAD), mentored by <a href="{E(PROFILE['mentor_url'])}">Dr. Jinjun Xiong</a>.</p>
+<p class="research-background">I received my Ph.D. in Computer Science from The Pennsylvania State University in 2024, advised by <a href="https://scholar.google.com/citations?hl=en&amp;user=jb9VOp0AAAAJ">Dr. Rebecca J. Passonneau</a> in the <a href="https://www.nlplab.psu.edu/">Natural Language Processing Lab</a>. My dissertation on automated assessment of STEM reasoning received the Best Doctoral Dissertation Award. Before joining UT San Antonio, I was a postdoctoral associate at the University at Buffalo’s Institute for Artificial Intelligence and Data Science (IAD) and Department of Computer Science and Engineering (CSE), mentored by <a href="{E(PROFILE['mentor_url'])}">Dr. Jinjun Xiong</a>.</p>
 <p>I continue to work with the following centers at the University at Buffalo:</p>{leadership_list()}<ul>
 <li>Co-PI on a $50,000 <a href="https://researchautism.org/research-item/study-of-parents-ai-coach-for-parent-implemented-communication-interventions-for-children-with-asd/">Organization for Autism Research grant</a> for AI-supported parent coaching (2026–2027).</li>
 <li>Program committee member for AIED 2025, AIED 2026, and LAK 2027.</li>
@@ -158,8 +158,8 @@ def timeline_row(date,title,org,detail="",extra=""):
 
 def experience():
     mentor = f'Mentor: <a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a>.'
-    appointments = timeline_row("Sep 2026–Present","Postdoctoral Associate",f'College of AI, Cyber and Computing · <a href="{E(PROFILE["institution_url"])}">UT San Antonio</a><br>San Antonio, TX',mentor)
-    appointments += timeline_row("Aug 2024–Aug 2026","Postdoctoral Associate",'Institute for Artificial Intelligence and Data Science (IAD) · <a href="https://www.buffalo.edu/">University at Buffalo</a><br>Buffalo, NY',mentor,'<p>I continue to work with these centers as AI Team Lead:</p>' + leadership_list())
+    appointments = timeline_row("Sep 2026–Present","Postdoctoral Associate",f'College of AI, Cyber and Computing · <a href="{E(PROFILE["institution_url"])}">{E(PROFILE["institution"])}</a><br>San Antonio, TX',mentor)
+    appointments += timeline_row("Aug 2024–Aug 2026","Postdoctoral Associate",'Institute for Artificial Intelligence and Data Science (IAD)<br>Department of Computer Science and Engineering (CSE)<br><a href="https://www.buffalo.edu/">University at Buffalo</a><br>Buffalo, NY',mentor,'<p>I continue to work with these centers as AI Team Lead:</p>' + leadership_list())
     body=intro("Academic background","Experience","Academic appointments, education, research support, and selected recognition.")
     body+=f'<div class="wrap experience-layout"><nav class="section-nav" aria-label="On this page"><a href="#appointments">Appointments</a><a href="#education">Education</a><a href="#funding">Research support</a><a href="#recognition">Recognition</a></nav><div>'
     body+=f'<section class="section" id="appointments"><h2>Appointments</h2><div class="timeline">{appointments}</div></section>'
@@ -169,10 +169,10 @@ def experience():
     body+='''<section class="section" id="funding"><h2>Research support</h2><p class="section-intro">Projects I have contributed to, with my role stated for each. The dates below describe the funded projects.</p><div class="funding-list">
 <article><span class="small-label">Feb 2026–Dec 2027 · Co-principal investigator</span><h3><a href="https://researchautism.org/research-item/study-of-parents-ai-coach-for-parent-implemented-communication-interventions-for-children-with-asd/">AI-supported parent coaching</a></h3><p>Organization for Autism Research · $50,000</p><p>Study of Parent’s AI Coach for Parent-Implemented Communication Interventions for Children with ASD.</p></article>
 <article><span class="small-label">Jan 2023–Dec 2027 · Technical lead</span><h3>National AI Institute for Exceptional Education</h3><p>National Science Foundation · Award 2229873 · $20 million total institute award</p><p>Supporting Jinjun Xiong (Co-PI) in developing AI for challenges in special education.</p></article>
-<article><span class="small-label">Sep 2024–Aug 2029 · Technical lead</span><h3>Center for Early Literacy and Responsible AI</h3><p>Institute of Education Sciences · Award R305C240046 · $10 million total center award</p><p>Supporting Jinjun Xiong (Co-PI) in developing responsible AI tools for early literacy and diverse learners.</p></article>
+<article><span class="small-label">Sep 2024–Aug 2029 · Technical lead</span><h3><a href="https://earlyliteracyai.org/">Center for Early Literacy and Responsible AI</a></h3><p>Institute of Education Sciences · Award R305C240046 · $10 million total center award</p><p>Supporting Jinjun Xiong (Co-PI) in developing responsible AI tools for early literacy and diverse learners.</p></article>
 <article><span class="small-label">Mar 2023–Feb 2025 · Research contributor</span><h3>Project CLASSIFIES</h3><p>National Science Foundation · IUSE Award 2236150 · $300,000 total project award</p><p>NLP algorithm development and technical proposal contributions with Rebecca J. Passonneau (Co-PI).</p></article>
 <article><span class="small-label">2023–2024 · Principal investigator</span><h3>Interactive e-books for children</h3><p>Nittany AI Challenge · Penn State · $5,000</p></article>
-</div><div class="proposal-note"><p class="small-label">Proposal in submission · Since July 2025</p><h3>AI-automated behavioral support plans</h3><p>Co-PI on a Spencer Foundation Large Research Grant on Education proposal for young children with autism spectrum disorder. Program funding range: $125,000–$500,000. This proposal is not listed as an awarded grant.</p></div></section>
+</div></section>
 <section class="section" id="recognition"><h2>Selected recognition</h2><div class="timeline">
 <article class="timeline-row"><p class="timeline-date">2024</p><div><h3>Best Doctoral Dissertation in an AI-Related Discipline Award</h3><p><a href="https://ai.psu.edu/news/ai-related-dissertation-contest-finalist-winner-reflect-on-process">Pennsylvania State University ↗</a></p></div></article>
 <article class="timeline-row"><p class="timeline-date">2018</p><div><h3>Best Paper Nominee</h3><p>China Conference on Information Retrieval</p></div></article>
@@ -191,7 +191,7 @@ def teaching():
     body+='''
 <article><h3>Session chair</h3><p>AIED 2025 and 2026</p><p>Language learning and story generation; AI agents for education.</p></article>
 <article><h3>Program committee</h3><p>AIED 2025, AIED 2026, and LAK 2027</p></article>
-<article><h3>Peer review</h3><p>ACL Rolling Review (ACL, EMNLP, NAACL), AAAI, AIED, and SIGIR</p></article>
+<article><h3>Peer review</h3><p>ACL Rolling Review (ACL, EMNLP, NAACL), AAAI, AIED, LAK, and SIGIR</p></article>
 <article><h3>Grant review</h3><p>NSF panel service in the Division of Research on Learning.</p></article>
 <article><h3>Student volunteer</h3><p>AAAI 2019</p></article>
 </div></section></div>'''
@@ -199,7 +199,7 @@ def teaching():
 
 def contact():
     body=intro("CV & contact","Academic CV and contact","My CV contains a detailed record of appointments, education, publications, research projects, teaching, and service.")
-    body=f'''{body}<section class="wrap section contact-layout"><div class="cv-panel"><p class="eyebrow">Curriculum vitae</p><h2>Zhaohui Li, Ph.D.</h2><p>Academic CV · Updated {E(PROFILE["cv_updated"])}</p><a class="button" href="{CV}">Open CV <span class="file-label">PDF</span></a><a class="download-link" href="{CV}" download="Zhaohui_Li_CV.pdf">Download a copy ↓</a></div><div class="contact-details"><h2>Contact</h2><dl><dt>Email</dt><dd><a href="mailto:nkzhaohuilee@gmail.com">nkzhaohuilee@gmail.com</a></dd><dt>Current appointment</dt><dd>{E(PROFILE["role"])}<br>{E(PROFILE["college"])}<br>{E(PROFILE["institution"])}</dd><dt>Mentor</dt><dd><a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></dd><dt>Research profiles</dt><dd><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><br><a href="https://github.com/nkzhlee">GitHub: nkzhlee ↗</a></dd></dl><p>For collaboration inquiries, please include your research question and a link to relevant work.</p></div></section>'''
+    body=f'''{body}<section class="wrap section contact-layout"><div class="cv-panel"><p class="eyebrow">Curriculum vitae</p><h2>Zhaohui Li, Ph.D.</h2><p>Academic CV · Updated {E(PROFILE["cv_updated"])}</p><a class="button" href="{CV}">Open CV <span class="file-label">PDF</span></a><a class="download-link" href="{CV}" download="Zhaohui_Li_CV.pdf">Download a copy ↓</a></div><div class="contact-details"><h2>Contact</h2><dl><dt>Email</dt><dd><a href="mailto:{E(PROFILE['email'])}">{E(PROFILE["email"])}</a></dd><dt>Current appointment</dt><dd>{E(PROFILE["role"])}<br>{E(PROFILE["college"])}<br>{E(PROFILE["institution"])}</dd><dt>Mentor</dt><dd><a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></dd><dt>Research profiles</dt><dd><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><br><a href="https://github.com/nkzhlee">GitHub: nkzhlee ↗</a></dd></dl><p>For collaboration inquiries, please include your research question and a link to relevant work.</p></div></section>'''
     write("cv/index.html",layout("CV & Contact | Zhaohui Li","Download Zhaohui Li's academic CV and find contact details and research profiles.",body,"/cv/"))
 
 def legacy():
