@@ -18,7 +18,7 @@ PROJECT_BY_PAPER = {identifier: project for project in PROJECT_DATA["projects"] 
 BASE = PROFILE["base_url"].rstrip("/")
 CV = "/files/Zhaohui_Li_CV.pdf"
 E = escape
-NAV = [("/", "About"), ("/projects/", "Projects"), ("/research/", "Research"), ("/publications/", "Publications"), ("/experience/", "Experience"), ("/teaching/", "Teaching & service"), ("/cv/", "CV & contact")]
+NAV = [("/", "About"), ("/projects/", "Projects"), ("/research/", "Research"), ("/publications/", "Publications"), ("/experience/", "Experience"), ("/teaching/", "Service"), ("/cv/", "Contact")]
 AI_LEADERSHIP = [
     ("National AI Institute for Exceptional Education (AI4ExceptionalEd)", "https://www.buffalo.edu/ai4exceptionaled.html"),
     ("Center for Early Literacy and Responsible AI (CELaRAI)", "https://earlyliteracyai.org/"),
@@ -65,11 +65,11 @@ def layout(title, description, body, route="/"):
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="wrap header-inner">
-<a class="wordmark" href="/" aria-label="Zhaohui Li, home" title="AI for a better world for our children"><img class="personal-icon" src="/files/zhaohui-personal-icon.svg" alt="A child and a friendly AI companion sharing a book in a little world" width="56" height="56"><span class="wordmark-copy"><span>Zhaohui Li</span><span class="wordmark-principle">AI for our children</span></span></a>
+<a class="wordmark" href="/" aria-label="Zhaohui Li, home" title="AI for the next generation"><img class="personal-icon" src="/files/zhaohui-personal-icon.svg" alt="A child and a friendly AI companion sharing a book in a little world" width="56" height="56"><span class="wordmark-copy"><span>Zhaohui Li</span><span class="wordmark-principle">AI for the next generation</span></span></a>
 <nav aria-label="Primary navigation">{nav}</nav>
 </div></header>
 <main id="main">{body}</main>
-<footer><div class="wrap footer-bottom"><span>© 2026 Zhaohui Li · Updated {E(PROFILE["updated"])}</span><div class="footer-links"><a href="mailto:{E(PROFILE['email'])}">Email</a><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="https://github.com/nkzhlee">GitHub</a><a href="{CV}">CV (PDF)</a></div></div></footer>
+<footer><div class="wrap footer-bottom"><span>© 2026 Zhaohui Li · Updated {E(PROFILE["updated"])}</span><div class="footer-links"><a href="mailto:{E(PROFILE['email'])}">Email</a><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="https://github.com/nkzhlee">GitHub</a><a href="{CV}">CV</a></div></div></footer>
 </body></html>"""
 
 def intro(kicker, title, text):
@@ -102,7 +102,7 @@ def home():
 <div class="profile-copy"><h1>Zhaohui Li <span class="name-degree">Ph.D.</span></h1>
 <p class="appointment">{E(PROFILE["role"])}<br>{E(PROFILE["college"])}<br><a href="{E(PROFILE["institution_url"])}">{E(PROFILE["institution"])}</a><br><span class="mentor">Mentor: <a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></span></p>
 <p>I develop human-centered AI for education, translating educational goals and expert knowledge into computational tasks. My work combines algorithms, benchmark datasets, and systems for assessment and feedback, instructional material evaluation, early literacy, and parent–child interaction. I collaborate with educators to build reliable, responsible AI that supports teaching, learning, and human connection.</p>
-<div class="profile-links"><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="mailto:{E(PROFILE['email'])}">Email</a><a href="{CV}">CV (PDF)</a><a href="https://github.com/nkzhlee">GitHub</a></div></div></section>
+<div class="profile-links"><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="mailto:{E(PROFILE['email'])}">Email</a><a href="{CV}">CV</a><a href="https://github.com/nkzhlee">GitHub</a></div></div></section>
 <section class="wrap section home-notes" id="research-experience"><h2>Research Experience</h2>
 <p class="research-background">I received my Ph.D. in Computer Science from The Pennsylvania State University in 2024, advised by <a href="https://scholar.google.com/citations?hl=en&amp;user=jb9VOp0AAAAJ">Dr. Rebecca J. Passonneau</a> in the <a href="https://www.nlplab.psu.edu/">Natural Language Processing Lab</a>. My dissertation on automated assessment of STEM reasoning received the Best Doctoral Dissertation Award. Before joining UT San Antonio, I was a postdoctoral associate at the University at Buffalo’s Institute for Artificial Intelligence and Data Science (IAD) and Department of Computer Science and Engineering (CSE), mentored by <a href="{E(PROFILE['mentor_url'])}">Dr. Jinjun Xiong</a>.</p>
 <p>I continue to work with the following centers at the University at Buffalo:</p>{leadership_list()}<ul>
