@@ -147,6 +147,35 @@ def main():
                 if fragment and fragment not in read_page(target).ids:
                     problem(path, f"line {line}: missing fragment target for {reference!r}")
 
+    home_path = ROOT / "index.html"
+    home_source = home_path.read_text(encoding="utf-8")
+    news_match = re.search(r'<section\b[^>]*\bid="recent-news"[^>]*>(.*?)</section>', home_source, re.S)
+    research_match = re.search(r'<section\b[^>]*\bid="research-experience"[^>]*>(.*?)</section>', home_source, re.S)
+    if not news_match or not research_match:
+        problem(home_path, "missing Research Experience or Recent news section")
+    else:
+        if news_match.start() < research_match.end():
+            problem(home_path, "Recent news must follow Research Experience")
+        news = news_match.group(1)
+        research = research_match.group(1)
+        for required in (
+            "/publications/#edited-books", "Under contract", "AIED 2027", "LAK 2027",
+            "https://iaied.org/conferences", "https://www.solaresearch.org/events/lak/lak27/",
+            "Organization for Autism Research grant", "/publications/#aire-aera-2026",
+        ):
+            if required not in news:
+                problem(home_path, f"Recent news is missing {required!r}")
+        for moved in ("Organization for Autism Research grant", "Program committee member", "AIRE poster"):
+            if moved in research:
+                problem(home_path, f"news item remains in Research Experience: {moved!r}")
+        for funding in ("$20 million", "Jan 2023–Dec 2027", "$10 million", "Sep 2024–Aug 2029"):
+            if funding not in research:
+                problem(home_path, f"Research Experience is missing center funding detail {funding!r}")
+        if research.count("Total center funding:") != 2 or research.count("award period:") != 2:
+            problem(home_path, "center funding and award periods must be clearly labeled")
+    if 'class="wrap section book-update"' in home_source:
+        problem(home_path, "book announcement must be a news item, not a standalone section")
+
     for asset in ("files/Zhaohui_Li_CV.pdf", "files/zhaohui-2026.jpg", "files/publication-map.svg"):
         path = ROOT / asset
         if not path.is_file() or path.stat().st_size == 0:

@@ -21,12 +21,32 @@ CV = "/files/Zhaohui_Li_CV.pdf"
 E = escape
 NAV = [("/", "About"), ("/projects/", "Projects"), ("/research/", "Research"), ("/publications/", "Publications"), ("/experience/", "Experience"), ("/teaching/", "Service"), ("/cv/", "Contact")]
 AI_LEADERSHIP = [
-    ("National AI Institute for Exceptional Education (AI4ExceptionalEd)", "https://www.buffalo.edu/ai4exceptionaled.html"),
-    ("Center for Early Literacy and Responsible AI (CELaRAI)", "https://earlyliteracyai.org/"),
+    {
+        "name": "National AI Institute for Exceptional Education (AI4ExceptionalEd)",
+        "url": "https://www.buffalo.edu/ai4exceptionaled.html",
+        "funding": "$20 million",
+        "award": "NSF/IES #2229873",
+        "award_url": "https://ies.ed.gov/use-work/awards/ai-institute-transforming-education-children-speech-and-language-processing-challenges",
+        "period": "Jan 2023–Dec 2027",
+    },
+    {
+        "name": "Center for Early Literacy and Responsible AI (CELaRAI)",
+        "url": "https://earlyliteracyai.org/",
+        "funding": "$10 million",
+        "award": "IES #R305C240046",
+        "award_url": "https://ies.ed.gov/use-work/awards/center-early-literacy-and-responsible-ai-celarai-innovating-beginning-reading-instruction-culturally?ID=6071",
+        "period": "Sep 2024–Aug 2029",
+    },
 ]
 
 def leadership_list():
-    return '<ul class="resource-list leadership-list">' + ''.join(f'<li>AI Team Lead at the <a href="{E(url)}">{E(name)}</a>.</li>' for name, url in AI_LEADERSHIP) + '</ul>'
+    return '<ul class="resource-list leadership-list">' + ''.join(
+        f'<li>AI Team Lead at the <a href="{E(center["url"])}">{E(center["name"])}</a>.'
+        f'<span class="leadership-funding">Total center funding: {E(center["funding"])} '
+        f'(<a href="{E(center["award_url"])}">{E(center["award"])}</a>); '
+        f'award period: {E(center["period"])}.</span></li>'
+        for center in AI_LEADERSHIP
+    ) + '</ul>'
 
 def write(path, value):
     dest = ROOT / path
@@ -119,13 +139,13 @@ def home():
 <p class="appointment">{E(PROFILE["role"])}<br>{E(PROFILE["college"])}<br><a href="{E(PROFILE["institution_url"])}">{E(PROFILE["institution"])}</a><br><span class="mentor">Mentor: <a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></span></p>
 <p>I develop human-centered AI for education, translating educational goals and expert knowledge into computational tasks. My work combines algorithms, benchmark datasets, and systems for assessment and feedback, instructional material evaluation, early literacy, and parent–child interaction. I collaborate with educators to build reliable, responsible AI that supports teaching, learning, and human connection.</p>
 <div class="profile-links"><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="mailto:{E(PROFILE['email'])}">Email</a><a href="{CV}">CV</a><a href="https://github.com/nkzhlee">GitHub</a></div></div></section>
-<section class="wrap section book-update" aria-labelledby="book-update-heading"><h2 id="book-update-heading">Book in preparation</h2>
-<p>I am co-editing <a href="/publications/#edited-books"><em>{E(book["title"])}</em></a> with {E(coeditor_names)}. The book is under contract with {E(book["publisher"])} and currently in preparation.</p></section>
 <section class="wrap section home-notes" id="research-experience"><h2>Research Experience</h2>
 <p class="research-background">I received my Ph.D. in Computer Science from The Pennsylvania State University in 2024, advised by <a href="https://scholar.google.com/citations?hl=en&amp;user=jb9VOp0AAAAJ">Dr. Rebecca J. Passonneau</a> in the <a href="https://www.nlplab.psu.edu/">Natural Language Processing Lab</a>. My dissertation on automated assessment of STEM reasoning received the Best Doctoral Dissertation Award. Before joining UT San Antonio, I was a postdoctoral associate at the University at Buffalo’s Institute for Artificial Intelligence and Data Science (IAD) and Department of Computer Science and Engineering (CSE), mentored by <a href="{E(PROFILE['mentor_url'])}">Dr. Jinjun Xiong</a>.</p>
-<p>I continue to work with the following centers at the University at Buffalo:</p>{leadership_list()}<ul>
+<p>I continue to work with the following centers at the University at Buffalo:</p>{leadership_list()}</section>
+<section class="wrap section recent-news" id="recent-news" aria-labelledby="recent-news-heading"><h2 id="recent-news-heading">Recent news</h2><ul>
+<li>I am co-editing <a href="/publications/#edited-books"><em>{E(book["title"])}</em></a> with {E(coeditor_names)}. Under contract with {E(book["publisher"])}; in preparation.</li>
+<li>I will serve on the program committees for <a href="https://iaied.org/conferences">AIED 2027</a> and <a href="https://www.solaresearch.org/events/lak/lak27/">LAK 2027</a>.</li>
 <li>Co-PI on a $50,000 <a href="https://researchautism.org/research-item/study-of-parents-ai-coach-for-parent-implemented-communication-interventions-for-children-with-asd/">Organization for Autism Research grant</a> for AI-supported parent coaching (2026–2027).</li>
-<li>Program committee member for AIED 2025, AIED 2026, and LAK 2027.</li>
 <li><a href="/publications/#aire-aera-2026">AIRE poster at AERA 2026</a>: personalized decodable texts for early literacy.</li>
 </ul></section>
 <section class="wrap section"><div class="section-title"><h2>Recent papers</h2><a href="/research/">All {len(HIGHLIGHTS)} paper highlights →</a></div>
