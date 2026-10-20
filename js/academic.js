@@ -31,6 +31,18 @@ if (nav) {
   });
 }
 
+const news = document.querySelector('#recent-news');
+if (news) {
+  const toggle = news.querySelector('.news-toggle');
+  const moreLabel = toggle.textContent;
+  toggle.hidden = false;
+  toggle.addEventListener('click', () => {
+    const expanded = news.classList.toggle('is-expanded');
+    toggle.setAttribute('aria-expanded', String(expanded));
+    toggle.textContent = expanded ? 'Show less' : moreLabel;
+  });
+}
+
 const search = document.querySelector('#publication-search');
 if (search) {
   const type = document.querySelector('#publication-type');

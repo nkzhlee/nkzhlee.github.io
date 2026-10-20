@@ -172,12 +172,30 @@ def main():
         news = news_match.group(1)
         research = research_match.group(1)
         for required in (
-            "/publications/#edited-books", "Under contract", "AIED 2027", "LAK 2027",
+            "/publications/#edited-books", "under contract", "AIED 2027", "LAK 2027",
             "https://iaied.org/conferences", "https://www.solaresearch.org/events/lak/lak27/",
-            "Organization for Autism Research grant", "/publications/#aire-aera-2026",
+            "I secured a $50,000", "Organization for Autism Research grant", "as Co-PI",
+            "/publications/#aire-aera-2026", "was presented as a poster",
+            'aria-expanded="false"', 'aria-controls="more-news-items"',
         ):
             if required not in news:
                 problem(home_path, f"Recent news is missing {required!r}")
+        initial_news = re.search(r"<ul>(.*?)</ul>", news, re.S)
+        if not initial_news or initial_news.group(1).count("data-news-item=") != 6:
+            problem(home_path, "Recent news must show six items before the expandable list")
+        news_ids = re.findall(r'data-news-item="([^"]+)"', news)
+        if len(news_ids) != len(set(news_ids)):
+            problem(home_path, "Recent news has duplicate announcements")
+        news_publications = re.findall(r'data-news-publication="([^"]+)"', news)
+        expected_news_publications = [
+            p["id"] for p in json.loads((ROOT / "data/publications.json").read_text())
+            if p.get("year") == 2026
+        ]
+        if Counter(news_publications) != Counter(expected_news_publications):
+            problem(home_path, "Recent news must include every 2026 publication/presentation exactly once")
+        more_news = re.search(r'<ul\b[^>]*\bid="more-news-items"[^>]*>(.*?)</ul>', news, re.S)
+        if not more_news or more_news.group(1).count("data-news-item=") != len(news_ids) - 6:
+            problem(home_path, "remaining announcements must be in the expandable news list")
         for moved in ("Organization for Autism Research grant", "Program committee member", "AIRE poster"):
             if moved in research:
                 problem(home_path, f"news item remains in Research Experience: {moved!r}")

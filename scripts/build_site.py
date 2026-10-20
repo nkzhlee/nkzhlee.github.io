@@ -135,10 +135,34 @@ def edited_books():
         entries.append(f'<article class="edited-book" id="{E(book["id"])}" data-publication data-book data-type="book" data-year="" data-search="{search_text}"><p class="small-label">{E(book["role"])}</p><p class="book-citation">{byline} (Eds.). <em>{E(book["title"])}</em>{title_note}. {E(book["publisher"])}. <strong>{E(book["status"])}</strong></p></article>')
     return '<section class="publication-group" id="edited-books" aria-labelledby="edited-books-heading" data-publication-group><h3 id="edited-books-heading">Books</h3>' + "".join(entries) + '</section>'
 
-def home():
+def recent_news():
     book = next(book for book in EDITED_BOOKS if book["id"] == "human-centered-ai-special-education")
     coeditors = [editor["name"] for editor in book["editors"] if editor["name"] != "Zhaohui Li"]
     coeditor_names = ", ".join(coeditors[:-1]) + ", and " + coeditors[-1]
+    announcements = [
+        ("book-contract", f'Our edited volume, <a href="/publications/#edited-books"><em>{E(book["title"])}</em></a>, is now under contract with {E(book["publisher"])}. I am co-editing it with {E(coeditor_names)}; the book is in preparation.'),
+        ("conference-service", 'I will serve on the program committees for <a href="https://iaied.org/conferences">AIED 2027</a> and <a href="https://www.solaresearch.org/events/lak/lak27/">LAK 2027</a>.'),
+        ("oar-grant", 'I secured a $50,000 <a href="https://researchautism.org/research-item/study-of-parents-ai-coach-for-parent-implemented-communication-interventions-for-children-with-asd/">Organization for Autism Research grant</a> as Co-PI to support AI-assisted parent coaching (2026–2027).'),
+        ("paicoach-2026", 'Our <a href="/publications/#paicoach-2026">PaiCoach study on AI-supported parent coaching for autistic children</a> is published online in the <em>Journal of Autism and Developmental Disorders</em> (2026).'),
+        ("robot-reading-2026", 'Our study of an <a href="/publications/#robot-reading-2026">LLM-powered reading robot for children’s AI literacy</a> is published in the <em>AIED 2026 Companion Proceedings</em>.'),
+        ("scieval-2026", 'Our <a href="/publications/#scieval-2026">SciEval benchmark for evaluating K–12 science instructional materials</a> is published in the <em>AIED 2026</em> proceedings.'),
+        ("llm4art-2026", 'Our <a href="/publications/#llm4art-2026">LLM4Art study on AI-assisted art interpretation</a> is published in the <em>LAK 2026 Companion Proceedings</em>.'),
+        ("judging-judges-2026", 'Our <a href="/publications/#judging-judges-2026"><em>Judging the Judges</em> study on expert validation of LLM evaluations</a> is published in the <em>Computing Conference 2026</em> proceedings.'),
+        ("aire-aera-2026", 'Our <a href="/publications/#aire-aera-2026">AIRE work on personalized decodable texts for early literacy</a> was presented as a poster at <em>AERA 2026</em>.'),
+    ]
+    publication_ids = {p["id"] for p in PUBS}
+    entries = []
+    for identifier, text in announcements:
+        publication_attr = f' data-news-publication="{E(identifier)}"' if identifier in publication_ids else ""
+        entries.append(f'<li data-news-item="{E(identifier)}"{publication_attr}>{text}</li>')
+    limit = 6
+    return f'''<section class="wrap section recent-news" id="recent-news" aria-labelledby="recent-news-heading"><h2 id="recent-news-heading">Recent news</h2>
+<ul>{"".join(entries[:limit])}</ul>
+<ul class="news-extra" id="more-news-items">{"".join(entries[limit:])}</ul>
+<button class="news-toggle" type="button" aria-expanded="false" aria-controls="more-news-items" hidden>More news ({len(entries) - limit})</button>
+</section>'''
+
+def home():
     body = f'''<section class="profile wrap">
 <figure class="profile-photo"><img src="/files/zhaohui-2026.jpg" alt="Zhaohui Li" width="1280" height="960" fetchpriority="high"></figure>
 <div class="profile-copy"><h1>Zhaohui Li <span class="name-degree">Ph.D.</span></h1>
@@ -148,12 +172,7 @@ def home():
 <section class="wrap section home-notes" id="research-experience"><h2>Research Experience</h2>
 <p class="research-background">I received my Ph.D. in Computer Science from The Pennsylvania State University in 2024, advised by <a href="https://scholar.google.com/citations?hl=en&amp;user=jb9VOp0AAAAJ">Dr. Rebecca J. Passonneau</a> in the <a href="https://www.nlplab.psu.edu/">Natural Language Processing Lab</a>. My dissertation on automated assessment of STEM reasoning received the Best Doctoral Dissertation Award. Before joining UT San Antonio, I was a postdoctoral associate at the University at Buffalo’s Institute for Artificial Intelligence and Data Science (IAD) and Department of Computer Science and Engineering (CSE), mentored by <a href="{E(PROFILE['mentor_url'])}">Dr. Jinjun Xiong</a>.</p>
 <p>I continue to work with the following centers at the University at Buffalo:</p>{leadership_list()}</section>
-<section class="wrap section recent-news" id="recent-news" aria-labelledby="recent-news-heading"><h2 id="recent-news-heading">Recent news</h2><ul>
-<li>I am co-editing <a href="/publications/#edited-books"><em>{E(book["title"])}</em></a> with {E(coeditor_names)}. Under contract with {E(book["publisher"])}; in preparation.</li>
-<li>I will serve on the program committees for <a href="https://iaied.org/conferences">AIED 2027</a> and <a href="https://www.solaresearch.org/events/lak/lak27/">LAK 2027</a>.</li>
-<li>Co-PI on a $50,000 <a href="https://researchautism.org/research-item/study-of-parents-ai-coach-for-parent-implemented-communication-interventions-for-children-with-asd/">Organization for Autism Research grant</a> for AI-supported parent coaching (2026–2027).</li>
-<li><a href="/publications/#aire-aera-2026">AIRE poster at AERA 2026</a>: personalized decodable texts for early literacy.</li>
-</ul></section>
+{recent_news()}
 <section class="wrap section"><div class="section-title"><h2>Recent papers</h2><a href="/research/">All {len(HIGHLIGHTS)} paper highlights →</a></div>
 {render_highlights(PUBS, HIGHLIGHTS, limit=6)}
 <p class="section-end"><a href="/projects/">Projects by research area</a> · <a href="/research/">More paper highlights</a> · <a href="/publications/">Full publication list</a> · <a href="/publications/#publication-map">Fields &amp; venues</a></p></section>'''
