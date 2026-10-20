@@ -144,10 +144,10 @@ def recent_news():
         ("conference-service", 'I will serve on the program committees for <a href="https://iaied.org/conferences">AIED 2027</a> and <a href="https://www.solaresearch.org/events/lak/lak27/">LAK 2027</a>.'),
         ("oar-grant", 'I secured a $50,000 <a href="https://researchautism.org/research-item/study-of-parents-ai-coach-for-parent-implemented-communication-interventions-for-children-with-asd/">Organization for Autism Research grant</a> as Co-PI to support AI-assisted parent coaching (2026–2027).'),
         ("paicoach-2026", 'Our <a href="/publications/#paicoach-2026">PaiCoach study on AI-supported parent coaching for autistic children</a> is published online in the <em>Journal of Autism and Developmental Disorders</em> (2026).'),
-        ("robot-reading-2026", 'Our study of an <a href="/publications/#robot-reading-2026">LLM-powered reading robot for children’s AI literacy</a> is published in the <em>AIED 2026 Companion Proceedings</em>.'),
-        ("scieval-2026", 'Our <a href="/publications/#scieval-2026">SciEval benchmark for evaluating K–12 science instructional materials</a> is published in the <em>AIED 2026</em> proceedings.'),
-        ("llm4art-2026", 'Our <a href="/publications/#llm4art-2026">LLM4Art study on AI-assisted art interpretation</a> is published in the <em>LAK 2026 Companion Proceedings</em>.'),
-        ("judging-judges-2026", 'Our <a href="/publications/#judging-judges-2026"><em>Judging the Judges</em> study on expert validation of LLM evaluations</a> is published in the <em>Computing Conference 2026</em> proceedings.'),
+        ("robot-reading-2026", 'Our study of an <a href="/publications/#robot-reading-2026">LLM-powered reading robot for children’s AI literacy</a> is published at the <em>AIED 2026</em> conference.'),
+        ("scieval-2026", 'Our <a href="/publications/#scieval-2026">SciEval benchmark for evaluating K–12 science instructional materials</a> is published at the <em>AIED 2026</em> conference.'),
+        ("llm4art-2026", 'Our <a href="/publications/#llm4art-2026">LLM4Art study on AI-assisted art interpretation</a> is published at the <em>LAK 2026</em> conference.'),
+        ("judging-judges-2026", 'Our <a href="/publications/#judging-judges-2026"><em>Judging the Judges</em> study on expert validation of LLM evaluations</a> is published at <em>Computing Conference 2026</em>.'),
         ("aire-aera-2026", 'Our <a href="/publications/#aire-aera-2026">AIRE work on personalized decodable texts for early literacy</a> was presented as a poster at <em>AERA 2026</em>.'),
     ]
     publication_ids = {p["id"] for p in PUBS}

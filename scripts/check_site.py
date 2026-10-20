@@ -171,6 +171,8 @@ def main():
             problem(home_path, "Recent news must follow Research Experience")
         news = news_match.group(1)
         research = research_match.group(1)
+        if "proceedings" in news.lower():
+            problem(home_path, "Recent news should refer to conferences rather than proceedings")
         for required in (
             "/publications/#edited-books", "under contract", "AIED 2027", "LAK 2027",
             "https://iaied.org/conferences", "https://www.solaresearch.org/events/lak/lak27/",
