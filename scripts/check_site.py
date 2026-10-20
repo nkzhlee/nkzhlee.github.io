@@ -203,11 +203,13 @@ def main():
     news_match = re.search(r'<section\b[^>]*\bid="recent-news"[^>]*>(.*?)</section>', home_source, re.S)
     research_match = re.search(r'<section\b[^>]*\bid="research-experience"[^>]*>(.*?)</section>', home_source, re.S)
     if not news_match or not research_match:
-        problem(home_path, "missing Research Experience or Recent news section")
+        problem(home_path, "missing Research Experience or Recent News section")
     else:
-        if news_match.start() < research_match.end():
-            problem(home_path, "Recent news must follow Research Experience")
+        if news_match.end() > research_match.start():
+            problem(home_path, "Recent News must precede Research Experience")
         news = news_match.group(1)
+        if '<h2 id="recent-news-heading">Recent News</h2>' not in news:
+            problem(home_path, "news heading must be Recent News")
         research = research_match.group(1)
         if "proceedings" in news.lower():
             problem(home_path, "Recent news should refer to conferences rather than proceedings")
