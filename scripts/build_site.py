@@ -2,6 +2,7 @@
 from pathlib import Path
 from html import escape
 from hashlib import sha256
+from urllib.parse import quote, urlsplit
 import json
 from publication_map import render_publication_map, render_publication_map_svg
 from highlights import render_highlights
@@ -273,9 +274,24 @@ def teaching():
     write("teaching/index.html",layout("Teaching & Service | Zhaohui Li","Teaching in artificial intelligence and NLP, invited speaking, reviewing, and conference service.",body,"/teaching/"))
 
 def contact():
-    body=intro("CV & contact","Academic CV and contact","My CV contains a detailed record of appointments, education, publications, research projects, teaching, and service.")
-    body=f'''{body}<section class="wrap section contact-layout"><div class="cv-panel"><p class="eyebrow">Curriculum vitae</p><h2>Zhaohui Li, Ph.D.</h2><p>Academic CV · Updated {E(PROFILE["cv_updated"])}</p><a class="button" href="{CV}">Open CV <span class="file-label">PDF</span></a><a class="download-link" href="{CV}" download="Zhaohui_Li_CV.pdf">Download a copy ↓</a></div><div class="contact-details"><h2>Contact</h2><dl><dt>Email</dt><dd><a href="mailto:{E(PROFILE['email'])}">{E(PROFILE["email"])}</a></dd><dt>Current appointment</dt><dd>{E(PROFILE["role"])}<br>{E(PROFILE["college"])}<br>{E(PROFILE["institution"])}</dd><dt>Mentor</dt><dd><a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></dd><dt>Research profiles</dt><dd><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><br><a href="https://github.com/nkzhlee">GitHub: nkzhlee ↗</a></dd></dl><p>For collaboration inquiries, please include your research question and a link to relevant work.</p></div></section>'''
-    write("cv/index.html",layout("CV & Contact | Zhaohui Li","Download Zhaohui Li's academic CV and find contact details and research profiles.",body,"/cv/"))
+    booking_url = PROFILE.get("booking_url", "").strip()
+    if booking_url:
+        parsed = urlsplit(booking_url)
+        if parsed.scheme != "https" or parsed.hostname not in {
+            "book.ms", "outlook.office.com", "outlook.office365.com",
+            "outlook.cloud.microsoft", "bookings.cloud.microsoft",
+        }:
+            raise ValueError("Use a verified public Microsoft Bookings URL.")
+        meeting_action = f'<p>Book a 15- or 30-minute conversation through Microsoft Bookings, connected to my UTSA Outlook calendar.</p><p class="booking-hours">{E(PROFILE["booking_hours"])}</p><p>Only times without calendar conflicts are available.</p><a class="button booking-action" href="{E(booking_url, quote=True)}" target="_blank" rel="noopener noreferrer">Choose a time <span aria-hidden="true">↗</span></a><p class="meeting-note">Opens Microsoft Bookings in a new tab. Check your time zone when choosing a time.</p>'
+    else:
+        request_url = f'mailto:{PROFILE["email"]}?subject={quote("Meeting request")}'
+        meeting_action = f'<p>Email me your topic, time zone, and a few available times. I’ll reply to confirm a meeting.</p><a class="button booking-action" href="{E(request_url, quote=True)}">Request a meeting by email</a><p class="meeting-note">Meeting requests are confirmed by email.</p>'
+    body=intro("Contact","Contact","I welcome conversations about human-centered AI, education, and research collaboration.")
+    body=f'''{body}<section class="wrap section contact-layout" aria-label="Meetings and contact details">
+<div class="meeting-panel"><p class="eyebrow">Meet with me</p><h2>Schedule a conversation</h2>{meeting_action}<div class="meeting-context"><h3>What would you like to discuss?</h3><p>Research collaborations, invited talks, and ideas for supporting teaching and learning with AI.</p></div></div>
+<div class="contact-details"><h2>Get in touch</h2><a class="contact-email" href="mailto:{E(PROFILE['email'])}">{E(PROFILE["email"])}</a><p class="contact-guidance">For collaboration inquiries, please include your research question and a link to relevant work.</p><dl><dt>Current appointment</dt><dd>{E(PROFILE["role"])}<br>{E(PROFILE["college"])}<br><a href="{E(PROFILE["institution_url"])}">{E(PROFILE["institution"])}</a></dd><dt>Mentor</dt><dd><a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></dd></dl><div class="contact-profiles"><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="https://github.com/nkzhlee">GitHub <span aria-hidden="true">↗</span></a></div></div>
+</section>'''
+    write("cv/index.html",layout("Contact | Zhaohui Li","Contact Zhaohui Li for research collaborations, speaking invitations, and meetings about AI and education.",body,"/cv/"))
 
 def legacy():
     mapping={"about/":"/","archives/":"/publications/","categories/":"/research/","tags/":"/research/","c/":"/"}

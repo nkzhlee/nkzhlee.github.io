@@ -162,6 +162,33 @@ def main():
 
     home_path = ROOT / "index.html"
     home_source = home_path.read_text(encoding="utf-8")
+    contact_path = ROOT / "cv/index.html"
+    contact_source = contact_path.read_text(encoding="utf-8")
+    contact_main = re.search(r"<main\b[^>]*>(.*?)</main>", contact_source, re.S)
+    profile = json.loads((ROOT / "data/profile.json").read_text(encoding="utf-8"))
+    if "".join(read_page(contact_path).h1_text).strip() != "Contact":
+        problem(contact_path, "Contact page must have a Contact heading")
+    if not contact_main or any(text in contact_main.group(1) for text in (
+        "cv-panel", "Curriculum vitae", "Academic CV", "Open CV", "Download a copy",
+    )):
+        problem(contact_path, "Contact main content must not duplicate the CV panel")
+    contact_refs = [reference for reference, _ in read_page(contact_path).refs]
+    booking_url = profile.get("booking_url", "").strip()
+    if booking_url:
+        if booking_url not in contact_refs:
+            problem(contact_path, "missing configured public booking link")
+        parsed_booking = urlsplit(booking_url)
+        if parsed_booking.scheme != "https" or parsed_booking.hostname not in {
+            "book.ms", "outlook.office.com", "outlook.office365.com",
+            "outlook.cloud.microsoft", "bookings.cloud.microsoft",
+        }:
+            problem(contact_path, "booking link must use an official Microsoft HTTPS host")
+    elif "Request a meeting by email" not in contact_source:
+        problem(contact_path, "unconfigured booking must offer an honest email fallback")
+    if "/files/Zhaohui_Li_CV.pdf" not in [
+        reference for reference, _ in read_page(home_path).refs
+    ]:
+        problem(home_path, "About must retain the direct CV link")
     news_match = re.search(r'<section\b[^>]*\bid="recent-news"[^>]*>(.*?)</section>', home_source, re.S)
     research_match = re.search(r'<section\b[^>]*\bid="research-experience"[^>]*>(.*?)</section>', home_source, re.S)
     if not news_match or not research_match:

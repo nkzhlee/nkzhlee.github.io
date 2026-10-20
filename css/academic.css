@@ -141,9 +141,22 @@ p { margin-bottom: 16px; }
 .service-heading { margin-top: 30px; }
 .service-list article { padding: 22px 0; border-top: 1px solid var(--rule); }
 .service-list p { font-size: .88rem; color: var(--muted); margin-bottom: 7px; }
-.contact-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; }
-.cv-panel { padding: 26px; border: 1px solid var(--rule); align-self: start; }
-.cv-panel p { color: var(--muted); font-size: .88rem; }
+.contact-layout { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 56px; align-items: start; padding-top: 8px; }
+.meeting-panel { padding: 30px; border: 1px solid var(--rule); background: #f8fafb; }
+.meeting-panel h2 { font-size: 1.4rem; margin-bottom: 14px; }
+.meeting-panel p { color: var(--muted); font-size: .9rem; }
+.meeting-panel .eyebrow { margin-bottom: 12px; }
+.meeting-panel .booking-hours { color: var(--ink); font-weight: 600; }
+.booking-action { min-height: 44px; margin-top: 4px; }
+.meeting-panel .meeting-note { font-size: .76rem; margin: 12px 0 0; }
+.meeting-context { border-top: 1px solid var(--rule); margin-top: 26px; padding-top: 22px; }
+.meeting-context h3 { font-size: .9rem; margin-bottom: 8px; }
+.meeting-context p { margin-bottom: 0; }
+.contact-details h2 { font-size: 1.4rem; margin-bottom: 12px; }
+.contact-email { display: inline-block; font-size: 1.05rem; overflow-wrap: anywhere; padding: 5px 0; }
+.contact-details .contact-guidance { margin: 14px 0 24px; }
+.contact-profiles { border-top: 1px solid var(--rule); padding-top: 16px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: .86rem; }
+.contact-profiles a { display: inline-flex; align-items: center; min-height: 44px; }
 .download-link { display: block; font-size: .83rem; margin-top: 18px; }
 .contact-details dl { margin: 0 0 25px; }
 .contact-details dt { font-weight: 600; font-size: .8rem; margin-top: 20px; }
