@@ -116,8 +116,8 @@ def main():
         page = read_page(path)
         source = path.read_text(encoding="utf-8")
         navigation = re.search(r'<nav aria-label="Primary navigation">(.*?)</nav>', source, re.S)
-        if not navigation or "/teaching/" in [reference for reference, _ in Page(navigation.group(1)).refs]:
-            problem(path, "primary navigation must keep Service temporarily unlisted")
+        if not navigation or any(reference in ("/teaching/", "/research/") for reference, _ in Page(navigation.group(1)).refs):
+            problem(path, "primary navigation must keep Research and Service unlisted")
         if "orcid.org" in source or "ORCID" in source:
             problem(path, "ORCID remains after replacement with Google Scholar")
         if "scholar.google.com/citations?user=FuS676UAAAAJ" not in source:
@@ -241,6 +241,14 @@ def main():
         if not initial_news or initial_news.group(1).count("data-news-item=") != 6:
             problem(home_path, "Recent news must show six items before the expandable list")
         news_ids = re.findall(r'data-news-item="([^"]+)"', news)
+        news_dates = json.loads((ROOT / "data/news-dates.json").read_text())
+        if set(news_ids) != set(news_dates) or news.count('<time datetime=') != len(news_ids):
+            problem(home_path, "every news announcement must have dated metadata and a visible date")
+        elif news_ids != sorted(news_ids, key=lambda identifier: news_dates[identifier]["sort_date"], reverse=True):
+            problem(home_path, "news announcements must be newest first")
+        for identifier in ("book-contract", "conference-service"):
+            if news_dates[identifier]["kind"] != "Website update":
+                problem(home_path, "unverified signing/appointment dates must be labeled as website updates")
         if len(news_ids) != len(set(news_ids)):
             problem(home_path, "Recent news has duplicate announcements")
         news_publications = re.findall(r'data-news-publication="([^"]+)"', news)
@@ -261,8 +269,25 @@ def main():
                 problem(home_path, f"Research Experience is missing center funding detail {funding!r}")
         if research.count("Total center funding:") != 2 or research.count("award period:") != 2:
             problem(home_path, "center funding and award periods must be clearly labeled")
+        if research.count("My role: Aug 2024–present.") != 2:
+            problem(home_path, "personal center role dates must be separate from award periods")
     if 'class="wrap section book-update"' in home_source:
         problem(home_path, "book announcement must be a news item, not a standalone section")
+    experience_path = ROOT / "experience/index.html"
+    experience_source = experience_path.read_text()
+    for expected in ('href="#teaching-mentoring"', 'id="teaching-mentoring"', 'five doctoral students',
+                     'three master’s students', 'Proposed course: AI for Education.'):
+        if expected not in experience_source:
+            problem(experience_path, f"missing teaching and mentoring evidence: {expected}")
+    award = "Best Doctoral Dissertation in AI-Related Discipline"
+    cv_source = (ROOT / "cv-source/main.tex").read_text()
+    for path, source in ((home_path, home_source), (experience_path, experience_source), (ROOT / "cv-source/main.tex", cv_source)):
+        if award not in source or "Best Doctoral Dissertation Award" in source:
+            problem(path, "use the specific AI-related dissertation award title consistently")
+    if "Shiyang Jiang" in cv_source or "Shiyang Jiang" in (ROOT / "data/projects.json").read_text():
+        problem(ROOT / "data/projects.json", "collaborator name must be Shiyan Jiang")
+    if "upcoming: AIED 2027 and LAK 2027" not in cv_source:
+        problem(ROOT / "cv-source/main.tex", "CV must distinguish upcoming committee service")
 
     for asset in ("files/Zhaohui_Li_CV.pdf", "files/zhaohui-2026.jpg", "files/publication-map.svg"):
         path = ROOT / asset
@@ -287,6 +312,12 @@ def main():
         page = parsed.get(ROOT / "publications/index.html")
         if page is not None:
             publication_path = ROOT / "publications/index.html"
+            publication_source = publication_path.read_text()
+            disclosure = '<details class="publication-map-disclosure">'
+            if disclosure not in publication_source or publication_source.index(disclosure) < publication_source.index('id="edited-books"'):
+                problem(publication_path, "optional map must be collapsed and appear after all citation groups")
+            if "Venue groupings, not topic totals" not in publication_source or "ASD-HI appears under AIED" not in publication_source:
+                problem(publication_path, "map must explain venue grouping counts prominently")
             if Counter(page.publications) != Counter(visible):
                 problem(ROOT / "publications/index.html", "publication cards do not match visible data records")
             if Counter(page.books) != Counter(book["id"] for book in books):

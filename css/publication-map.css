@@ -1,4 +1,9 @@
 /* Publication landscape: fixed-size count marks, not an area-encoded chart. */
+.publication-map-disclosure > summary { padding-block: 25px; border-top: 1px solid var(--rule); cursor: pointer; color: var(--green); font-weight: 600; }
+.publication-map-disclosure > summary::marker { color: var(--green); }
+.publication-map-disclosure > summary:focus-visible { outline-offset: 5px; }
+.publication-map-disclosure > summary small { display: block; margin-top: 6px; color: var(--muted); font-size: .8rem; font-weight: 400; }
+.publication-map-disclosure .publication-map-section { padding-top: 10px; }
 .publication-map-section { padding-block: 46px 50px; border-bottom: 1px solid var(--rule); }
 .map-heading { display: flex; justify-content: space-between; align-items: end; gap: 35px; }
 .map-heading h2 { margin-bottom: 13px; }
@@ -8,10 +13,14 @@
 .map-download .file-label { display: block; margin-top: 3px; }
 .map-summary { display: flex; flex-wrap: wrap; gap: 12px 30px; padding: 24px 0 19px; margin-bottom: 8px; border-bottom: 1px solid var(--rule); font-size: .77rem; color: var(--muted); }
 .map-summary strong { margin-right: 5px; font: 400 1.8rem/1 var(--serif); color: var(--green); }
+.map-grouping-note { border-left: 3px solid var(--rule); padding: 5px 0 5px 16px; margin: 19px 0 8px; max-width: 940px; }
+.map-grouping-note h3 { margin: 0 0 5px; font-size: .85rem; line-height: 1.4; }
+.map-grouping-note p { margin: 0; color: var(--muted); font-size: .8rem; line-height: 1.65; }
 .map-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; padding-block: 12px 10px; }
 .map-community, .map-venue, .map-topic, .map-cell, .map-chip, .map-mobile-topic { cursor: pointer; color: var(--ink); background: transparent; border: 0; }
 .map-community { display: inline-flex; gap: 8px; align-items: center; padding: 5px 0; font-size: .75rem; line-height: 1.4; text-align: left; }
 .map-community strong { font-size: .75rem; font-weight: 600; color: var(--muted); }
+.map-count-unit { font-weight: 400; }
 .map-swatch { flex: 0 0 8px; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--community-color); }
 .map-community:hover span:not(.map-swatch), .map-community[aria-pressed="true"] span:not(.map-swatch) { text-decoration: underline; text-underline-offset: 4px; }
 .map-instruction { color: var(--muted); font-size: .8rem; line-height: 1.65; margin: 12px 0 24px; max-width: 940px; }

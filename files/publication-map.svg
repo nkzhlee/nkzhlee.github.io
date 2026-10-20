@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1370" height="1440" viewBox="0 0 1370 1440" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="1370" height="1466" viewBox="0 0 1370 1466" role="img" aria-labelledby="title description">
 <title id="title">Zhaohui Li — publication landscape</title>
-<desc id="description">A venue-by-topic matrix. Colors show venue communities. Numbers count works; a work may be tagged with several topics. The figure includes papers, a poster, datasets, and a preprint, not citation counts.</desc>
-<rect width="1370" height="1440" fill="#faf9f5"/>
+<desc id="description">A venue-by-topic matrix. Colors show venue groupings, not all research on a topic. For example, ASD-HI appears under AIED although it concerns autism and special education. Numbers count works; a work may be tagged with several topics. The figure includes papers, a poster, datasets, and a preprint, not citation counts.</desc>
+<rect width="1370" height="1466" fill="#faf9f5"/>
 <style>text{font-family:Arial,Helvetica,sans-serif;fill:#202e2d}.title{font-family:Georgia,serif;font-size:39px}.small{font-size:14px;fill:#52625f}.label{font-size:15px;font-weight:600}.count{fill:white;font-size:15px;font-weight:700;text-anchor:middle;dominant-baseline:central}</style>
 <text x="40" y="55" class="small" letter-spacing="2">ZHAOHUI LI · RESEARCH ACROSS COMMUNITIES</text>
 <text x="40" y="111" class="title">Publication landscape</text>
@@ -236,6 +236,7 @@
 <line x1="1247.7857142857142" x2="1255.7857142857142" y1="1271.0" y2="1271.0" stroke="#c9d2cb"/>
 <line x1="40" y1="1298" x2="1330" y2="1298" stroke="#b6c5bc"/>
 <text x="40" y="1335" class="small">Each number counts works, not citations. Circle size is constant; topic counts overlap and should not be added.</text>
-<text x="40" y="1361" class="small">Colors are curated venue groupings, not exclusive disciplines. Gray denotes repositories for datasets and preprints.</text>
-<text x="40" y="1403" class="small">zhaohuilee.com/publications · Source: current academic CV and publication records</text>
+<text x="40" y="1361" class="small">Colors identify venue groupings, not topic totals. Gray denotes repositories for datasets and preprints.</text>
+<text x="40" y="1387" class="small">For example, ASD-HI appears under AIED (AI for education), although it concerns autism and special education.</text>
+<text x="40" y="1429" class="small">zhaohuilee.com/publications · Source: current academic CV and publication records</text>
 </svg>

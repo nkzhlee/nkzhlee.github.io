@@ -68,8 +68,10 @@ def render_publication_map(publications, taxonomy):
     shared_count = sum(len(gids) > 1 for gids in topic_groups.values())
     community_legend = []
     for gid, group in groups.items():
-        label = f'{_swatch(group["color"])}<span>{escape(group["label"])}</span><strong>{group_counts[gid]}</strong>'
-        community_legend.append(_button(label, community=gid, css="map-community", title=f'{group["label"]}: {group_counts[gid]} works'))
+        count = group_counts[gid]
+        unit = "work" if count == 1 else "works"
+        label = f'{_swatch(group["color"])}<span>{escape(group["label"])}</span><strong>{count} <span class="map-count-unit">{unit}</span></strong>'
+        community_legend.append(_button(label, community=gid, css="map-community", title=f'{group["label"]} venue grouping: {count} {unit}; not a topic total'))
 
     columns = []
     mobile_topics = []
@@ -110,16 +112,17 @@ def render_publication_map(publications, taxonomy):
     }
     json_text = json.dumps(payload, ensure_ascii=False).replace("<", "\\u003c")
     return f'''<section class="wrap publication-map-section" id="publication-map" aria-labelledby="publication-map-heading" data-publication-map>
-<div class="map-heading"><div><p class="eyebrow">Research across communities</p><h2 id="publication-map-heading">Publication landscape</h2><p>Shared questions connect my work across AI, education technology, and special education.</p></div></div>
-<div class="map-summary" aria-label="Publication map summary"><span><strong>{len(records)}</strong> works</span><span><strong>{len(venues)}</strong> venues &amp; repositories</span><span><strong>{shared_count}</strong> themes shared across groups</span></div>
-<div class="map-legend" aria-label="Filter by venue community">{"".join(community_legend)}</div>
+<div class="map-heading"><div><p class="eyebrow">Venues &amp; shared topics</p><h2 id="publication-map-heading">Publication landscape</h2><p>Shared questions connect my work across AI, education technology, and special education.</p></div></div>
+<div class="map-summary" aria-label="Publication map summary"><span><strong>{len(records)}</strong> works</span><span><strong>{len(venues)}</strong> venues &amp; repositories</span><span><strong>{shared_count}</strong> themes shared across venue groups</span></div>
+<div class="map-grouping-note" id="map-grouping-note"><h3>Venue groupings, not topic totals</h3><p>Counts below group works by their publication venue or repository, not by every research area they address. For example, ASD-HI appears under AIED (AI for education), although it concerns autism and special education.</p></div>
+<div class="map-legend" role="group" aria-label="Filter by venue grouping" aria-describedby="map-grouping-note">{"".join(community_legend)}</div>
 <p class="map-instruction">Read across a venue to see its themes; read down a theme to see connections across communities. Select a colored count to explore the work.</p>
 <div class="map-mobile-topics" aria-label="Shared topics">{"".join(mobile_topics)}</div>
-<div class="map-table-wrap"><table class="map-table"><caption class="visually-hidden">Publication counts by venue and topic. Colors identify venue communities; each work may have more than one topic.</caption><thead><tr><th scope="col" class="map-venue-header">Venue / repository<span>Unique works</span></th>{"".join(columns)}</tr></thead><tbody>{"".join(rows)}</tbody></table></div>
+<div class="map-table-wrap"><table class="map-table"><caption class="visually-hidden">Publication counts by venue and topic. Colors identify venue groupings, not all research on a topic; each work may have more than one topic.</caption><thead><tr><th scope="col" class="map-venue-header">Venue / repository<span>Unique works</span></th>{"".join(columns)}</tr></thead><tbody>{"".join(rows)}</tbody></table></div>
 <div class="map-mobile-venues">{"".join(cards)}</div>
 <p class="map-note">Numbers count works, not citations. Each work belongs to one venue or repository and may appear under several topics, so topic counts should not be added. Colors are curated venue groupings, not exclusive disciplinary labels; gray identifies datasets and preprints.</p>
 <div class="map-results" id="map-results" hidden><div class="map-results-heading"><div><p class="eyebrow">Selected connection</p><h3 data-map-result-title></h3></div><button type="button" data-map-clear>Clear selection</button></div><p class="map-result-status" role="status" aria-live="polite" data-map-status></p><ol data-map-result-list></ol></div>
-<noscript><p class="map-note">The figure displays all counts. Interactive selections require JavaScript; the complete publication list follows.</p></noscript>
+<noscript><p class="map-note">The figure displays all counts. Interactive selections require JavaScript; full citations are available in the publication list.</p></noscript>
 <script type="application/json" data-map-data>{json_text}</script>
 </section>'''
 
@@ -138,10 +141,10 @@ def render_publication_map_svg(publications, taxonomy):
     counts = Counter((r["venueId"], topic) for r in records for topic in r["topicIds"])
     width, label_width, row_height, top = 1370, 300, 54, 380
     col_width = (width - label_width - 45) / len(topics)
-    height = top + len(venues) * row_height + 142
+    height = top + len(venues) * row_height + 168
     pieces = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title description">',
               '<title id="title">Zhaohui Li — publication landscape</title>',
-              '<desc id="description">A venue-by-topic matrix. Colors show venue communities. Numbers count works; a work may be tagged with several topics. The figure includes papers, a poster, datasets, and a preprint, not citation counts.</desc>',
+              '<desc id="description">A venue-by-topic matrix. Colors show venue groupings, not all research on a topic. For example, ASD-HI appears under AIED although it concerns autism and special education. Numbers count works; a work may be tagged with several topics. The figure includes papers, a poster, datasets, and a preprint, not citation counts.</desc>',
               f'<rect width="{width}" height="{height}" fill="#faf9f5"/>',
               '<style>text{font-family:Arial,Helvetica,sans-serif;fill:#202e2d}.title{font-family:Georgia,serif;font-size:39px}.small{font-size:14px;fill:#52625f}.label{font-size:15px;font-weight:600}.count{fill:white;font-size:15px;font-weight:700;text-anchor:middle;dominant-baseline:central}</style>',
               '<text x="40" y="55" class="small" letter-spacing="2">ZHAOHUI LI · RESEARCH ACROSS COMMUNITIES</text>',
@@ -186,6 +189,7 @@ def render_publication_map_svg(publications, taxonomy):
     bottom = top + len(venues) * row_height
     pieces.extend([f'<line x1="40" y1="{bottom}" x2="{width - 40}" y2="{bottom}" stroke="#b6c5bc"/>',
                    f'<text x="40" y="{bottom + 37}" class="small">Each number counts works, not citations. Circle size is constant; topic counts overlap and should not be added.</text>',
-                   f'<text x="40" y="{bottom + 63}" class="small">Colors are curated venue groupings, not exclusive disciplines. Gray denotes repositories for datasets and preprints.</text>',
-                   f'<text x="40" y="{bottom + 105}" class="small">zhaohuilee.com/publications · Source: current academic CV and publication records</text>', '</svg>'])
+                   f'<text x="40" y="{bottom + 63}" class="small">Colors identify venue groupings, not topic totals. Gray denotes repositories for datasets and preprints.</text>',
+                   f'<text x="40" y="{bottom + 89}" class="small">For example, ASD-HI appears under AIED (AI for education), although it concerns autism and special education.</text>',
+                   f'<text x="40" y="{bottom + 131}" class="small">zhaohuilee.com/publications · Source: current academic CV and publication records</text>', '</svg>'])
     return '\n'.join(pieces)

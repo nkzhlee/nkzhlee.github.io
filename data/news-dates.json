@@ -1,0 +1,11 @@
+{
+  "book-contract": {"datetime": "2026-10", "sort_date": "2026-10-20", "label": "Oct 2026", "kind": "Website update", "evidence": "Current website update; not a contract-signing date."},
+  "conference-service": {"datetime": "2026-10", "sort_date": "2026-10-20", "label": "Oct 2026", "kind": "Website update", "evidence": "Current website update; not a committee appointment date."},
+  "paicoach-2026": {"datetime": "2026-09-11", "sort_date": "2026-09-11", "label": "Sep 2026", "kind": "Publication", "source": "https://link.springer.com/article/10.1007/s10803-026-07519-6"},
+  "robot-reading-2026": {"datetime": "2026-06-27", "sort_date": "2026-06-27", "label": "Jun 2026", "kind": "Publication", "source": "https://link.springer.com/chapter/10.1007/978-3-032-29788-4_71"},
+  "scieval-2026": {"datetime": "2026-06-27", "sort_date": "2026-06-27", "label": "Jun 2026", "kind": "Publication", "source": "https://link.springer.com/chapter/10.1007/978-3-032-29744-0_36"},
+  "judging-judges-2026": {"datetime": "2026-06-01", "sort_date": "2026-06-01", "label": "Jun 2026", "kind": "Publication", "source": "https://link.springer.com/chapter/10.1007/978-3-032-24807-7_31"},
+  "llm4art-2026": {"datetime": "2026-04-27", "sort_date": "2026-04-27", "label": "Apr–May 2026", "kind": "Conference", "source": "https://www.solaresearch.org/events/lak/lak26/general-call/", "evidence": "Conference dates: April 27–May 1; not a verified proceedings release date."},
+  "aire-aera-2026": {"datetime": "2026-04-10", "sort_date": "2026-04-10", "label": "Apr 2026", "kind": "Presentation", "source": "https://www.aera.net/Portals/38/2026%20Program_Complete.pdf#page=404"},
+  "oar-grant": {"datetime": "2025-10", "sort_date": "2025-10-01", "label": "Oct 2025", "kind": "Funding award", "source": "https://researchautism.org/oaracle-newsletter/evaluating-ai-coaching-for-parent-training/", "evidence": "Funding authorized October 2025; project period is February 2026–December 2027."}
+}

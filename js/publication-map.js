@@ -2,6 +2,19 @@
 (() => {
   const map = document.querySelector('[data-publication-map]');
   if (!map) return;
+  const disclosure = map.closest('details');
+  function revealHashTarget() {
+    if (!disclosure || !location.hash) return;
+    let id;
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch (_) { return; }
+    const target = document.getElementById(id);
+    if (target && (target === map || map.contains(target))) {
+      disclosure.open = true;
+      requestAnimationFrame(() => target.scrollIntoView({block: 'start', behavior: 'auto'}));
+    }
+  }
+  revealHashTarget();
+  window.addEventListener('hashchange', revealHashTarget);
   const dataElement = map.querySelector('[data-map-data]');
   if (!dataElement) return;
   let data;
@@ -42,7 +55,7 @@
       (!venueId || record.venueId === venueId) &&
       (!topicId || record.topicIds.includes(topicId))
     );
-    const label = [communityId && communities.get(communityId).label,
+    const label = [communityId && `${communities.get(communityId).label} — venue grouping`,
       venueId && venues.get(venueId).label, topicId && topics.get(topicId).label].filter(Boolean).join(' × ');
     const ids = new Set(selected.map(record => record.id));
     const selectedVenues = new Set(selected.map(record => record.venueId));
@@ -65,7 +78,7 @@
       list.append(item);
     }
     results.hidden = false;
-    status.textContent = `${selected.length} ${selected.length === 1 ? 'work' : 'works'}. Select a title to jump to its full citation below.`;
+    status.textContent = `${selected.length} ${selected.length === 1 ? 'work' : 'works'}${communityId ? ' in this venue grouping, not a total for the research topic' : ''}. Select a title to jump to its full citation.`;
     map.dispatchEvent(new CustomEvent('publication-map:select', {bubbles: true, detail: {
       ids: [...ids], label, active: true
     }}));

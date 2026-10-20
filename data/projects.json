@@ -163,7 +163,7 @@
       "role": "Research lead",
       "mentor": {"name": "Jinjun Xiong", "url": "https://www.xlab-ub.com/", "affiliation": "The University of Texas at San Antonio", "affiliationUrl": "https://www.utsa.edu/"},
       "collaborators": [
-        {"name": "Shiyang Jiang", "affiliation": "University of Pennsylvania"}
+        {"name": "Shiyan Jiang", "affiliation": "University of Pennsylvania"}
       ],
       "evidence": [
         {"document": "research-statement", "pages": [3, 4]},

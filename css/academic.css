@@ -61,10 +61,14 @@ p { margin-bottom: 16px; }
 .home-notes > .research-background { font-size: 1rem; margin-bottom: 16px; }
 .home-notes .leadership-list { margin-bottom: 0; }
 .leadership-funding { display: block; font-size: .82rem; color: var(--muted); margin-top: 2px; }
+.leadership-role { display: block; font-size: .82rem; margin-top: 3px; }
 .recent-news { padding-block: 22px; border-top: 1px solid var(--rule); }
 .recent-news h2 { font-size: 1.15rem; margin-bottom: 12px; }
 .recent-news ul { margin: 0; padding-left: 20px; font-size: .91rem; }
 .recent-news li { padding: 4px 0; }
+.news-date { display: block; color: var(--muted); font-size: .76rem; margin-bottom: 2px; }
+.teaching-mentoring h3 { margin-top: 24px; }
+.teaching-mentoring .timeline h3 { margin-top: 0; }
 .js .recent-news:not(.is-expanded) .news-extra { display: none; }
 .news-toggle { margin-top: 14px; border: 1px solid var(--rule); border-radius: 3px; padding: 7px 12px; background: transparent; color: var(--green); font-size: .85rem; cursor: pointer; }
 .news-toggle:hover { background: var(--green-soft); }
