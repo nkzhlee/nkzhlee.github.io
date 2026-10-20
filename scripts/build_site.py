@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 STYLE_VERSION = sha256((ROOT / "css/academic.css").read_bytes()).hexdigest()[:10]
 PROFILE = json.loads((ROOT / "data/profile.json").read_text())
 PUBS = json.loads((ROOT / "data/publications.json").read_text()) if (ROOT / "data/publications.json").exists() else []
+EDITED_BOOKS = json.loads((ROOT / "data/edited-books.json").read_text())
 TAXONOMY = json.loads((ROOT / "data/publication-map.json").read_text())
 HIGHLIGHTS = [entry for path in sorted((ROOT / "data").glob("highlights-*.json")) for entry in json.loads(path.read_text())]
 PROJECT_DATA = json.loads((ROOT / "data/projects.json").read_text())
@@ -96,13 +97,30 @@ def pub_card(p, compact=False):
     data = E(" ".join([*(str(p.get(k,"")) for k in ("title","authors","year","venue","type")), *topic_labels]), quote=True)
     return f'<article class="publication" data-publication data-search="{data}" data-type="{E(p["type"])}" data-year="{p.get("year") or ""}" id="{E(p["id"])}"><div class="publication-meta"><span>{p.get("year") or "Undated"}</span><span>{E(p["type"])}</span>{status_badge}</div><div class="publication-body"><h3>{title}</h3><p class="authors">{authors}</p>{author_note}<p class="venue">{E(p["venue"])}</p>{pub_links(p)}</div></article>'
 
+def edited_books():
+    entries = []
+    for book in EDITED_BOOKS:
+        editors = [
+            f'<strong>{E(editor["citationName"])}</strong>' if editor["name"] == "Zhaohui Li" else E(editor["citationName"])
+            for editor in book["editors"]
+        ]
+        byline = ", ".join(editors[:-1]) + ", &amp; " + editors[-1] if len(editors) > 1 else editors[0]
+        title_note = " (provisional title)" if book.get("provisionalTitle") else ""
+        entries.append(f'<article class="edited-book" id="{E(book["id"])}"><p class="small-label">{E(book["role"])}</p><p class="book-citation">{byline} (Eds.). <em>{E(book["title"])}</em>{title_note}. {E(book["publisher"])}. <strong>{E(book["status"])}</strong></p></article>')
+    return '<section class="wrap section" id="edited-books" aria-labelledby="edited-books-heading"><h2 id="edited-books-heading">Edited books</h2>' + "".join(entries) + '</section>'
+
 def home():
+    book = next(book for book in EDITED_BOOKS if book["id"] == "human-centered-ai-special-education")
+    coeditors = [editor["name"] for editor in book["editors"] if editor["name"] != "Zhaohui Li"]
+    coeditor_names = ", ".join(coeditors[:-1]) + ", and " + coeditors[-1]
     body = f'''<section class="profile wrap">
 <figure class="profile-photo"><img src="/files/zhaohui-2026.jpg" alt="Zhaohui Li" width="1280" height="960" fetchpriority="high"></figure>
 <div class="profile-copy"><h1>Zhaohui Li <span class="name-degree">Ph.D.</span></h1>
 <p class="appointment">{E(PROFILE["role"])}<br>{E(PROFILE["college"])}<br><a href="{E(PROFILE["institution_url"])}">{E(PROFILE["institution"])}</a><br><span class="mentor">Mentor: <a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></span></p>
 <p>I develop human-centered AI for education, translating educational goals and expert knowledge into computational tasks. My work combines algorithms, benchmark datasets, and systems for assessment and feedback, instructional material evaluation, early literacy, and parent–child interaction. I collaborate with educators to build reliable, responsible AI that supports teaching, learning, and human connection.</p>
 <div class="profile-links"><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="mailto:{E(PROFILE['email'])}">Email</a><a href="{CV}">CV</a><a href="https://github.com/nkzhlee">GitHub</a></div></div></section>
+<section class="wrap section book-update" aria-labelledby="book-update-heading"><h2 id="book-update-heading">Book in preparation</h2>
+<p>I am co-editing <a href="/publications/#edited-books"><em>{E(book["title"])}</em></a> with {E(coeditor_names)}. The book is under contract with {E(book["publisher"])} and currently in preparation.</p></section>
 <section class="wrap section home-notes" id="research-experience"><h2>Research Experience</h2>
 <p class="research-background">I received my Ph.D. in Computer Science from The Pennsylvania State University in 2024, advised by <a href="https://scholar.google.com/citations?hl=en&amp;user=jb9VOp0AAAAJ">Dr. Rebecca J. Passonneau</a> in the <a href="https://www.nlplab.psu.edu/">Natural Language Processing Lab</a>. My dissertation on automated assessment of STEM reasoning received the Best Doctoral Dissertation Award. Before joining UT San Antonio, I was a postdoctoral associate at the University at Buffalo’s Institute for Artificial Intelligence and Data Science (IAD) and Department of Computer Science and Engineering (CSE), mentored by <a href="{E(PROFILE['mentor_url'])}">Dr. Jinjun Xiong</a>.</p>
 <p>I continue to work with the following centers at the University at Buffalo:</p>{leadership_list()}<ul>
@@ -148,12 +166,13 @@ def publications():
     types=sorted(set(p["type"] for p in visible))
     years=sorted(set(p["year"] for p in visible if p.get("year")),reverse=True)
     controls=f'''<div class="publication-tools"><div class="search-field"><label for="publication-search">Search publications</label><input type="search" id="publication-search" placeholder="Title, author, venue, or keyword" autocomplete="off"></div><div><label for="publication-type">Type</label><select id="publication-type"><option value="">All types</option>{"".join(f'<option>{E(t)}</option>' for t in types)}</select></div><div><label for="publication-year">Year</label><select id="publication-year"><option value="">All years</option>{"".join(f'<option>{y}</option>' for y in years)}</select></div></div><div class="result-toolbar"><p id="publication-count" role="status" aria-live="polite">{len(visible)} publications and research resources</p><button id="reset-filters" type="button">Reset filters</button></div>'''
-    body=intro("Publications","Papers, datasets & preprints","Research in natural language processing, educational assessment, early literacy, and multimodal learning.")
-    body+='<div class="wrap jump-links" aria-label="Publication sections"><a href="#publication-map">Communities & shared topics</a><a href="#publication-list">Full publication list</a><a href="/files/publication-map.svg" download>Download figure (SVG)</a></div>'
+    body=intro("Publications","Edited books, papers & datasets","Books, papers, preprints, and research resources in AI, special education, educational assessment, early literacy, and multimodal learning.")
+    body+='<div class="wrap jump-links" aria-label="Publication sections"><a href="#edited-books">Edited books</a><a href="#publication-map">Communities & shared topics</a><a href="#publication-list">Papers & research resources</a><a href="/files/publication-map.svg" download>Download figure (SVG)</a></div>'
+    body+=edited_books()
     body+=render_publication_map(visible, TAXONOMY)
     write("files/publication-map.svg", render_publication_map_svg(visible, TAXONOMY))
     body+=f'<section class="wrap section publications-section" id="publication-list" aria-labelledby="publication-list-heading"><h2 id="publication-list-heading">Full publication list</h2>{controls}<noscript><p>All publications are shown below. Search and filters require JavaScript.</p></noscript><div class="publication-list">{"".join(pub_card(p) for p in visible)}</div><p id="no-results" hidden>No publications match these filters. Try another term or reset the filters.</p></section>'
-    write("publications/index.html",layout("Publications | Zhaohui Li","Publications by Zhaohui Li, with searchable titles, years, publication types, and links to papers and datasets.",body,"/publications/"))
+    write("publications/index.html",layout("Publications | Zhaohui Li","Edited books and publications by Zhaohui Li, with searchable papers, preprints, and datasets.",body,"/publications/"))
 
 def timeline_row(date,title,org,detail="",extra=""):
     return f'<article class="timeline-row"><p class="timeline-date">{date}</p><div><h3>{title}</h3><p class="organization">{org}</p>{f"<p>{detail}</p>" if detail else ""}{extra}</div></article>'

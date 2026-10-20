@@ -60,6 +60,10 @@ p { margin-bottom: 16px; }
 .home-notes > p { font-size: .91rem; margin-bottom: 8px; }
 .home-notes > .research-background { font-size: 1rem; margin-bottom: 16px; }
 .home-notes .leadership-list { margin-bottom: 12px; }
+.book-update { border-top: 1px solid var(--rule); }
+.book-update h2 { font-size: 1.15rem; margin-bottom: 12px; }
+.book-update p:last-child, .book-citation { margin-bottom: 0; }
+.edited-book + .edited-book { margin-top: 24px; }
 .section-end { margin: 22px 0 0; font-size: .88rem; }
 .page-intro { padding-block: 38px 24px; }
 .page-lead { color: var(--muted); max-width: 800px; margin-bottom: 0; }
