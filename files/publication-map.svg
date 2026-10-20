@@ -159,7 +159,7 @@
 <line x1="1247.7857142857142" x2="1255.7857142857142" y1="893.0" y2="893.0" stroke="#c9d2cb"/>
 <line x1="40" y1="920" x2="1330" y2="920" stroke="#b6c5bc"/>
 <rect x="40" y="933" width="4" height="28" rx="2" fill="#a56213"/>
-<text font-size="14"><tspan x="57" y="952.0">AERA · poster</tspan></text>
+<text font-size="14"><tspan x="57" y="952.0">AERA</tspan></text>
 <text x="275" y="952.0" text-anchor="end" font-size="14" font-weight="700">1</text>
 <line x1="369.2142857142857" x2="377.2142857142857" y1="947.0" y2="947.0" stroke="#c9d2cb"/>
 <circle cx="519.6428571428571" cy="947.0" r="16" fill="#a56213"/><text x="519.6428571428571" y="947.0" class="count">1</text>

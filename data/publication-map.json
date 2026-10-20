@@ -54,7 +54,7 @@
     { "id": "ccir", "label": "CCIR", "longLabel": "China Conference on Information Retrieval", "communityId": "computing" },
     { "id": "cikm", "label": "CIKM", "longLabel": "ACM International Conference on Information and Knowledge Management", "communityId": "computing" },
     { "id": "nlpcc", "label": "NLPCC", "longLabel": "Natural Language Processing and Chinese Computing", "communityId": "computing" },
-    { "id": "aera", "label": "AERA · poster", "longLabel": "American Educational Research Association Annual Meeting, structured poster presentation", "communityId": "education" },
+    { "id": "aera", "label": "AERA", "longLabel": "American Educational Research Association Annual Meeting, structured poster presentation", "communityId": "education" },
     { "id": "bjet", "label": "BJET", "longLabel": "British Journal of Educational Technology", "communityId": "education" },
     { "id": "icots", "label": "ICOTS", "longLabel": "International Conference on Teaching Statistics", "communityId": "education" },
     { "id": "ejas", "label": "European J. Applied Sciences", "longLabel": "European Journal of Applied Sciences", "communityId": "education" },
