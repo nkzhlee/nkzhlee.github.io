@@ -4,32 +4,32 @@
   "note": "Colors indicate curated venue-community groups, not rankings or exclusive discipline classifications. Topics are overlapping, title- and project-based annotations; a work can appear in multiple topic columns. Counts represent works, not citations. Gray rows distinguish dataset and preprint repositories from conference and journal venues.",
   "communities": [
     {
-      "id": "computing",
-      "label": "AI, NLP & information retrieval",
-      "color": "#2864a0",
-      "description": "Computing venues spanning AI, language processing, information retrieval, and machine learning."
-    },
-    {
       "id": "aied",
-      "label": "AI in education & learning analytics",
+      "label": "AI for education",
       "color": "#087f7a",
       "description": "Venues at the intersection of AI, education, and learning analytics."
     },
     {
+      "id": "computing",
+      "label": "AI, NLP & Other ML",
+      "color": "#2864a0",
+      "description": "Computing venues spanning AI, language processing, information retrieval, and machine learning."
+    },
+    {
       "id": "education",
-      "label": "Education & interdisciplinary research",
+      "label": "Education Technology",
       "color": "#a56213",
       "description": "Educational research and technology venues, plus a multidisciplinary applied-sciences journal hosting work on physics assessment."
     },
     {
       "id": "autism",
-      "label": "Autism & developmental research",
+      "label": "Special Education",
       "color": "#885aa8",
       "description": "Autism and developmental research, including AI-supported parent coaching."
     },
     {
       "id": "resources",
-      "label": "Datasets & preprints",
+      "label": "Datasets & Others",
       "color": "#64748b",
       "description": "A neutral repository channel, not a research community or a claim of peer review."
     }
@@ -44,16 +44,16 @@
     { "id": "art-interpretation", "label": "Art interpretation", "description": "Visual-art interpretation and public art education." }
   ],
   "venues": [
+    { "id": "aied", "label": "AIED", "longLabel": "International Conference on Artificial Intelligence in Education, including companion proceedings", "communityId": "aied" },
+    { "id": "aied-workshop", "label": "AIED workshop", "longLabel": "Workshop on Epistemics and Decision-Making in AI-Supported Education at AIED", "communityId": "aied" },
+    { "id": "lak", "label": "LAK", "longLabel": "International Conference on Learning Analytics & Knowledge, companion proceedings", "communityId": "aied" },
+    { "id": "caeai", "label": "Computers & Education: AI", "longLabel": "Computers and Education: Artificial Intelligence", "communityId": "aied" },
     { "id": "emnlp", "label": "EMNLP / Findings", "longLabel": "Empirical Methods in Natural Language Processing, including Findings", "communityId": "computing" },
     { "id": "aaai", "label": "AAAI", "longLabel": "AAAI Conference on Artificial Intelligence", "communityId": "computing" },
     { "id": "computing-conference", "label": "Computing Conference", "longLabel": "Computing Conference", "communityId": "computing" },
     { "id": "ccir", "label": "CCIR", "longLabel": "China Conference on Information Retrieval", "communityId": "computing" },
     { "id": "cikm", "label": "CIKM", "longLabel": "ACM International Conference on Information and Knowledge Management", "communityId": "computing" },
     { "id": "nlpcc", "label": "NLPCC", "longLabel": "Natural Language Processing and Chinese Computing", "communityId": "computing" },
-    { "id": "aied", "label": "AIED", "longLabel": "International Conference on Artificial Intelligence in Education, including companion proceedings", "communityId": "aied" },
-    { "id": "aied-workshop", "label": "AIED workshop", "longLabel": "Workshop on Epistemics and Decision-Making in AI-Supported Education at AIED", "communityId": "aied" },
-    { "id": "lak", "label": "LAK", "longLabel": "International Conference on Learning Analytics & Knowledge, companion proceedings", "communityId": "aied" },
-    { "id": "caeai", "label": "Computers & Education: AI", "longLabel": "Computers and Education: Artificial Intelligence", "communityId": "aied" },
     { "id": "aera", "label": "AERA · poster", "longLabel": "American Educational Research Association Annual Meeting, structured poster presentation", "communityId": "education" },
     { "id": "bjet", "label": "BJET", "longLabel": "British Journal of Educational Technology", "communityId": "education" },
     { "id": "icots", "label": "ICOTS", "longLabel": "International Conference on Teaching Statistics", "communityId": "education" },

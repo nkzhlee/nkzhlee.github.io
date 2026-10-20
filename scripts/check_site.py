@@ -30,6 +30,9 @@ class Page(HTMLParser):
         self.meta = {}
         self.refs = []
         self.publications = []
+        self.books = []
+        self.publication_groups = {}
+        self.h1_text = []
         self.highlights = []
         self.images = []
         self.projects = []
@@ -51,8 +54,16 @@ class Page(HTMLParser):
         for attribute in ("href", "src"):
             if attrs.get(attribute) is not None:
                 self.refs.append((attrs[attribute], self.getpos()[0]))
-        if "data-publication" in attrs:
+        if "data-publication-group" in attrs:
+            self.publication_groups[element_id] = []
+        if "data-book" in attrs:
+            self.books.append(element_id)
+        elif "data-publication" in attrs:
             self.publications.append(element_id)
+        if "data-publication" in attrs:
+            group = next((ancestor for _, ancestor in reversed(self.stack) if ancestor in self.publication_groups), None)
+            if group:
+                self.publication_groups[group].append(element_id)
         if "data-highlight" in attrs:
             self.highlights.append(element_id)
         if "data-project" in attrs:
@@ -76,6 +87,8 @@ class Page(HTMLParser):
                 break
 
     def handle_data(self, text):
+        if any(tag == "h1" for tag, _ in self.stack):
+            self.h1_text.append(text)
         if any(tag == "title" for tag, _ in self.stack):
             self.title.append(text)
         if any(element_id == "publication-count" for _, element_id in self.stack):
@@ -180,7 +193,7 @@ def main():
         path = ROOT / asset
         if not path.is_file() or path.stat().st_size == 0:
             problem(path, "missing or empty required asset")
-        elif path not in linked_files:
+        elif path not in linked_files and asset != "files/publication-map.svg":
             problem(path, "required asset is not linked from a primary page")
 
     data_path = ROOT / "data/publications.json"
@@ -195,15 +208,47 @@ def main():
         if duplicates:
             problem(data_path, f"duplicate publication IDs: {', '.join(duplicates)}")
         visible = [p["id"] for p in publications if p.get("status", "") != "Status to confirm"]
+        books = json.loads((ROOT / "data/edited-books.json").read_text(encoding="utf-8"))
         page = parsed.get(ROOT / "publications/index.html")
         if page is not None:
+            publication_path = ROOT / "publications/index.html"
             if Counter(page.publications) != Counter(visible):
                 problem(ROOT / "publications/index.html", "publication cards do not match visible data records")
+            if Counter(page.books) != Counter(book["id"] for book in books):
+                problem(publication_path, "edited books do not match book data")
             count = re.match(r"\s*(\d+)\b", "".join(page.count_text))
-            if not count or int(count.group(1)) != len(visible):
-                problem(ROOT / "publications/index.html", f"displayed count must be {len(visible)}")
+            expected_count = len(visible) + len(books)
+            if not count or int(count.group(1)) != expected_count:
+                problem(publication_path, f"displayed count must be {expected_count}")
+            if "".join(page.h1_text).strip() != "Publications":
+                problem(publication_path, "page heading must be Publications")
+            expected_groups = {
+                "conference-publications": {"conference", "workshop", "poster"},
+                "journal-publications": {"journal"},
+                "data-publications": {"dataset", "preprint"},
+                "edited-books": {"book"},
+            }
+            if list(page.publication_groups) != list(expected_groups):
+                problem(publication_path, "publication sections must be ordered Conference, Journal, Data, Book")
+            for group, allowed_types in expected_groups.items():
+                expected = [book["id"] for book in books] if group == "edited-books" else [
+                    p["id"] for p in sorted(publications, key=lambda p: p.get("year") or 0, reverse=True)
+                    if p["id"] in visible and p["type"] in allowed_types
+                ]
+                if page.publication_groups.get(group) != expected:
+                    problem(publication_path, f"wrong records or year order in {group}")
+            if any(urlsplit(reference).path == "/files/publication-map.svg" for reference, _ in page.refs):
+                problem(publication_path, "SVG download link must not be displayed")
         taxonomy_path = ROOT / "data/publication-map.json"
         taxonomy = json.loads(taxonomy_path.read_text(encoding="utf-8"))
+        expected_labels = [
+            "AI for education", "AI, NLP & Other ML", "Education Technology",
+            "Special Education", "Datasets & Others",
+        ]
+        if [community["label"] for community in taxonomy["communities"]] != expected_labels:
+            problem(taxonomy_path, "community labels or display order do not match requested categories")
+        if [venue["id"] for venue in taxonomy["venues"][:4]] != ["aied", "aied-workshop", "lak", "caeai"]:
+            problem(taxonomy_path, "AI for education venues must come first, starting with AIED")
         expected_figure = render_publication_map_svg([p for p in publications if p["id"] in visible], taxonomy)
         figure_path = ROOT / "files/publication-map.svg"
         figure_source = figure_path.read_text(encoding="utf-8")

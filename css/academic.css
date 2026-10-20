@@ -100,11 +100,15 @@ p { margin-bottom: 16px; }
 .resource-list { padding-left: 20px; margin-bottom: 0; }
 .resource-list li { padding: 6px 0; font-size: .9rem; }
 .publication-list { border-top: 1px solid var(--rule); }
+.publication-group { margin-top: 32px; }
+.publication-group > h3 { font-size: 1.2rem; margin-bottom: 16px; }
+.publication-group-note { color: var(--muted); font-size: .82rem; }
+.publication-group .edited-book { border-top: 1px solid var(--rule); padding-block: 23px; font-size: .9rem; }
 .publication { display: grid; grid-template-columns: 95px minmax(0,1fr); gap: 26px; padding: 23px 0; border-bottom: 1px solid var(--rule); }
 .publication-meta { display: flex; flex-direction: column; gap: 5px; align-items: start; font-size: .73rem; color: var(--muted); line-height: 1.5; padding-top: 4px; }
 .publication-meta > span:first-child { font-size: .9rem; color: var(--ink); }
 .publication-meta .status { font-size: .7rem; }
-.publication h3 { font-size: 1.06rem; line-height: 1.5; margin-bottom: 8px; }
+.publication h3, .publication h4 { font-size: 1.06rem; font-weight: 600; line-height: 1.5; margin: 0 0 8px; }
 .publication p { margin-bottom: 6px; }
 .venue { font-size: .81rem; color: var(--muted); font-style: italic; }
 .publication-links { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 10px; font-size: .79rem; }

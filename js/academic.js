@@ -36,6 +36,7 @@ if (search) {
   const type = document.querySelector('#publication-type');
   const year = document.querySelector('#publication-year');
   const records = [...document.querySelectorAll('[data-publication]')];
+  const groups = [...document.querySelectorAll('[data-publication-group]')];
   const count = document.querySelector('#publication-count');
   const noResults = document.querySelector('#no-results');
   const normalize = (value) => value.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
@@ -49,14 +50,23 @@ if (search) {
       record.hidden = !matches;
       shown += Number(matches);
     }
+    for (const group of groups) {
+      group.hidden = ![...group.querySelectorAll('[data-publication]')].some(record => !record.hidden);
+    }
     count.textContent = shown + (shown === 1 ? ' result' : ' results') + ' of ' + records.length;
     noResults.hidden = shown !== 0;
   }
   search.addEventListener('input', filter);
   type.addEventListener('change', filter);
   year.addEventListener('change', filter);
+  function resetFilters() {
+    search.value = ''; type.value = ''; year.value = ''; filter();
+  }
   document.querySelector('#reset-filters').addEventListener('click', () => {
-    search.value = ''; type.value = ''; year.value = ''; filter(); search.focus();
+    resetFilters(); search.focus();
+  });
+  document.querySelectorAll('[data-publication-jump]').forEach(link => {
+    link.addEventListener('click', resetFilters);
   });
   filter();
 }

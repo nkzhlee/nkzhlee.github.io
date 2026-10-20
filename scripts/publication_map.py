@@ -110,7 +110,7 @@ def render_publication_map(publications, taxonomy):
     }
     json_text = json.dumps(payload, ensure_ascii=False).replace("<", "\\u003c")
     return f'''<section class="wrap publication-map-section" id="publication-map" aria-labelledby="publication-map-heading" data-publication-map>
-<div class="map-heading"><div><p class="eyebrow">Research across communities</p><h2 id="publication-map-heading">Publication landscape</h2><p>Shared questions connect my work across AI, education, and developmental research.</p></div><a class="map-download" href="/files/publication-map.svg" download>Download figure <span class="file-label">SVG ↓</span></a></div>
+<div class="map-heading"><div><p class="eyebrow">Research across communities</p><h2 id="publication-map-heading">Publication landscape</h2><p>Shared questions connect my work across AI, education technology, and special education.</p></div></div>
 <div class="map-summary" aria-label="Publication map summary"><span><strong>{len(records)}</strong> works</span><span><strong>{len(venues)}</strong> venues &amp; repositories</span><span><strong>{shared_count}</strong> themes shared across groups</span></div>
 <div class="map-legend" aria-label="Filter by venue community">{"".join(community_legend)}</div>
 <p class="map-instruction">Read across a venue to see its themes; read down a theme to see connections across communities. Select a colored count to explore the work.</p>

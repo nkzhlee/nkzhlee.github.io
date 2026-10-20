@@ -9,6 +9,7 @@ from project_groups import render_projects
 
 ROOT = Path(__file__).resolve().parents[1]
 STYLE_VERSION = sha256((ROOT / "css/academic.css").read_bytes()).hexdigest()[:10]
+SCRIPT_VERSION = sha256((ROOT / "js/academic.js").read_bytes()).hexdigest()[:10]
 PROFILE = json.loads((ROOT / "data/profile.json").read_text())
 PUBS = json.loads((ROOT / "data/publications.json").read_text()) if (ROOT / "data/publications.json").exists() else []
 EDITED_BOOKS = json.loads((ROOT / "data/edited-books.json").read_text())
@@ -77,7 +78,7 @@ def layout(title, description, body, route="/"):
 <link rel="canonical" href="{BASE}{route}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/css/academic.css?v={STYLE_VERSION}">
-<script src="/js/academic.js" defer></script>
+<script src="/js/academic.js?v={SCRIPT_VERSION}" defer></script>
 <script src="/js/highlights.js" defer></script>
 {map_assets}
 {project_assets}
@@ -103,7 +104,7 @@ def pub_links(p):
         links += f'<a href="/projects/#{E(project["id"], quote=True)}">Project</a>'
     return f'<div class="publication-links">{links}</div>' if links else ""
 
-def pub_card(p, compact=False):
+def pub_card(p, compact=False, heading_tag="h3"):
     url = p.get("links", [{}])[0].get("url") if p.get("links") else None
     title = f'<a href="{E(url)}">{E(p["title"])}</a>' if url else E(p["title"])
     authors = E(p["authors"])
@@ -115,7 +116,7 @@ def pub_card(p, compact=False):
     classification = next((entry for entry in TAXONOMY["publications"] if entry["id"] == p["id"]), {})
     topic_labels = [topic["label"] for topic in TAXONOMY["topics"] if topic["id"] in classification.get("topicIds", [])]
     data = E(" ".join([*(str(p.get(k,"")) for k in ("title","authors","year","venue","type")), *topic_labels]), quote=True)
-    return f'<article class="publication" data-publication data-search="{data}" data-type="{E(p["type"])}" data-year="{p.get("year") or ""}" id="{E(p["id"])}"><div class="publication-meta"><span>{p.get("year") or "Undated"}</span><span>{E(p["type"])}</span>{status_badge}</div><div class="publication-body"><h3>{title}</h3><p class="authors">{authors}</p>{author_note}<p class="venue">{E(p["venue"])}</p>{pub_links(p)}</div></article>'
+    return f'<article class="publication" data-publication data-search="{data}" data-type="{E(p["type"])}" data-year="{p.get("year") or ""}" id="{E(p["id"])}"><div class="publication-meta"><span>{p.get("year") or "Undated"}</span><span>{E(p["type"])}</span>{status_badge}</div><div class="publication-body"><{heading_tag}>{title}</{heading_tag}><p class="authors">{authors}</p>{author_note}<p class="venue">{E(p["venue"])}</p>{pub_links(p)}</div></article>'
 
 def edited_books():
     entries = []
@@ -126,8 +127,13 @@ def edited_books():
         ]
         byline = ", ".join(editors[:-1]) + ", &amp; " + editors[-1] if len(editors) > 1 else editors[0]
         title_note = " (provisional title)" if book.get("provisionalTitle") else ""
-        entries.append(f'<article class="edited-book" id="{E(book["id"])}"><p class="small-label">{E(book["role"])}</p><p class="book-citation">{byline} (Eds.). <em>{E(book["title"])}</em>{title_note}. {E(book["publisher"])}. <strong>{E(book["status"])}</strong></p></article>')
-    return '<section class="wrap section" id="edited-books" aria-labelledby="edited-books-heading"><h2 id="edited-books-heading">Edited books</h2>' + "".join(entries) + '</section>'
+        search_text = E(" ".join([
+            book["title"], book["publisher"], book["status"], book["role"], "book",
+            *(editor["name"] for editor in book["editors"]),
+            *(editor["citationName"] for editor in book["editors"]),
+        ]), quote=True)
+        entries.append(f'<article class="edited-book" id="{E(book["id"])}" data-publication data-book data-type="book" data-year="" data-search="{search_text}"><p class="small-label">{E(book["role"])}</p><p class="book-citation">{byline} (Eds.). <em>{E(book["title"])}</em>{title_note}. {E(book["publisher"])}. <strong>{E(book["status"])}</strong></p></article>')
+    return '<section class="publication-group" id="edited-books" aria-labelledby="edited-books-heading" data-publication-group><h3 id="edited-books-heading">Books</h3>' + "".join(entries) + '</section>'
 
 def home():
     book = next(book for book in EDITED_BOOKS if book["id"] == "human-centered-ai-special-education")
@@ -183,15 +189,24 @@ def projects():
 
 def publications():
     visible=[p for p in PUBS if p.get("status","")!="Status to confirm"]
-    types=sorted(set(p["type"] for p in visible))
+    types=sorted(set(p["type"] for p in visible) | {"book"})
     years=sorted(set(p["year"] for p in visible if p.get("year")),reverse=True)
-    controls=f'''<div class="publication-tools"><div class="search-field"><label for="publication-search">Search publications</label><input type="search" id="publication-search" placeholder="Title, author, venue, or keyword" autocomplete="off"></div><div><label for="publication-type">Type</label><select id="publication-type"><option value="">All types</option>{"".join(f'<option>{E(t)}</option>' for t in types)}</select></div><div><label for="publication-year">Year</label><select id="publication-year"><option value="">All years</option>{"".join(f'<option>{y}</option>' for y in years)}</select></div></div><div class="result-toolbar"><p id="publication-count" role="status" aria-live="polite">{len(visible)} publications and research resources</p><button id="reset-filters" type="button">Reset filters</button></div>'''
-    body=intro("Publications","Edited books, papers & datasets","Books, papers, preprints, and research resources in AI, special education, educational assessment, early literacy, and multimodal learning.")
-    body+='<div class="wrap jump-links" aria-label="Publication sections"><a href="#edited-books">Edited books</a><a href="#publication-map">Communities & shared topics</a><a href="#publication-list">Papers & research resources</a><a href="/files/publication-map.svg" download>Download figure (SVG)</a></div>'
-    body+=edited_books()
+    controls=f'''<div class="publication-tools"><div class="search-field"><label for="publication-search">Search publications</label><input type="search" id="publication-search" placeholder="Title, author, venue, or keyword" autocomplete="off"></div><div><label for="publication-type">Type</label><select id="publication-type"><option value="">All types</option>{"".join(f'<option value="{E(t)}">{E(t.capitalize())}</option>' for t in types)}</select></div><div><label for="publication-year">Year</label><select id="publication-year"><option value="">All years</option>{"".join(f'<option>{y}</option>' for y in years)}</select></div></div><div class="result-toolbar"><p id="publication-count" role="status" aria-live="polite">{len(visible) + len(EDITED_BOOKS)} publications and research resources</p><button id="reset-filters" type="button">Reset filters</button></div>'''
+    body=intro("Publications","Publications","Conference and journal papers, datasets, preprints, and edited books in AI and education.")
+    body+='<div class="wrap jump-links" aria-label="Publication sections"><a href="#conference-publications" data-publication-jump>Conference</a><a href="#journal-publications" data-publication-jump>Journal</a><a href="#data-publications" data-publication-jump>Data</a><a href="#edited-books" data-publication-jump>Book</a></div>'
     body+=render_publication_map(visible, TAXONOMY)
     write("files/publication-map.svg", render_publication_map_svg(visible, TAXONOMY))
-    body+=f'<section class="wrap section publications-section" id="publication-list" aria-labelledby="publication-list-heading"><h2 id="publication-list-heading">Full publication list</h2>{controls}<noscript><p>All publications are shown below. Search and filters require JavaScript.</p></noscript><div class="publication-list">{"".join(pub_card(p) for p in visible)}</div><p id="no-results" hidden>No publications match these filters. Try another term or reset the filters.</p></section>'
+    categories = [
+        ("conference-publications", "Conference papers, workshops & posters", {"conference", "workshop", "poster"}),
+        ("journal-publications", "Journal articles", {"journal"}),
+        ("data-publications", "Data & other research resources", {"dataset", "preprint"}),
+    ]
+    groups = []
+    for identifier, title, category_types in categories:
+        records = sorted((p for p in visible if p["type"] in category_types), key=lambda p: p.get("year") or 0, reverse=True)
+        note = '<p class="publication-group-note">Datasets and preprints are labeled separately below; preprints are not peer-reviewed publications.</p>' if identifier == "data-publications" else ""
+        groups.append(f'<section class="publication-group" id="{identifier}" aria-labelledby="{identifier}-heading" data-publication-group><h3 id="{identifier}-heading">{E(title)}</h3>{note}<div class="publication-list">{"".join(pub_card(p, heading_tag="h4") for p in records)}</div></section>')
+    body+=f'<section class="wrap section publications-section" id="publication-list" aria-labelledby="publication-list-heading"><h2 id="publication-list-heading">Publications by type</h2>{controls}<noscript><p>All publications are shown below. Search and filters require JavaScript.</p></noscript>{"".join(groups)}{edited_books()}<p id="no-results" hidden>No publications match these filters. Try another term or reset the filters.</p></section>'
     write("publications/index.html",layout("Publications | Zhaohui Li","Edited books and publications by Zhaohui Li, with searchable papers, preprints, and datasets.",body,"/publications/"))
 
 def timeline_row(date,title,org,detail="",extra=""):
