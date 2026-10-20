@@ -115,6 +115,9 @@ def main():
             continue
         page = read_page(path)
         source = path.read_text(encoding="utf-8")
+        navigation = re.search(r'<nav aria-label="Primary navigation">(.*?)</nav>', source, re.S)
+        if not navigation or "/teaching/" in [reference for reference, _ in Page(navigation.group(1)).refs]:
+            problem(path, "primary navigation must keep Service temporarily unlisted")
         if "orcid.org" in source or "ORCID" in source:
             problem(path, "ORCID remains after replacement with Google Scholar")
         if "scholar.google.com/citations?user=FuS676UAAAAJ" not in source:

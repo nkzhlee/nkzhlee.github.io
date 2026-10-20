@@ -21,7 +21,8 @@ PROJECT_BY_PAPER = {identifier: project for project in PROJECT_DATA["projects"] 
 BASE = PROFILE["base_url"].rstrip("/")
 CV = "/files/Zhaohui_Li_CV.pdf"
 E = escape
-NAV = [("/", "About"), ("/projects/", "Projects"), ("/research/", "Research"), ("/publications/", "Publications"), ("/experience/", "Experience"), ("/teaching/", "Service"), ("/cv/", "Contact")]
+# Service is temporarily unlisted; keep teaching() and its page intact for restoration.
+NAV = [("/", "About"), ("/projects/", "Projects"), ("/research/", "Research"), ("/publications/", "Publications"), ("/experience/", "Experience"), ("/cv/", "Contact")]
 AI_LEADERSHIP = [
     {
         "name": "National AI Institute for Exceptional Education (AI4ExceptionalEd)",
