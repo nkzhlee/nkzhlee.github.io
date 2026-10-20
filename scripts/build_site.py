@@ -1,12 +1,14 @@
 """Build the static academic site. Run with Python 3; no third-party dependencies."""
 from pathlib import Path
 from html import escape
+from hashlib import sha256
 import json
 from publication_map import render_publication_map, render_publication_map_svg
 from highlights import render_highlights
 from project_groups import render_projects
 
 ROOT = Path(__file__).resolve().parents[1]
+STYLE_VERSION = sha256((ROOT / "css/academic.css").read_bytes()).hexdigest()[:10]
 PROFILE = json.loads((ROOT / "data/profile.json").read_text())
 PUBS = json.loads((ROOT / "data/publications.json").read_text()) if (ROOT / "data/publications.json").exists() else []
 TAXONOMY = json.loads((ROOT / "data/publication-map.json").read_text())
@@ -53,7 +55,7 @@ def layout(title, description, body, route="/"):
 <title>{E(title)}</title>
 <link rel="canonical" href="{BASE}{route}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/css/academic.css">
+<link rel="stylesheet" href="/css/academic.css?v={STYLE_VERSION}">
 <script src="/js/academic.js" defer></script>
 <script src="/js/highlights.js" defer></script>
 {map_assets}
