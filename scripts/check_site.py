@@ -166,6 +166,13 @@ def main():
     contact_source = contact_path.read_text(encoding="utf-8")
     contact_main = re.search(r"<main\b[^>]*>(.*?)</main>", contact_source, re.S)
     profile = json.loads((ROOT / "data/profile.json").read_text(encoding="utf-8"))
+    appointment = re.search(r'<p class="appointment">(.*?)</p>', home_source, re.S)
+    if not appointment:
+        problem(home_path, "missing homepage appointment")
+    else:
+        appointment_refs = [reference for reference, _ in Page(appointment.group(1)).refs]
+        if profile["college_url"] not in appointment_refs or profile["institution_url"] in appointment_refs:
+            problem(home_path, "homepage appointment must link to the college instead of the university")
     if "".join(read_page(contact_path).h1_text).strip() != "Contact":
         problem(contact_path, "Contact page must have a Contact heading")
     if not contact_main or any(text in contact_main.group(1) for text in (

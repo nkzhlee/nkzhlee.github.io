@@ -169,7 +169,7 @@ def home():
     body = f'''<section class="profile wrap">
 <figure class="profile-photo"><img src="/files/zhaohui-2026.jpg" alt="Zhaohui Li" width="1280" height="960" fetchpriority="high"></figure>
 <div class="profile-copy"><h1>Zhaohui Li <span class="name-degree">Ph.D.</span></h1>
-<p class="appointment">{E(PROFILE["role"])}<br>{E(PROFILE["college"])}<br><a href="{E(PROFILE["institution_url"])}">{E(PROFILE["institution"])}</a><br><span class="mentor">Mentor: <a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></span></p>
+<p class="appointment">{E(PROFILE["role"])}<br><a href="{E(PROFILE["college_url"], quote=True)}">{E(PROFILE["college"])}</a><br>{E(PROFILE["institution"])}<br><span class="mentor">Mentor: <a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></span></p>
 <p>I develop human-centered AI for education, translating educational goals and expert knowledge into computational tasks. My work combines algorithms, benchmark datasets, and systems for assessment and feedback, instructional material evaluation, early literacy, and parent–child interaction. I collaborate with educators to build reliable, responsible AI that supports teaching, learning, and human connection.</p>
 <div class="profile-links"><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="mailto:{E(PROFILE['email'])}">Email</a><a href="{CV}">CV</a><a href="https://github.com/nkzhlee">GitHub</a><a href="{E(PROFILE['linkedin_url'], quote=True)}">LinkedIn</a>{booking_link}</div></div></section>
 {recent_news()}
