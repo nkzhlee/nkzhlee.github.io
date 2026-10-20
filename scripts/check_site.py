@@ -173,11 +173,16 @@ def main():
     )):
         problem(contact_path, "Contact main content must not duplicate the CV panel")
     contact_refs = [reference for reference, _ in read_page(contact_path).refs]
+    profile_links = re.search(r'<div class="profile-links">(.*?)</div>', home_source, re.S)
+    if not profile_links or (
+        profile["linkedin_url"] not in [reference for reference, _ in Page(profile_links.group(1)).refs]
+        or ">LinkedIn</a>" not in profile_links.group(1)
+    ):
+        problem(home_path, "profile links must include the configured LinkedIn profile")
     booking_url = profile.get("booking_url", "").strip()
     if booking_url:
         if booking_url not in contact_refs:
             problem(contact_path, "missing configured public booking link")
-        profile_links = re.search(r'<div class="profile-links">(.*?)</div>', home_source, re.S)
         if not profile_links or (
             booking_url not in [reference for reference, _ in Page(profile_links.group(1)).refs]
             or "Book a meeting with me" not in profile_links.group(1)
