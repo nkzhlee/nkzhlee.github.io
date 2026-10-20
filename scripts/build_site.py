@@ -88,7 +88,7 @@ def layout(title, description, body, route="/"):
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="wrap header-inner">
-<a class="wordmark" href="/" aria-label="Zhaohui Li, home" title="AI for the next generation"><img class="personal-icon" src="/files/zhaohui-personal-icon.svg" alt="A child and a friendly AI companion sharing a book in a little world" width="56" height="56"><span class="wordmark-copy"><span>Zhaohui Li</span><span class="wordmark-principle">AI for the next generation</span></span></a>
+<a class="wordmark" href="/" aria-label="Zhaohui Li, home" title="AI for the Next Generation"><img class="personal-icon" src="/files/zhaohui-personal-icon.svg" alt="A child and a friendly AI companion sharing a book in a little world" width="56" height="56"><span class="wordmark-copy"><span>Zhaohui Li</span><span class="wordmark-principle">AI for the Next Generation</span></span></a>
 <nav aria-label="Primary navigation">{nav}</nav>
 </div></header>
 <main id="main">{body}</main>
@@ -165,7 +165,7 @@ def recent_news():
 
 def home():
     booking_url = PROFILE.get("booking_url", "").strip()
-    booking_link = f'<a href="{E(booking_url, quote=True)}" target="_blank" rel="noopener noreferrer">Book a meeting with me</a>' if booking_url else ""
+    booking_link = f'<a href="{E(booking_url, quote=True)}" target="_blank" rel="noopener noreferrer">Book a Meeting</a>' if booking_url else ""
     body = f'''<section class="profile wrap">
 <figure class="profile-photo"><img src="/files/zhaohui-2026.jpg" alt="Zhaohui Li" width="1280" height="960" fetchpriority="high"></figure>
 <div class="profile-copy"><h1>Zhaohui Li <span class="name-degree">Ph.D.</span></h1>

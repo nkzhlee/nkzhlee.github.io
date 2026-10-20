@@ -119,6 +119,11 @@ def main():
             problem(path, "ORCID remains after replacement with Google Scholar")
         if "scholar.google.com/citations?user=FuS676UAAAAJ" not in source:
             problem(path, "missing Google Scholar profile link")
+        if any(text not in source for text in (
+            'title="AI for the Next Generation"',
+            '<span class="wordmark-principle">AI for the Next Generation</span>',
+        )):
+            problem(path, "header tagline must be AI for the Next Generation")
         for image in page.images:
             if not image.get("alt", "").strip():
                 problem(path, f"missing descriptive image alt text: {image.get('src')}")
@@ -192,9 +197,9 @@ def main():
             problem(contact_path, "missing configured public booking link")
         if not profile_links or (
             booking_url not in [reference for reference, _ in Page(profile_links.group(1)).refs]
-            or "Book a meeting with me" not in profile_links.group(1)
+            or ">Book a Meeting</a>" not in profile_links.group(1)
         ):
-            problem(home_path, "profile links must include Book a meeting with me using the configured public booking URL")
+            problem(home_path, "profile links must include Book a Meeting using the configured public booking URL")
         parsed_booking = urlsplit(booking_url)
         if parsed_booking.scheme != "https" or parsed_booking.hostname not in {
             "book.ms", "outlook.office.com", "outlook.office365.com",
