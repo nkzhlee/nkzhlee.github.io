@@ -177,6 +177,12 @@ def main():
     if booking_url:
         if booking_url not in contact_refs:
             problem(contact_path, "missing configured public booking link")
+        profile_links = re.search(r'<div class="profile-links">(.*?)</div>', home_source, re.S)
+        if not profile_links or (
+            booking_url not in [reference for reference, _ in Page(profile_links.group(1)).refs]
+            or "Book a meeting with me" not in profile_links.group(1)
+        ):
+            problem(home_path, "profile links must include Book a meeting with me using the configured public booking URL")
         parsed_booking = urlsplit(booking_url)
         if parsed_booking.scheme != "https" or parsed_booking.hostname not in {
             "book.ms", "outlook.office.com", "outlook.office365.com",

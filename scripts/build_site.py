@@ -164,12 +164,14 @@ def recent_news():
 </section>'''
 
 def home():
+    booking_url = PROFILE.get("booking_url", "").strip()
+    booking_link = f'<a href="{E(booking_url, quote=True)}" target="_blank" rel="noopener noreferrer">Book a meeting with me</a>' if booking_url else ""
     body = f'''<section class="profile wrap">
 <figure class="profile-photo"><img src="/files/zhaohui-2026.jpg" alt="Zhaohui Li" width="1280" height="960" fetchpriority="high"></figure>
 <div class="profile-copy"><h1>Zhaohui Li <span class="name-degree">Ph.D.</span></h1>
 <p class="appointment">{E(PROFILE["role"])}<br>{E(PROFILE["college"])}<br><a href="{E(PROFILE["institution_url"])}">{E(PROFILE["institution"])}</a><br><span class="mentor">Mentor: <a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></span></p>
 <p>I develop human-centered AI for education, translating educational goals and expert knowledge into computational tasks. My work combines algorithms, benchmark datasets, and systems for assessment and feedback, instructional material evaluation, early literacy, and parent–child interaction. I collaborate with educators to build reliable, responsible AI that supports teaching, learning, and human connection.</p>
-<div class="profile-links"><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="mailto:{E(PROFILE['email'])}">Email</a><a href="{CV}">CV</a><a href="https://github.com/nkzhlee">GitHub</a></div></div></section>
+<div class="profile-links"><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="mailto:{E(PROFILE['email'])}">Email</a><a href="{CV}">CV</a><a href="https://github.com/nkzhlee">GitHub</a>{booking_link}</div></div></section>
 <section class="wrap section home-notes" id="research-experience"><h2>Research Experience</h2>
 <p class="research-background">I received my Ph.D. in Computer Science from The Pennsylvania State University in 2024, advised by <a href="https://scholar.google.com/citations?hl=en&amp;user=jb9VOp0AAAAJ">Dr. Rebecca J. Passonneau</a> in the <a href="https://www.nlplab.psu.edu/">Natural Language Processing Lab</a>. My dissertation on automated assessment of STEM reasoning received the Best Doctoral Dissertation Award. Before joining UT San Antonio, I was a postdoctoral associate at the University at Buffalo’s Institute for Artificial Intelligence and Data Science (IAD) and Department of Computer Science and Engineering (CSE), mentored by <a href="{E(PROFILE['mentor_url'])}">Dr. Jinjun Xiong</a>.</p>
 <p>I continue to work with the following centers at the University at Buffalo:</p>{leadership_list()}</section>
