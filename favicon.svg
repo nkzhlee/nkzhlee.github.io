@@ -1,1 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#143f3e"/><text x="32" y="43" text-anchor="middle" font-family="Georgia,serif" font-size="36" fill="#fff">ZL</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <circle cx="48" cy="48" r="44" fill="#edf6f0"/>
+  <g stroke="#2d5361" stroke-width="4" stroke-linejoin="round">
+    <circle cx="29" cy="36" r="14" fill="#f4cfac"/>
+    <rect x="52" y="22" width="29" height="28" rx="9" fill="#c5e4ec"/>
+    <path d="M12 60q18-6 36 2 18-8 36-2v21q-18-6-36 2-18-8-36-2Z" fill="#fffaf0"/>
+    <path d="M48 62q18-8 36-2v21q-18-6-36 2Z" fill="#b9d9bf"/>
+  </g>
+  <g fill="#2d5361">
+    <circle cx="24" cy="35" r="2"/><circle cx="34" cy="35" r="2"/>
+    <circle cx="61" cy="35" r="2"/><circle cx="72" cy="35" r="2"/>
+  </g>
+</svg>

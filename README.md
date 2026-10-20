@@ -16,6 +16,7 @@ The site has no build dependencies beyond Python 3.
 - Edit publication communities, venue groups, and overlapping topic tags in `data/publication-map.json`. Every publication must appear exactly once in this mapping; each can have multiple topics. The map distinguishes repositories from conference/journal communities and counts works, not citations.
 - Edit page content and templates in `scripts/build_site.py`.
 - Edit layout in `css/academic.css` and interactions in `js/academic.js`.
+- The personal header icon is `files/zhaohui-personal-icon.svg`: a child and a friendly AI companion sharing a book in a little world, representing AI for a better world for children. Keep the small-size drawing legible and retain the accessible home link and visible name. `favicon.svg` is its simplified browser-tab companion.
 - The publication figure is rendered by `scripts/publication_map.py`, with responsive styles in `css/publication-map.css` and selections in `js/publication-map.js`. The build also generates the downloadable `files/publication-map.svg` from the same records.
 - Regenerate HTML and validate local links and publication records:
 

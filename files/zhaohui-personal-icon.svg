@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
+  <title id="title">A better world for our children</title>
+  <desc id="desc">A child and a friendly AI companion share an open book in a little green and blue world.</desc>
+  <circle cx="48" cy="47" r="35" fill="#edf6f0"/>
+  <path d="M20 28c6-8 16-13 27-13M68 19c6 4 11 9 14 16M17 51c1 10 6 18 14 24M80 55c-2 9-8 17-16 22" fill="none" stroke="#8db8a5" stroke-width="3" stroke-linecap="round"/>
+  <path d="m22 24 7 2 2 7-6 4-9-2M72 19l-5 5 3 7 10 2" fill="#b9d9bf"/>
+  <g stroke="#2d5361" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="32" cy="39" r="12" fill="#f4cfac"/>
+    <path d="M21 35c1-7 7-10 13-8 4 1 7 4 8 8-5 0-8-2-10-5-2 3-6 5-11 5Z" fill="#2d5361" stroke="none"/>
+    <path d="M29 44q3 3 6 0" fill="none" stroke-width="2"/>
+    <rect x="50" y="27" width="25" height="24" rx="8" fill="#c5e4ec"/>
+    <path d="M62.5 27v-5"/>
+    <circle cx="62.5" cy="20" r="2.3" fill="#e8b56c" stroke="none"/>
+    <path d="M59 44q3.5 3 7 0" fill="none" stroke-width="2"/>
+    <path d="M16 58q16-6 32 2 16-8 32-2v18q-16-5-32 2-16-7-32-2Z" fill="#fffaf0"/>
+    <path d="M48 60q16-8 32-2v18q-16-5-32 2Z" fill="#d3e8d8"/>
+    <path d="M48 60v18M24 65q8-1 16 2M56 67q8-3 16-2" fill="none" stroke-width="2"/>
+  </g>
+  <g fill="#2d5361">
+    <circle cx="28" cy="39" r="1.5"/>
+    <circle cx="36" cy="39" r="1.5"/>
+    <circle cx="58" cy="38" r="1.5"/>
+    <circle cx="67" cy="38" r="1.5"/>
+  </g>
+</svg>

@@ -29,7 +29,11 @@ p { margin-bottom: 16px; }
 .skip-link:focus { top: 12px; }
 .site-header { border-bottom: 1px solid var(--rule); }
 .header-inner { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 26px; }
-.wordmark { color: var(--ink); font-size: 1.05rem; font-weight: 600; white-space: nowrap; }
+.wordmark { display: inline-flex; align-items: center; gap: 9px; min-height: 56px; flex-shrink: 0; color: var(--ink); font-size: 1.05rem; font-weight: 600; white-space: nowrap; }
+.wordmark:hover { text-decoration: none; }
+.personal-icon { width: 56px; height: 56px; flex: 0 0 56px; }
+.wordmark-copy { display: flex; flex-direction: column; gap: 2px; line-height: 1.25; }
+.wordmark-principle { font-size: .65rem; font-weight: 400; color: #42675e; letter-spacing: .01em; }
 .site-header nav { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; }
 .site-header nav a { font-size: .86rem; color: var(--muted); padding: 8px 0; }
 .site-header nav a[aria-current] { color: var(--green); text-decoration: underline; }

@@ -63,7 +63,7 @@ def layout(title, description, body, route="/"):
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="wrap header-inner">
-<a class="wordmark" href="/" aria-label="Zhaohui Li, home">Zhaohui Li</a>
+<a class="wordmark" href="/" aria-label="Zhaohui Li, home" title="AI for a better world for our children"><img class="personal-icon" src="/files/zhaohui-personal-icon.svg" alt="A child and a friendly AI companion sharing a book in a little world" width="56" height="56"><span class="wordmark-copy"><span>Zhaohui Li</span><span class="wordmark-principle">AI for our children</span></span></a>
 <nav aria-label="Primary navigation">{nav}</nav>
 </div></header>
 <main id="main">{body}</main>
