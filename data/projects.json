@@ -228,22 +228,6 @@
       ]
     },
     {
-      "id": "dyslexia-simulation",
-      "title": "LLM4Simulation: dyslexia simulations",
-      "themeId": "personalized-learning",
-      "relatedThemeIds": [],
-      "status": "Ongoing project",
-      "timeframe": "Jan 2025-present",
-      "summary": "This ongoing collaboration investigates dyslexia simulation technologies for public awareness and special education training. The work includes a review of existing approaches and development of an LLM-based prototype for interactive activities, with immersive environments combining virtual reality and AI agents as a direction under development.",
-      "publicationIds": [],
-      "figureId": null,
-      "figureTitle": "",
-      "role": "Research lead",
-      "evidence": [
-        {"document": "cv", "pages": [4]}
-      ]
-    },
-    {
       "id": "machine-reading-comprehension",
       "title": "Machine reading comprehension",
       "themeId": "earlier-nlp",
