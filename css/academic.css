@@ -108,7 +108,7 @@ p { margin-bottom: 16px; }
 .resource-list li { padding: 6px 0; font-size: .9rem; }
 .publication-list { border-top: 1px solid var(--rule); }
 .publication-group { margin-top: 32px; }
-.publication-group > h3 { font-size: 1.2rem; margin-bottom: 16px; }
+.publication-group > summary h3 { font-size: 1.2rem; margin: 0; }
 .publication-group-note { color: var(--muted); font-size: .82rem; }
 .publication-group .edited-book { border-top: 1px solid var(--rule); padding-block: 23px; font-size: .9rem; }
 .publication { display: grid; grid-template-columns: 95px minmax(0,1fr); gap: 26px; padding: 23px 0; border-bottom: 1px solid var(--rule); }

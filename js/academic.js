@@ -66,6 +66,7 @@ if (search) {
     }
     for (const group of groups) {
       group.hidden = ![...group.querySelectorAll('[data-publication]')].some(record => !record.hidden);
+      if (!group.hidden && (terms.length || type.value || year.value)) group.open = true;
     }
     count.textContent = shown + (shown === 1 ? ' result' : ' results') + ' of ' + records.length;
     noResults.hidden = shown !== 0;
@@ -88,6 +89,7 @@ if (search) {
     const record = target.closest('[data-publication]');
     const group = target.closest('[data-publication-group]');
     if (record?.hidden || group?.hidden) resetFilters();
+    if (group) group.open = true;
     return true;
   }
   function hashTarget(hash) {

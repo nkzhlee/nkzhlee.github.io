@@ -1,12 +1,14 @@
 /* Publication landscape: fixed-size count marks, not an area-encoded chart. */
-:is(.publication-map-disclosure, .publication-list-disclosure) > summary { display: flex; align-items: center; gap: 14px; padding-block: 25px 16px; cursor: pointer; list-style: none; }
-:is(.publication-map-disclosure, .publication-list-disclosure) > summary::-webkit-details-marker { display: none; }
-:is(.publication-map-disclosure, .publication-list-disclosure) > summary:focus-visible { outline-offset: 5px; }
+:is(.publication-map-disclosure, .publication-list-disclosure, .publication-group) > summary { display: flex; align-items: center; gap: 14px; padding-block: 25px 16px; cursor: pointer; list-style: none; }
+:is(.publication-map-disclosure, .publication-list-disclosure, .publication-group) > summary::-webkit-details-marker { display: none; }
+:is(.publication-map-disclosure, .publication-list-disclosure, .publication-group) > summary:focus-visible { outline-offset: 5px; }
 :is(.publication-map-disclosure, .publication-list-disclosure) > summary h2 { margin: 0; }
 .publication-list-disclosure > summary { padding-block: 0; }
 .publication-list-disclosure[open] > summary { padding-bottom: 18px; }
+.publication-group > summary { min-height: 44px; padding-block: 6px; }
+.publication-group[open] > summary { padding-bottom: 16px; }
 .map-disclosure-chevron { width: 8px; height: 8px; flex-shrink: 0; color: var(--green); border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(-45deg); }
-:is(.publication-map-disclosure, .publication-list-disclosure)[open] > summary .map-disclosure-chevron { transform: rotate(45deg); }
+:is(.publication-map-disclosure, .publication-list-disclosure, .publication-group)[open] > summary .map-disclosure-chevron { transform: rotate(45deg); }
 .publication-map-disclosure .publication-map-section { padding-top: 0; }
 .publication-map-section { padding-block: 46px 50px; border-bottom: 1px solid var(--rule); }
 .map-download { white-space: nowrap; font-size: .77rem; margin-bottom: 3px; text-decoration: none; }

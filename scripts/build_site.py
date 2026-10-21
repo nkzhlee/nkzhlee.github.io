@@ -142,7 +142,7 @@ def edited_books():
             *(editor["citationName"] for editor in book["editors"]),
         ]), quote=True)
         entries.append(f'<article class="edited-book" id="{E(book["id"])}" data-publication data-book data-type="book" data-year="" data-search="{search_text}"><p class="small-label">{E(book["role"])}</p><p class="book-citation">{byline} (Eds.). <em>{E(book["title"])}</em>{title_note}. {E(book["publisher"])}. <strong>{E(book["status"])}</strong></p></article>')
-    return '<section class="publication-group" id="edited-books" aria-labelledby="edited-books-heading" data-publication-group><h3 id="edited-books-heading">Books</h3>' + "".join(entries) + '</section>'
+    return '<details class="publication-group" id="edited-books" aria-labelledby="edited-books-heading" data-publication-group open><summary><span class="map-disclosure-chevron" aria-hidden="true"></span><h3 id="edited-books-heading">Books</h3></summary>' + "".join(entries) + '</details>'
 
 def recent_news():
     book = next(book for book in EDITED_BOOKS if book["id"] == "human-centered-ai-special-education")
@@ -232,7 +232,7 @@ def publications():
     for identifier, title, category_types in categories:
         records = sorted((p for p in visible if p["type"] in category_types), key=lambda p: p.get("year") or 0, reverse=True)
         note = '<p class="publication-group-note">Datasets and preprints are labeled separately below; preprints are not peer-reviewed publications.</p>' if identifier == "data-publications" else ""
-        groups.append(f'<section class="publication-group" id="{identifier}" aria-labelledby="{identifier}-heading" data-publication-group><h3 id="{identifier}-heading">{E(title)}</h3>{note}<div class="publication-list">{"".join(pub_card(p, heading_tag="h4") for p in records)}</div></section>')
+        groups.append(f'<details class="publication-group" id="{identifier}" aria-labelledby="{identifier}-heading" data-publication-group open><summary><span class="map-disclosure-chevron" aria-hidden="true"></span><h3 id="{identifier}-heading">{E(title)}</h3></summary>{note}<div class="publication-list">{"".join(pub_card(p, heading_tag="h4") for p in records)}</div></details>')
     body+=f'<section class="wrap section publications-section" id="publication-list" aria-labelledby="publication-list-heading"><details class="publication-list-disclosure" open><summary><span class="map-disclosure-chevron" aria-hidden="true"></span><h2 id="publication-list-heading">Publications by type</h2></summary>{controls}<noscript><p>All publications are shown below. Search and filters require JavaScript.</p></noscript>{"".join(groups)}{edited_books()}<p id="no-results" hidden>No publications match these filters. Try another term or reset the filters.</p></details></section>'
     write("publications/index.html",layout("Publications | Zhaohui Li","Edited books and publications by Zhaohui Li, with searchable papers, preprints, and datasets.",body,"/publications/"))
 

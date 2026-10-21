@@ -102,6 +102,36 @@ class Page(HTMLParser):
             self.count_text.append(text)
 
 
+class DisclosureRanges(HTMLParser):
+    """Locate complete details elements, including nested category disclosures."""
+
+    def __init__(self, source):
+        super().__init__(convert_charrefs=True)
+        self.source = source
+        self.line_offsets = [0]
+        for line in source.splitlines(keepends=True):
+            self.line_offsets.append(self.line_offsets[-1] + len(line))
+        self.pending = []
+        self.ranges = []
+        self.feed(source)
+        self.close()
+        self.ranges.sort(key=lambda item: item[0])
+
+    def source_offset(self):
+        line, column = self.getpos()
+        return self.line_offsets[line - 1] + column
+
+    def handle_starttag(self, tag, attributes):
+        if tag == "details":
+            self.pending.append((self.source_offset(), dict(attributes)))
+
+    def handle_endtag(self, tag):
+        if tag == "details" and self.pending:
+            start, attributes = self.pending.pop()
+            end = self.source.find(">", self.source_offset()) + 1
+            self.ranges.append((start, end, attributes))
+
+
 def main():
     errors = []
     parsed = {}
@@ -385,24 +415,28 @@ def main():
                 problem(publication_path, "disclosure summary must contain the single Publication landscape heading")
             if map_summary and (Page(map_summary.group(1)).tags["small"] or "Explore" in map_summary.group(1)):
                 problem(publication_path, "landscape summary must omit the old exploration label and explanatory subtitle")
-            list_disclosure = re.search(r'<details class="publication-list-disclosure" open>.*?</details>', publication_source, re.S)
-            if not list_disclosure or publication_source.count('class="publication-list-disclosure"') != 1:
+            details_ranges = DisclosureRanges(publication_source).ranges
+            list_candidates = [item for item in details_ranges if "publication-list-disclosure" in item[2].get("class", "").split()]
+            list_disclosure = list_candidates[0] if len(list_candidates) == 1 else None
+            if not list_disclosure or "open" not in list_disclosure[2]:
                 problem(publication_path, "publication list must have one disclosure that is open by default")
             else:
-                list_prefix = Page(publication_source[:list_disclosure.start()])
-                list_suffix = Page(publication_source[:list_disclosure.end()])
+                list_start, list_end, _ = list_disclosure
+                list_source = publication_source[list_start:list_end]
+                list_prefix = Page(publication_source[:list_start])
+                list_suffix = Page(publication_source[:list_end])
                 if not list_prefix.stack or not list_suffix.stack or (
                     list_prefix.stack[-1] != ("section", "publication-list")
                     or list_suffix.stack[-1] != ("section", "publication-list")
                 ):
                     problem(publication_path, "publication list disclosure must be contained in its own citation section")
-                list_summary = re.search(r'<summary\b[^>]*>(.*?)</summary>', list_disclosure.group(0), re.S)
+                list_summary = re.search(r'<summary\b[^>]*>(.*?)</summary>', list_source, re.S)
                 list_heading = '<h2 id="publication-list-heading">Publications by type</h2>'
                 if not list_summary or not re.fullmatch(
                     re.escape(landscape_icon) + r"\s*" + re.escape(list_heading), list_summary.group(1).strip()
                 ) or len(re.findall(r'<h2\b[^>]*>\s*Publications by type\s*</h2>', publication_source)) != 1:
                     problem(publication_path, "publication list summary must contain one leading decorative icon and its single heading")
-                list_contents = Page(list_disclosure.group(0))
+                list_contents = Page(list_source)
                 for control_id in ("publication-search", "publication-type", "publication-year", "publication-count", "reset-filters", "no-results"):
                     if list_contents.ids[control_id] != 1:
                         problem(publication_path, f"publication list disclosure must contain its {control_id} control")
@@ -469,9 +503,39 @@ def main():
                 "data-publications": {"dataset", "preprint"},
                 "edited-books": {"book"},
             }
+            expected_group_titles = {
+                "conference-publications": "Conference papers, workshops & posters",
+                "journal-publications": "Journal articles",
+                "data-publications": "Data & other research resources",
+                "edited-books": "Books",
+            }
             if list(page.publication_groups) != list(expected_groups):
                 problem(publication_path, "publication sections must be ordered Conference, Journal, Data, Book")
             for group, allowed_types in expected_groups.items():
+                group_candidates = [item for item in details_ranges if item[2].get("id") == group]
+                if len(group_candidates) != 1:
+                    problem(publication_path, f"{group} must be an independently collapsible category")
+                else:
+                    group_start, group_end, group_attrs = group_candidates[0]
+                    if (
+                        "open" not in group_attrs or "data-publication-group" not in group_attrs
+                        or "publication-group" not in group_attrs.get("class", "").split()
+                        or group_attrs.get("aria-labelledby") != f"{group}-heading"
+                    ):
+                        problem(publication_path, f"{group} must start open and retain its category and heading attributes")
+                    group_prefix = Page(publication_source[:group_start])
+                    if not list_disclosure or not (
+                        list_disclosure[0] < group_start < group_end < list_disclosure[1]
+                        and group_prefix.stack and group_prefix.stack[-1] == ("details", None)
+                    ):
+                        problem(publication_path, f"{group} must be a direct child of the publication list disclosure")
+                    group_source = publication_source[group_start:group_end]
+                    group_summary = re.search(r'<summary\b[^>]*>(.*?)</summary>', group_source, re.S)
+                    group_heading = f'<h3 id="{group}-heading">{escape(expected_group_titles[group])}</h3>'
+                    if not group_summary or not re.fullmatch(
+                        re.escape(landscape_icon) + r"\s*" + re.escape(group_heading), group_summary.group(1).strip()
+                    ):
+                        problem(publication_path, f"{group} summary must contain one leading decorative icon and its category heading")
                 expected = [book["id"] for book in books] if group == "edited-books" else [
                     p["id"] for p in sorted(publications, key=lambda p: p.get("year") or 0, reverse=True)
                     if p["id"] in visible and p["type"] in allowed_types
