@@ -457,6 +457,12 @@ def main():
             problem(taxonomy_path, "community labels or display order do not match requested categories")
         if [venue["id"] for venue in taxonomy["venues"][:4]] != ["aied", "aied-workshop", "lak", "caeai"]:
             problem(taxonomy_path, "AI for education venues must come first, starting with AIED")
+        expected_topic_order = [
+            "models-language", "generative-ai", "assessment-feedback", "reading-literacy",
+            "human-ai-interaction", "datasets-benchmarks", "art-interpretation",
+        ]
+        if [topic["id"] for topic in taxonomy["topics"]] != expected_topic_order:
+            problem(taxonomy_path, "topics must start with NLP and ML methods, then generative AI, preserving the remaining order")
         expected_figure = render_publication_map_svg([p for p in publications if p["id"] in visible], taxonomy)
         figure_path = ROOT / "files/publication-map.svg"
         figure_source = figure_path.read_text(encoding="utf-8")

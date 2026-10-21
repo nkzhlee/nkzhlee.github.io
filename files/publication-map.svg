@@ -18,26 +18,26 @@
 <text x="505" y="221" font-size="14">Datasets &amp; Others</text>
 <text x="40" y="267" class="small">Read across a venue for its themes; read down a theme to see connections across communities.</text>
 <text x="40" y="322" class="label">Venue / repository</text><text x="40" y="346" class="small">Unique works at right</text>
-<text font-size="14" font-weight="600" text-anchor="middle"><tspan x="373.2142857142857" y="312">Assessment &amp;</tspan><tspan x="373.2142857142857" y="330">feedback</tspan></text>
-<circle cx="351.2142857142857" cy="362" r="3.5" fill="#087f7a"/>
-<circle cx="362.2142857142857" cy="362" r="3.5" fill="#2864a0"/>
-<circle cx="373.2142857142857" cy="362" r="3.5" fill="#a56213"/>
-<circle cx="384.2142857142857" cy="362" r="3.5" fill="#885aa8"/>
-<circle cx="395.2142857142857" cy="362" r="3.5" fill="#64748b"/>
-<text font-size="14" font-weight="600" text-anchor="middle"><tspan x="519.6428571428571" y="312">Reading &amp;</tspan><tspan x="519.6428571428571" y="330">literacy</tspan></text>
-<circle cx="508.6428571428571" cy="362" r="3.5" fill="#087f7a"/>
-<circle cx="519.6428571428571" cy="362" r="3.5" fill="#a56213"/>
-<circle cx="530.6428571428571" cy="362" r="3.5" fill="#885aa8"/>
-<text font-size="14" font-weight="600" text-anchor="middle"><tspan x="666.0714285714286" y="312">Human–AI</tspan><tspan x="666.0714285714286" y="330">collaboration</tspan></text>
-<circle cx="649.5714285714286" cy="362" r="3.5" fill="#087f7a"/>
-<circle cx="660.5714285714286" cy="362" r="3.5" fill="#2864a0"/>
-<circle cx="671.5714285714286" cy="362" r="3.5" fill="#a56213"/>
-<circle cx="682.5714285714286" cy="362" r="3.5" fill="#885aa8"/>
-<text font-size="14" font-weight="600" text-anchor="middle"><tspan x="812.5" y="312">NLP &amp; ML methods</tspan></text>
+<text font-size="14" font-weight="600" text-anchor="middle"><tspan x="373.2142857142857" y="312">NLP &amp; ML methods</tspan></text>
+<circle cx="362.2142857142857" cy="362" r="3.5" fill="#087f7a"/>
+<circle cx="373.2142857142857" cy="362" r="3.5" fill="#2864a0"/>
+<circle cx="384.2142857142857" cy="362" r="3.5" fill="#64748b"/>
+<text font-size="14" font-weight="600" text-anchor="middle"><tspan x="519.6428571428571" y="312">Generative &amp;</tspan><tspan x="519.6428571428571" y="330">multimodal AI</tspan></text>
+<circle cx="503.1428571428571" cy="362" r="3.5" fill="#087f7a"/>
+<circle cx="514.1428571428571" cy="362" r="3.5" fill="#2864a0"/>
+<circle cx="525.1428571428571" cy="362" r="3.5" fill="#a56213"/>
+<circle cx="536.1428571428571" cy="362" r="3.5" fill="#885aa8"/>
+<text font-size="14" font-weight="600" text-anchor="middle"><tspan x="666.0714285714286" y="312">Assessment &amp;</tspan><tspan x="666.0714285714286" y="330">feedback</tspan></text>
+<circle cx="644.0714285714286" cy="362" r="3.5" fill="#087f7a"/>
+<circle cx="655.0714285714286" cy="362" r="3.5" fill="#2864a0"/>
+<circle cx="666.0714285714286" cy="362" r="3.5" fill="#a56213"/>
+<circle cx="677.0714285714286" cy="362" r="3.5" fill="#885aa8"/>
+<circle cx="688.0714285714286" cy="362" r="3.5" fill="#64748b"/>
+<text font-size="14" font-weight="600" text-anchor="middle"><tspan x="812.5" y="312">Reading &amp;</tspan><tspan x="812.5" y="330">literacy</tspan></text>
 <circle cx="801.5" cy="362" r="3.5" fill="#087f7a"/>
-<circle cx="812.5" cy="362" r="3.5" fill="#2864a0"/>
-<circle cx="823.5" cy="362" r="3.5" fill="#64748b"/>
-<text font-size="14" font-weight="600" text-anchor="middle"><tspan x="958.9285714285713" y="312">Generative &amp;</tspan><tspan x="958.9285714285713" y="330">multimodal AI</tspan></text>
+<circle cx="812.5" cy="362" r="3.5" fill="#a56213"/>
+<circle cx="823.5" cy="362" r="3.5" fill="#885aa8"/>
+<text font-size="14" font-weight="600" text-anchor="middle"><tspan x="958.9285714285713" y="312">Human–AI</tspan><tspan x="958.9285714285713" y="330">collaboration</tspan></text>
 <circle cx="942.4285714285713" cy="362" r="3.5" fill="#087f7a"/>
 <circle cx="953.4285714285713" cy="362" r="3.5" fill="#2864a0"/>
 <circle cx="964.4285714285713" cy="362" r="3.5" fill="#a56213"/>
@@ -51,22 +51,22 @@
 <rect x="40" y="393" width="4" height="28" rx="2" fill="#087f7a"/>
 <text font-size="14"><tspan x="57" y="412.0">AIED</tspan></text>
 <text x="275" y="412.0" text-anchor="end" font-size="14" font-weight="700">5</text>
-<circle cx="373.2142857142857" cy="407.0" r="16" fill="#087f7a"/><text x="373.2142857142857" y="407.0" class="count">3</text>
-<circle cx="519.6428571428571" cy="407.0" r="16" fill="#087f7a"/><text x="519.6428571428571" y="407.0" class="count">2</text>
+<circle cx="373.2142857142857" cy="407.0" r="16" fill="#087f7a"/><text x="373.2142857142857" y="407.0" class="count">1</text>
+<circle cx="519.6428571428571" cy="407.0" r="16" fill="#087f7a"/><text x="519.6428571428571" y="407.0" class="count">4</text>
 <circle cx="666.0714285714286" cy="407.0" r="16" fill="#087f7a"/><text x="666.0714285714286" y="407.0" class="count">3</text>
-<circle cx="812.5" cy="407.0" r="16" fill="#087f7a"/><text x="812.5" y="407.0" class="count">1</text>
-<circle cx="958.9285714285713" cy="407.0" r="16" fill="#087f7a"/><text x="958.9285714285713" y="407.0" class="count">4</text>
+<circle cx="812.5" cy="407.0" r="16" fill="#087f7a"/><text x="812.5" y="407.0" class="count">2</text>
+<circle cx="958.9285714285713" cy="407.0" r="16" fill="#087f7a"/><text x="958.9285714285713" y="407.0" class="count">3</text>
 <circle cx="1105.3571428571427" cy="407.0" r="16" fill="#087f7a"/><text x="1105.3571428571427" y="407.0" class="count">2</text>
 <line x1="1247.7857142857142" x2="1255.7857142857142" y1="407.0" y2="407.0" stroke="#c9d2cb"/>
 <line x1="40" y1="434" x2="1330" y2="434" stroke="#e3e7e0"/>
 <rect x="40" y="447" width="4" height="28" rx="2" fill="#087f7a"/>
 <text font-size="14"><tspan x="57" y="466.0">AIED workshop</tspan></text>
 <text x="275" y="466.0" text-anchor="end" font-size="14" font-weight="700">1</text>
-<circle cx="373.2142857142857" cy="461.0" r="16" fill="#087f7a"/><text x="373.2142857142857" y="461.0" class="count">1</text>
-<line x1="515.6428571428571" x2="523.6428571428571" y1="461.0" y2="461.0" stroke="#c9d2cb"/>
-<line x1="662.0714285714286" x2="670.0714285714286" y1="461.0" y2="461.0" stroke="#c9d2cb"/>
+<line x1="369.2142857142857" x2="377.2142857142857" y1="461.0" y2="461.0" stroke="#c9d2cb"/>
+<circle cx="519.6428571428571" cy="461.0" r="16" fill="#087f7a"/><text x="519.6428571428571" y="461.0" class="count">1</text>
+<circle cx="666.0714285714286" cy="461.0" r="16" fill="#087f7a"/><text x="666.0714285714286" y="461.0" class="count">1</text>
 <line x1="808.5" x2="816.5" y1="461.0" y2="461.0" stroke="#c9d2cb"/>
-<circle cx="958.9285714285713" cy="461.0" r="16" fill="#087f7a"/><text x="958.9285714285713" y="461.0" class="count">1</text>
+<line x1="954.9285714285713" x2="962.9285714285713" y1="461.0" y2="461.0" stroke="#c9d2cb"/>
 <line x1="1101.3571428571427" x2="1109.3571428571427" y1="461.0" y2="461.0" stroke="#c9d2cb"/>
 <line x1="1247.7857142857142" x2="1255.7857142857142" y1="461.0" y2="461.0" stroke="#c9d2cb"/>
 <line x1="40" y1="488" x2="1330" y2="488" stroke="#e3e7e0"/>
@@ -74,10 +74,10 @@
 <text font-size="14"><tspan x="57" y="520.0">LAK</tspan></text>
 <text x="275" y="520.0" text-anchor="end" font-size="14" font-weight="700">1</text>
 <line x1="369.2142857142857" x2="377.2142857142857" y1="515.0" y2="515.0" stroke="#c9d2cb"/>
-<line x1="515.6428571428571" x2="523.6428571428571" y1="515.0" y2="515.0" stroke="#c9d2cb"/>
+<circle cx="519.6428571428571" cy="515.0" r="16" fill="#087f7a"/><text x="519.6428571428571" y="515.0" class="count">1</text>
 <line x1="662.0714285714286" x2="670.0714285714286" y1="515.0" y2="515.0" stroke="#c9d2cb"/>
 <line x1="808.5" x2="816.5" y1="515.0" y2="515.0" stroke="#c9d2cb"/>
-<circle cx="958.9285714285713" cy="515.0" r="16" fill="#087f7a"/><text x="958.9285714285713" y="515.0" class="count">1</text>
+<line x1="954.9285714285713" x2="962.9285714285713" y1="515.0" y2="515.0" stroke="#c9d2cb"/>
 <line x1="1101.3571428571427" x2="1109.3571428571427" y1="515.0" y2="515.0" stroke="#c9d2cb"/>
 <circle cx="1251.7857142857142" cy="515.0" r="16" fill="#087f7a"/><text x="1251.7857142857142" y="515.0" class="count">1</text>
 <line x1="40" y1="542" x2="1330" y2="542" stroke="#e3e7e0"/>
@@ -86,8 +86,8 @@
 <text x="275" y="574.0" text-anchor="end" font-size="14" font-weight="700">1</text>
 <line x1="369.2142857142857" x2="377.2142857142857" y1="569.0" y2="569.0" stroke="#c9d2cb"/>
 <circle cx="519.6428571428571" cy="569.0" r="16" fill="#087f7a"/><text x="519.6428571428571" y="569.0" class="count">1</text>
-<circle cx="666.0714285714286" cy="569.0" r="16" fill="#087f7a"/><text x="666.0714285714286" y="569.0" class="count">1</text>
-<line x1="808.5" x2="816.5" y1="569.0" y2="569.0" stroke="#c9d2cb"/>
+<line x1="662.0714285714286" x2="670.0714285714286" y1="569.0" y2="569.0" stroke="#c9d2cb"/>
+<circle cx="812.5" cy="569.0" r="16" fill="#087f7a"/><text x="812.5" y="569.0" class="count">1</text>
 <circle cx="958.9285714285713" cy="569.0" r="16" fill="#087f7a"/><text x="958.9285714285713" y="569.0" class="count">1</text>
 <line x1="1101.3571428571427" x2="1109.3571428571427" y1="569.0" y2="569.0" stroke="#c9d2cb"/>
 <line x1="1247.7857142857142" x2="1255.7857142857142" y1="569.0" y2="569.0" stroke="#c9d2cb"/>
@@ -97,8 +97,8 @@
 <text x="275" y="628.0" text-anchor="end" font-size="14" font-weight="700">2</text>
 <circle cx="373.2142857142857" cy="623.0" r="16" fill="#2864a0"/><text x="373.2142857142857" y="623.0" class="count">2</text>
 <line x1="515.6428571428571" x2="523.6428571428571" y1="623.0" y2="623.0" stroke="#c9d2cb"/>
-<line x1="662.0714285714286" x2="670.0714285714286" y1="623.0" y2="623.0" stroke="#c9d2cb"/>
-<circle cx="812.5" cy="623.0" r="16" fill="#2864a0"/><text x="812.5" y="623.0" class="count">2</text>
+<circle cx="666.0714285714286" cy="623.0" r="16" fill="#2864a0"/><text x="666.0714285714286" y="623.0" class="count">2</text>
+<line x1="808.5" x2="816.5" y1="623.0" y2="623.0" stroke="#c9d2cb"/>
 <line x1="954.9285714285713" x2="962.9285714285713" y1="623.0" y2="623.0" stroke="#c9d2cb"/>
 <line x1="1101.3571428571427" x2="1109.3571428571427" y1="623.0" y2="623.0" stroke="#c9d2cb"/>
 <line x1="1247.7857142857142" x2="1255.7857142857142" y1="623.0" y2="623.0" stroke="#c9d2cb"/>
@@ -106,10 +106,10 @@
 <rect x="40" y="663" width="4" height="28" rx="2" fill="#2864a0"/>
 <text font-size="14"><tspan x="57" y="682.0">AAAI</tspan></text>
 <text x="275" y="682.0" text-anchor="end" font-size="14" font-weight="700">1</text>
-<line x1="369.2142857142857" x2="377.2142857142857" y1="677.0" y2="677.0" stroke="#c9d2cb"/>
+<circle cx="373.2142857142857" cy="677.0" r="16" fill="#2864a0"/><text x="373.2142857142857" y="677.0" class="count">1</text>
 <line x1="515.6428571428571" x2="523.6428571428571" y1="677.0" y2="677.0" stroke="#c9d2cb"/>
 <line x1="662.0714285714286" x2="670.0714285714286" y1="677.0" y2="677.0" stroke="#c9d2cb"/>
-<circle cx="812.5" cy="677.0" r="16" fill="#2864a0"/><text x="812.5" y="677.0" class="count">1</text>
+<line x1="808.5" x2="816.5" y1="677.0" y2="677.0" stroke="#c9d2cb"/>
 <line x1="954.9285714285713" x2="962.9285714285713" y1="677.0" y2="677.0" stroke="#c9d2cb"/>
 <line x1="1101.3571428571427" x2="1109.3571428571427" y1="677.0" y2="677.0" stroke="#c9d2cb"/>
 <line x1="1247.7857142857142" x2="1255.7857142857142" y1="677.0" y2="677.0" stroke="#c9d2cb"/>
@@ -117,8 +117,8 @@
 <rect x="40" y="717" width="4" height="28" rx="2" fill="#2864a0"/>
 <text font-size="14"><tspan x="57" y="736.0">Computing Conference</tspan></text>
 <text x="275" y="736.0" text-anchor="end" font-size="14" font-weight="700">1</text>
-<circle cx="373.2142857142857" cy="731.0" r="16" fill="#2864a0"/><text x="373.2142857142857" y="731.0" class="count">1</text>
-<line x1="515.6428571428571" x2="523.6428571428571" y1="731.0" y2="731.0" stroke="#c9d2cb"/>
+<line x1="369.2142857142857" x2="377.2142857142857" y1="731.0" y2="731.0" stroke="#c9d2cb"/>
+<circle cx="519.6428571428571" cy="731.0" r="16" fill="#2864a0"/><text x="519.6428571428571" y="731.0" class="count">1</text>
 <circle cx="666.0714285714286" cy="731.0" r="16" fill="#2864a0"/><text x="666.0714285714286" y="731.0" class="count">1</text>
 <line x1="808.5" x2="816.5" y1="731.0" y2="731.0" stroke="#c9d2cb"/>
 <circle cx="958.9285714285713" cy="731.0" r="16" fill="#2864a0"/><text x="958.9285714285713" y="731.0" class="count">1</text>
@@ -128,10 +128,10 @@
 <rect x="40" y="771" width="4" height="28" rx="2" fill="#2864a0"/>
 <text font-size="14"><tspan x="57" y="790.0">CCIR</tspan></text>
 <text x="275" y="790.0" text-anchor="end" font-size="14" font-weight="700">1</text>
-<line x1="369.2142857142857" x2="377.2142857142857" y1="785.0" y2="785.0" stroke="#c9d2cb"/>
+<circle cx="373.2142857142857" cy="785.0" r="16" fill="#2864a0"/><text x="373.2142857142857" y="785.0" class="count">1</text>
 <line x1="515.6428571428571" x2="523.6428571428571" y1="785.0" y2="785.0" stroke="#c9d2cb"/>
 <line x1="662.0714285714286" x2="670.0714285714286" y1="785.0" y2="785.0" stroke="#c9d2cb"/>
-<circle cx="812.5" cy="785.0" r="16" fill="#2864a0"/><text x="812.5" y="785.0" class="count">1</text>
+<line x1="808.5" x2="816.5" y1="785.0" y2="785.0" stroke="#c9d2cb"/>
 <line x1="954.9285714285713" x2="962.9285714285713" y1="785.0" y2="785.0" stroke="#c9d2cb"/>
 <line x1="1101.3571428571427" x2="1109.3571428571427" y1="785.0" y2="785.0" stroke="#c9d2cb"/>
 <line x1="1247.7857142857142" x2="1255.7857142857142" y1="785.0" y2="785.0" stroke="#c9d2cb"/>
@@ -139,10 +139,10 @@
 <rect x="40" y="825" width="4" height="28" rx="2" fill="#2864a0"/>
 <text font-size="14"><tspan x="57" y="844.0">CIKM</tspan></text>
 <text x="275" y="844.0" text-anchor="end" font-size="14" font-weight="700">1</text>
-<line x1="369.2142857142857" x2="377.2142857142857" y1="839.0" y2="839.0" stroke="#c9d2cb"/>
+<circle cx="373.2142857142857" cy="839.0" r="16" fill="#2864a0"/><text x="373.2142857142857" y="839.0" class="count">1</text>
 <line x1="515.6428571428571" x2="523.6428571428571" y1="839.0" y2="839.0" stroke="#c9d2cb"/>
 <line x1="662.0714285714286" x2="670.0714285714286" y1="839.0" y2="839.0" stroke="#c9d2cb"/>
-<circle cx="812.5" cy="839.0" r="16" fill="#2864a0"/><text x="812.5" y="839.0" class="count">1</text>
+<line x1="808.5" x2="816.5" y1="839.0" y2="839.0" stroke="#c9d2cb"/>
 <line x1="954.9285714285713" x2="962.9285714285713" y1="839.0" y2="839.0" stroke="#c9d2cb"/>
 <line x1="1101.3571428571427" x2="1109.3571428571427" y1="839.0" y2="839.0" stroke="#c9d2cb"/>
 <line x1="1247.7857142857142" x2="1255.7857142857142" y1="839.0" y2="839.0" stroke="#c9d2cb"/>
@@ -150,10 +150,10 @@
 <rect x="40" y="879" width="4" height="28" rx="2" fill="#2864a0"/>
 <text font-size="14"><tspan x="57" y="898.0">NLPCC</tspan></text>
 <text x="275" y="898.0" text-anchor="end" font-size="14" font-weight="700">1</text>
-<line x1="369.2142857142857" x2="377.2142857142857" y1="893.0" y2="893.0" stroke="#c9d2cb"/>
+<circle cx="373.2142857142857" cy="893.0" r="16" fill="#2864a0"/><text x="373.2142857142857" y="893.0" class="count">1</text>
 <line x1="515.6428571428571" x2="523.6428571428571" y1="893.0" y2="893.0" stroke="#c9d2cb"/>
 <line x1="662.0714285714286" x2="670.0714285714286" y1="893.0" y2="893.0" stroke="#c9d2cb"/>
-<circle cx="812.5" cy="893.0" r="16" fill="#2864a0"/><text x="812.5" y="893.0" class="count">1</text>
+<line x1="808.5" x2="816.5" y1="893.0" y2="893.0" stroke="#c9d2cb"/>
 <line x1="954.9285714285713" x2="962.9285714285713" y1="893.0" y2="893.0" stroke="#c9d2cb"/>
 <line x1="1101.3571428571427" x2="1109.3571428571427" y1="893.0" y2="893.0" stroke="#c9d2cb"/>
 <line x1="1247.7857142857142" x2="1255.7857142857142" y1="893.0" y2="893.0" stroke="#c9d2cb"/>
@@ -164,8 +164,8 @@
 <line x1="369.2142857142857" x2="377.2142857142857" y1="947.0" y2="947.0" stroke="#c9d2cb"/>
 <circle cx="519.6428571428571" cy="947.0" r="16" fill="#a56213"/><text x="519.6428571428571" y="947.0" class="count">1</text>
 <line x1="662.0714285714286" x2="670.0714285714286" y1="947.0" y2="947.0" stroke="#c9d2cb"/>
-<line x1="808.5" x2="816.5" y1="947.0" y2="947.0" stroke="#c9d2cb"/>
-<circle cx="958.9285714285713" cy="947.0" r="16" fill="#a56213"/><text x="958.9285714285713" y="947.0" class="count">1</text>
+<circle cx="812.5" cy="947.0" r="16" fill="#a56213"/><text x="812.5" y="947.0" class="count">1</text>
+<line x1="954.9285714285713" x2="962.9285714285713" y1="947.0" y2="947.0" stroke="#c9d2cb"/>
 <line x1="1101.3571428571427" x2="1109.3571428571427" y1="947.0" y2="947.0" stroke="#c9d2cb"/>
 <line x1="1247.7857142857142" x2="1255.7857142857142" y1="947.0" y2="947.0" stroke="#c9d2cb"/>
 <line x1="40" y1="974" x2="1330" y2="974" stroke="#e3e7e0"/>
@@ -173,19 +173,19 @@
 <text font-size="14"><tspan x="57" y="1006.0">BJET</tspan></text>
 <text x="275" y="1006.0" text-anchor="end" font-size="14" font-weight="700">1</text>
 <line x1="369.2142857142857" x2="377.2142857142857" y1="1001.0" y2="1001.0" stroke="#c9d2cb"/>
-<circle cx="519.6428571428571" cy="1001.0" r="16" fill="#a56213"/><text x="519.6428571428571" y="1001.0" class="count">1</text>
-<circle cx="666.0714285714286" cy="1001.0" r="16" fill="#a56213"/><text x="666.0714285714286" y="1001.0" class="count">1</text>
-<line x1="808.5" x2="816.5" y1="1001.0" y2="1001.0" stroke="#c9d2cb"/>
-<line x1="954.9285714285713" x2="962.9285714285713" y1="1001.0" y2="1001.0" stroke="#c9d2cb"/>
+<line x1="515.6428571428571" x2="523.6428571428571" y1="1001.0" y2="1001.0" stroke="#c9d2cb"/>
+<line x1="662.0714285714286" x2="670.0714285714286" y1="1001.0" y2="1001.0" stroke="#c9d2cb"/>
+<circle cx="812.5" cy="1001.0" r="16" fill="#a56213"/><text x="812.5" y="1001.0" class="count">1</text>
+<circle cx="958.9285714285713" cy="1001.0" r="16" fill="#a56213"/><text x="958.9285714285713" y="1001.0" class="count">1</text>
 <line x1="1101.3571428571427" x2="1109.3571428571427" y1="1001.0" y2="1001.0" stroke="#c9d2cb"/>
 <line x1="1247.7857142857142" x2="1255.7857142857142" y1="1001.0" y2="1001.0" stroke="#c9d2cb"/>
 <line x1="40" y1="1028" x2="1330" y2="1028" stroke="#e3e7e0"/>
 <rect x="40" y="1041" width="4" height="28" rx="2" fill="#a56213"/>
 <text font-size="14"><tspan x="57" y="1060.0">ICOTS</tspan></text>
 <text x="275" y="1060.0" text-anchor="end" font-size="14" font-weight="700">1</text>
-<circle cx="373.2142857142857" cy="1055.0" r="16" fill="#a56213"/><text x="373.2142857142857" y="1055.0" class="count">1</text>
+<line x1="369.2142857142857" x2="377.2142857142857" y1="1055.0" y2="1055.0" stroke="#c9d2cb"/>
 <line x1="515.6428571428571" x2="523.6428571428571" y1="1055.0" y2="1055.0" stroke="#c9d2cb"/>
-<line x1="662.0714285714286" x2="670.0714285714286" y1="1055.0" y2="1055.0" stroke="#c9d2cb"/>
+<circle cx="666.0714285714286" cy="1055.0" r="16" fill="#a56213"/><text x="666.0714285714286" y="1055.0" class="count">1</text>
 <line x1="808.5" x2="816.5" y1="1055.0" y2="1055.0" stroke="#c9d2cb"/>
 <line x1="954.9285714285713" x2="962.9285714285713" y1="1055.0" y2="1055.0" stroke="#c9d2cb"/>
 <line x1="1101.3571428571427" x2="1109.3571428571427" y1="1055.0" y2="1055.0" stroke="#c9d2cb"/>
@@ -194,9 +194,9 @@
 <rect x="40" y="1095" width="4" height="28" rx="2" fill="#a56213"/>
 <text font-size="14"><tspan x="57" y="1106.0">European J. Applied</tspan><tspan x="57" y="1122.0">Sciences</tspan></text>
 <text x="275" y="1114.0" text-anchor="end" font-size="14" font-weight="700">1</text>
-<circle cx="373.2142857142857" cy="1109.0" r="16" fill="#a56213"/><text x="373.2142857142857" y="1109.0" class="count">1</text>
+<line x1="369.2142857142857" x2="377.2142857142857" y1="1109.0" y2="1109.0" stroke="#c9d2cb"/>
 <line x1="515.6428571428571" x2="523.6428571428571" y1="1109.0" y2="1109.0" stroke="#c9d2cb"/>
-<line x1="662.0714285714286" x2="670.0714285714286" y1="1109.0" y2="1109.0" stroke="#c9d2cb"/>
+<circle cx="666.0714285714286" cy="1109.0" r="16" fill="#a56213"/><text x="666.0714285714286" y="1109.0" class="count">1</text>
 <line x1="808.5" x2="816.5" y1="1109.0" y2="1109.0" stroke="#c9d2cb"/>
 <line x1="954.9285714285713" x2="962.9285714285713" y1="1109.0" y2="1109.0" stroke="#c9d2cb"/>
 <line x1="1101.3571428571427" x2="1109.3571428571427" y1="1109.0" y2="1109.0" stroke="#c9d2cb"/>
@@ -205,10 +205,10 @@
 <rect x="40" y="1149" width="4" height="28" rx="2" fill="#885aa8"/>
 <text font-size="14"><tspan x="57" y="1160.0">J. Autism &amp; Dev.</tspan><tspan x="57" y="1176.0">Disorders</tspan></text>
 <text x="275" y="1168.0" text-anchor="end" font-size="14" font-weight="700">1</text>
-<circle cx="373.2142857142857" cy="1163.0" r="16" fill="#885aa8"/><text x="373.2142857142857" y="1163.0" class="count">1</text>
+<line x1="369.2142857142857" x2="377.2142857142857" y1="1163.0" y2="1163.0" stroke="#c9d2cb"/>
 <circle cx="519.6428571428571" cy="1163.0" r="16" fill="#885aa8"/><text x="519.6428571428571" y="1163.0" class="count">1</text>
 <circle cx="666.0714285714286" cy="1163.0" r="16" fill="#885aa8"/><text x="666.0714285714286" y="1163.0" class="count">1</text>
-<line x1="808.5" x2="816.5" y1="1163.0" y2="1163.0" stroke="#c9d2cb"/>
+<circle cx="812.5" cy="1163.0" r="16" fill="#885aa8"/><text x="812.5" y="1163.0" class="count">1</text>
 <circle cx="958.9285714285713" cy="1163.0" r="16" fill="#885aa8"/><text x="958.9285714285713" y="1163.0" class="count">1</text>
 <line x1="1101.3571428571427" x2="1109.3571428571427" y1="1163.0" y2="1163.0" stroke="#c9d2cb"/>
 <line x1="1247.7857142857142" x2="1255.7857142857142" y1="1163.0" y2="1163.0" stroke="#c9d2cb"/>
@@ -216,9 +216,9 @@
 <rect x="40" y="1203" width="4" height="28" rx="2" fill="#64748b"/>
 <text font-size="14"><tspan x="57" y="1222.0">Penn State Data Commons</tspan></text>
 <text x="275" y="1222.0" text-anchor="end" font-size="14" font-weight="700">2</text>
-<circle cx="373.2142857142857" cy="1217.0" r="16" fill="#64748b"/><text x="373.2142857142857" y="1217.0" class="count">2</text>
+<line x1="369.2142857142857" x2="377.2142857142857" y1="1217.0" y2="1217.0" stroke="#c9d2cb"/>
 <line x1="515.6428571428571" x2="523.6428571428571" y1="1217.0" y2="1217.0" stroke="#c9d2cb"/>
-<line x1="662.0714285714286" x2="670.0714285714286" y1="1217.0" y2="1217.0" stroke="#c9d2cb"/>
+<circle cx="666.0714285714286" cy="1217.0" r="16" fill="#64748b"/><text x="666.0714285714286" y="1217.0" class="count">2</text>
 <line x1="808.5" x2="816.5" y1="1217.0" y2="1217.0" stroke="#c9d2cb"/>
 <line x1="954.9285714285713" x2="962.9285714285713" y1="1217.0" y2="1217.0" stroke="#c9d2cb"/>
 <circle cx="1105.3571428571427" cy="1217.0" r="16" fill="#64748b"/><text x="1105.3571428571427" y="1217.0" class="count">2</text>
@@ -227,10 +227,10 @@
 <rect x="40" y="1257" width="4" height="28" rx="2" fill="#64748b"/>
 <text font-size="14"><tspan x="57" y="1276.0">arXiv</tspan></text>
 <text x="275" y="1276.0" text-anchor="end" font-size="14" font-weight="700">1</text>
-<line x1="369.2142857142857" x2="377.2142857142857" y1="1271.0" y2="1271.0" stroke="#c9d2cb"/>
+<circle cx="373.2142857142857" cy="1271.0" r="16" fill="#64748b"/><text x="373.2142857142857" y="1271.0" class="count">1</text>
 <line x1="515.6428571428571" x2="523.6428571428571" y1="1271.0" y2="1271.0" stroke="#c9d2cb"/>
 <line x1="662.0714285714286" x2="670.0714285714286" y1="1271.0" y2="1271.0" stroke="#c9d2cb"/>
-<circle cx="812.5" cy="1271.0" r="16" fill="#64748b"/><text x="812.5" y="1271.0" class="count">1</text>
+<line x1="808.5" x2="816.5" y1="1271.0" y2="1271.0" stroke="#c9d2cb"/>
 <line x1="954.9285714285713" x2="962.9285714285713" y1="1271.0" y2="1271.0" stroke="#c9d2cb"/>
 <line x1="1101.3571428571427" x2="1109.3571428571427" y1="1271.0" y2="1271.0" stroke="#c9d2cb"/>
 <line x1="1247.7857142857142" x2="1255.7857142857142" y1="1271.0" y2="1271.0" stroke="#c9d2cb"/>

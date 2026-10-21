@@ -35,11 +35,11 @@
     }
   ],
   "topics": [
+    { "id": "models-language", "label": "NLP & ML methods", "description": "Language understanding, response assessment models, selective prediction, and machine-learning tools." },
+    { "id": "generative-ai", "label": "Generative & multimodal AI", "description": "LLM-based assessment, conversational systems, and text or visual-content generation and interpretation." },
     { "id": "assessment-feedback", "label": "Assessment & feedback", "description": "Assessment of learner responses, interventions, or instructional materials, and formative feedback." },
     { "id": "reading-literacy", "label": "Reading & literacy", "description": "Early literacy, dialogic reading, reading companions, and educational story generation." },
     { "id": "human-ai-interaction", "label": "Human–AI collaboration", "description": "Human-guided AI, AI-supported parent coaching, conversational or embodied companions, and human oversight." },
-    { "id": "models-language", "label": "NLP & ML methods", "description": "Language understanding, response assessment models, selective prediction, and machine-learning tools." },
-    { "id": "generative-ai", "label": "Generative & multimodal AI", "description": "LLM-based assessment, conversational systems, and text or visual-content generation and interpretation." },
     { "id": "datasets-benchmarks", "label": "Datasets & benchmarks", "description": "Works introducing the I-STUDIO, physics lab-report, SciEval, and ASD-HI resources." },
     { "id": "art-interpretation", "label": "Art interpretation", "description": "Visual-art interpretation and public art education." }
   ],
