@@ -149,11 +149,10 @@ p { margin-bottom: 16px; }
 .meeting-panel { width: 100%; max-width: 760px; padding: 30px; border: 1px solid var(--rule); background: #f8fafb; }
 .meeting-panel h2 { font-size: 1.4rem; margin-bottom: 14px; }
 .meeting-panel p { color: var(--muted); font-size: .9rem; }
-.meeting-panel .eyebrow { margin-bottom: 12px; }
-.meeting-panel .booking-hours { color: var(--ink); font-weight: 600; }
+.meeting-panel .booking-hours { color: var(--ink); font-weight: 500; max-width: 620px; }
 .booking-action { min-height: 44px; margin-top: 4px; }
 .meeting-panel .meeting-note { font-size: .76rem; margin: 12px 0 0; }
-.meeting-context { border-top: 1px solid var(--rule); margin-top: 26px; padding-top: 22px; }
+.meeting-context { border-top: 1px solid var(--rule); margin-top: 24px; padding-top: 20px; }
 .meeting-context h3 { font-size: .9rem; margin-bottom: 8px; }
 .meeting-context p { margin-bottom: 0; }
 .contact-signature { margin: 12px 0 0; font-style: normal; }

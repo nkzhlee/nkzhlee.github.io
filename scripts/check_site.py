@@ -196,6 +196,8 @@ def main():
         problem(contact_path, "Contact main content must not duplicate the CV panel")
     if contact_main:
         contact_content = contact_main.group(1)
+        if '<h2>Meet with me</h2>' not in contact_content or contact_content.count("Meet with me") != 1 or "Schedule a conversation" in contact_content:
+            problem(contact_path, "Contact must have one Meet with me heading without a duplicate eyebrow or heading")
         signature = re.search(r'<address class="contact-signature">\s*(.*?)\s*</address>', contact_content, re.S)
         email = escape(profile["email"], quote=True)
         expected_signature = f'<a class="contact-email" href="mailto:{email}">{email}</a>'
@@ -235,6 +237,21 @@ def main():
     if booking_url:
         if booking_url not in contact_refs:
             problem(contact_path, "missing configured public booking link")
+        if contact_main:
+            expected_hours = f'<p class="booking-hours">{escape(profile["booking_hours"])}</p>'
+            if expected_hours not in contact_content:
+                problem(contact_path, "Contact must retain the configured booking availability")
+            if any(text in contact_content for text in (
+                "through Microsoft Bookings", "UTSA Outlook calendar", "Only times without calendar conflicts",
+                "Opens Microsoft Bookings", "Check your time zone", 'class="meeting-note"',
+            )):
+                problem(contact_path, "Contact must omit booking setup, calendar-conflict, and visible new-tab/time-zone explanations")
+            booking_action = re.search(r'<a class="button booking-action"[^>]*>.*?</a>', contact_content, re.S)
+            if not booking_action or (
+                'aria-label="Choose a time (opens in a new tab)"' not in booking_action.group(0)
+                or booking_url not in [reference for reference, _ in Page(booking_action.group(0)).refs]
+            ):
+                problem(contact_path, "Choose a time must retain the booking URL and accessible new-tab warning")
         if not profile_links or (
             booking_url not in [reference for reference, _ in Page(profile_links.group(1)).refs]
             or ">Book a Meeting</a>" not in profile_links.group(1)
