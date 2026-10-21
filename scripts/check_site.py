@@ -401,16 +401,22 @@ def main():
             citation_list = publication_source.find('id="publication-list"')
             if not disclosure or citation_list < 0 or disclosure.end() > citation_list:
                 problem(publication_path, "publication landscape must be collapsed by default and appear before the citation list")
+            publication_main = re.search(r'<main\b[^>]*>', publication_source)
+            if not publication_main or not disclosure or (
+                disclosure.start() < publication_main.end()
+                or publication_source[publication_main.end():disclosure.start()].strip()
+            ):
+                problem(publication_path, "publication landscape must be the first element in main")
             map_summary = re.search(r'<summary\b[^>]*>(.*?)</summary>', disclosure.group(0), re.S) if disclosure else None
-            landscape_heading = '<h2 id="publication-map-heading">Publication landscape</h2>'
+            landscape_heading = '<h1 id="publication-map-heading">Publication landscape</h1>'
             landscape_icon = '<span class="map-disclosure-chevron" aria-hidden="true"></span>'
             if not map_summary or not re.fullmatch(
                 re.escape(landscape_icon) + r"\s*" + re.escape(landscape_heading), map_summary.group(1).strip()
             ):
                 problem(publication_path, "landscape summary must contain only one decorative icon before its heading, without Hide or Show labels")
             if not map_summary or landscape_heading not in map_summary.group(1) or (
-                Page(map_summary.group(1)).tags["h2"] != 1
-                or len(re.findall(r'<h2\b[^>]*>\s*Publication landscape\s*</h2>', publication_source)) != 1
+                Page(map_summary.group(1)).tags["h1"] != 1
+                or len(re.findall(r'<h1\b[^>]*>\s*Publication landscape\s*</h1>', publication_source)) != 1
             ):
                 problem(publication_path, "disclosure summary must contain the single Publication landscape heading")
             if map_summary and (Page(map_summary.group(1)).tags["small"] or "Explore" in map_summary.group(1)):
@@ -436,6 +442,21 @@ def main():
                     re.escape(landscape_icon) + r"\s*" + re.escape(list_heading), list_summary.group(1).strip()
                 ) or len(re.findall(r'<h2\b[^>]*>\s*Publications by type\s*</h2>', publication_source)) != 1:
                     problem(publication_path, "publication list summary must contain one leading decorative icon and its single heading")
+                category_links = re.search(r'<div class="jump-links" aria-label="Publication sections">(.*?)</div>', list_source, re.S)
+                tools_position = list_source.find('class="publication-tools"')
+                if not category_links or publication_source.count('aria-label="Publication sections"') != 1:
+                    problem(publication_path, "publication category links must appear exactly once inside the list without a nested wrap class")
+                elif not list_summary or (
+                    category_links.start() < list_summary.end()
+                    or list_source[list_summary.end():category_links.start()].strip()
+                    or Page(list_source[:category_links.start()]).stack != [("details", None)]
+                    or tools_position < category_links.end()
+                ):
+                    problem(publication_path, "category links must follow the list summary directly and precede its search controls")
+                if category_links and [reference for reference, _ in Page(category_links.group(1)).refs] != [
+                    "#conference-publications", "#journal-publications", "#data-publications", "#edited-books",
+                ]:
+                    problem(publication_path, "category links must retain Conference, Journal, Dataset, Books anchor order")
                 list_contents = Page(list_source)
                 for control_id in ("publication-search", "publication-type", "publication-year", "publication-count", "reset-filters", "no-results"):
                     if list_contents.ids[control_id] != 1:
@@ -447,9 +468,8 @@ def main():
                     or list(list_contents.publication_groups) != list(page.publication_groups)
                 ):
                     problem(publication_path, "all publication records, books, and category sections must be inside the list disclosure")
-            publication_intro = re.search(r'<header class="page-intro wrap">(.*?)</header>', publication_source, re.S)
-            if not publication_intro or "page-lead" in publication_intro.group(1):
-                problem(publication_path, "Publications intro must not display a lead paragraph")
+            if "page-intro" in publication_source or "page-lead" in publication_source:
+                problem(publication_path, "Publications must not retain a standalone page introduction or lead paragraph")
             if any(text in publication_source for text in (
                 "Optional: browse connections", "Venues &amp; shared topics", "Venues & shared topics",
                 "Shared questions connect", "Conference and journal papers",
@@ -495,8 +515,8 @@ def main():
             expected_count = len(visible) + len(books)
             if not count or int(count.group(1)) != expected_count:
                 problem(publication_path, f"displayed count must be {expected_count}")
-            if "".join(page.h1_text).strip() != "Publications":
-                problem(publication_path, "page heading must be Publications")
+            if "".join(page.h1_text).strip() != "Publication landscape":
+                problem(publication_path, "page heading must be Publication landscape")
             expected_groups = {
                 "conference-publications": {"conference", "workshop", "poster"},
                 "journal-publications": {"journal"},
