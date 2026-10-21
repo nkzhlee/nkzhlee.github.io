@@ -51,6 +51,8 @@ if (search) {
   const groups = [...document.querySelectorAll('[data-publication-group]')];
   const count = document.querySelector('#publication-count');
   const noResults = document.querySelector('#no-results');
+  const citationSection = document.querySelector('#publication-list');
+  const citationDisclosure = search.closest('details');
   const normalize = (value) => value.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
   function filter() {
     const terms = normalize(search.value.trim()).split(/\s+/).filter(Boolean);
@@ -80,5 +82,30 @@ if (search) {
   document.querySelectorAll('[data-publication-jump]').forEach(link => {
     link.addEventListener('click', resetFilters);
   });
+  function revealPublicationTarget(target) {
+    if (!target || !citationSection?.contains(target)) return false;
+    if (citationDisclosure) citationDisclosure.open = true;
+    const record = target.closest('[data-publication]');
+    const group = target.closest('[data-publication-group]');
+    if (record?.hidden || group?.hidden) resetFilters();
+    return true;
+  }
+  function hashTarget(hash) {
+    try { return document.getElementById(decodeURIComponent(hash.slice(1))); }
+    catch (_) { return null; }
+  }
+  function revealPublicationHash() {
+    const target = hashTarget(location.hash);
+    if (revealPublicationTarget(target)) {
+      requestAnimationFrame(() => target.scrollIntoView({block: 'start', behavior: 'auto'}));
+    }
+  }
+  // Open before anchor scrolling or the map result handler moves focus.
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (link) revealPublicationTarget(hashTarget(link.getAttribute('href')));
+  }, true);
+  window.addEventListener('hashchange', revealPublicationHash);
   filter();
+  revealPublicationHash();
 }

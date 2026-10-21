@@ -385,6 +385,34 @@ def main():
                 problem(publication_path, "disclosure summary must contain the single Publication landscape heading")
             if map_summary and (Page(map_summary.group(1)).tags["small"] or "Explore" in map_summary.group(1)):
                 problem(publication_path, "landscape summary must omit the old exploration label and explanatory subtitle")
+            list_disclosure = re.search(r'<details class="publication-list-disclosure" open>.*?</details>', publication_source, re.S)
+            if not list_disclosure or publication_source.count('class="publication-list-disclosure"') != 1:
+                problem(publication_path, "publication list must have one disclosure that is open by default")
+            else:
+                list_prefix = Page(publication_source[:list_disclosure.start()])
+                list_suffix = Page(publication_source[:list_disclosure.end()])
+                if not list_prefix.stack or not list_suffix.stack or (
+                    list_prefix.stack[-1] != ("section", "publication-list")
+                    or list_suffix.stack[-1] != ("section", "publication-list")
+                ):
+                    problem(publication_path, "publication list disclosure must be contained in its own citation section")
+                list_summary = re.search(r'<summary\b[^>]*>(.*?)</summary>', list_disclosure.group(0), re.S)
+                list_heading = '<h2 id="publication-list-heading">Publications by type</h2>'
+                if not list_summary or not re.fullmatch(
+                    re.escape(landscape_icon) + r"\s*" + re.escape(list_heading), list_summary.group(1).strip()
+                ) or len(re.findall(r'<h2\b[^>]*>\s*Publications by type\s*</h2>', publication_source)) != 1:
+                    problem(publication_path, "publication list summary must contain one leading decorative icon and its single heading")
+                list_contents = Page(list_disclosure.group(0))
+                for control_id in ("publication-search", "publication-type", "publication-year", "publication-count", "reset-filters", "no-results"):
+                    if list_contents.ids[control_id] != 1:
+                        problem(publication_path, f"publication list disclosure must contain its {control_id} control")
+                if (
+                    Counter(list_contents.publications) != Counter(page.publications)
+                    or Counter(list_contents.books) != Counter(page.books)
+                    or list_contents.publication_groups != page.publication_groups
+                    or list(list_contents.publication_groups) != list(page.publication_groups)
+                ):
+                    problem(publication_path, "all publication records, books, and category sections must be inside the list disclosure")
             publication_intro = re.search(r'<header class="page-intro wrap">(.*?)</header>', publication_source, re.S)
             if not publication_intro or "page-lead" in publication_intro.group(1):
                 problem(publication_path, "Publications intro must not display a lead paragraph")
