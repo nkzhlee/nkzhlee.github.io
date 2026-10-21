@@ -32,6 +32,7 @@ class Page(HTMLParser):
         self.publications = []
         self.books = []
         self.publication_groups = {}
+        self.map_elements = []
         self.h1_text = []
         self.highlights = []
         self.images = []
@@ -50,6 +51,8 @@ class Page(HTMLParser):
         element_id = attrs.get("id")
         if element_id is not None:
             self.ids[element_id] += 1
+        if element_id == "publication-map" or any(ancestor == "publication-map" for _, ancestor in self.stack):
+            self.map_elements.append((tag, attrs, tuple(self.stack)))
         if tag == "meta":
             self.meta[attrs.get("name", "").lower()] = attrs.get("content", "")
         for attribute in ("href", "src"):
@@ -316,11 +319,39 @@ def main():
         if page is not None:
             publication_path = ROOT / "publications/index.html"
             publication_source = publication_path.read_text()
-            disclosure = '<details class="publication-map-disclosure">'
-            if disclosure not in publication_source or publication_source.index(disclosure) < publication_source.index('id="edited-books"'):
-                problem(publication_path, "optional map must be collapsed and appear after all citation groups")
+            disclosure = re.search(r'<details class="publication-map-disclosure">.*?</details>', publication_source, re.S)
+            citation_list = publication_source.find('id="publication-list"')
+            if not disclosure or citation_list < 0 or disclosure.end() > citation_list:
+                problem(publication_path, "optional map must be collapsed and appear before the citation list")
             if "Venue groupings, not topic totals" not in publication_source or "ASD-HI appears under AIED" not in publication_source:
-                problem(publication_path, "map must explain venue grouping counts prominently")
+                problem(publication_path, "map must retain the accessible explanation of venue grouping counts")
+            for class_name in ("map-summary", "map-instruction", "map-note"):
+                explanations = [attrs for _, attrs, ancestors in page.map_elements
+                                if class_name in attrs.get("class", "").split()
+                                and not any(tag == "noscript" for tag, _ in ancestors)]
+                if len(explanations) != 1 or "hidden" not in explanations[0]:
+                    problem(publication_path, f"map explanation {class_name} must have the hidden attribute")
+            grouping_notes = [attrs for _, attrs, _ in page.map_elements if attrs.get("id") == "map-grouping-note"]
+            if len(grouping_notes) != 1 or (
+                "visually-hidden" not in grouping_notes[0].get("class", "").split()
+                or "hidden" in grouping_notes[0] or grouping_notes[0].get("aria-hidden") == "true"
+            ):
+                problem(publication_path, "map grouping explanation must be visually hidden but accessible")
+            legends = [attrs for _, attrs, _ in page.map_elements if "map-legend" in attrs.get("class", "").split()]
+            if len(legends) != 1 or "map-grouping-note" not in legends[0].get("aria-describedby", "").split():
+                problem(publication_path, "map legend must retain its accessible grouping description")
+            fallback_notes = [attrs for _, attrs, ancestors in page.map_elements
+                              if "map-note" in attrs.get("class", "").split()
+                              and any(tag == "noscript" for tag, _ in ancestors)]
+            if len(fallback_notes) != 1 or (
+                "hidden" in fallback_notes[0] or "visually-hidden" in fallback_notes[0].get("class", "").split()
+            ):
+                problem(publication_path, "map must retain a visible no-JavaScript fallback note")
+            map_css_path = ROOT / "css/publication-map.css"
+            summary_hidden_rule = re.search(r"\.map-summary\[hidden\]\s*\{[^}]*\bdisplay\s*:\s*none\b", map_css_path.read_text())
+            global_hidden_rule = re.search(r"\[hidden\]\s*\{[^}]*\bdisplay\s*:\s*none\s*!important", (ROOT / "css/academic.css").read_text())
+            if not summary_hidden_rule and not global_hidden_rule:
+                problem(map_css_path, "hidden map summary must override its flex display")
             if Counter(page.publications) != Counter(visible):
                 problem(ROOT / "publications/index.html", "publication cards do not match visible data records")
             if Counter(page.books) != Counter(book["id"] for book in books):
