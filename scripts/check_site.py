@@ -37,6 +37,7 @@ class Page(HTMLParser):
         self.images = []
         self.projects = []
         self.project_publications = []
+        self.main_sections = []
         self.title = []
         self.count_text = []
         self.stack = []
@@ -70,6 +71,8 @@ class Page(HTMLParser):
             self.projects.append(element_id)
         if "data-project-publication" in attrs:
             self.project_publications.append(attrs["data-project-publication"])
+        if tag == "section" and self.stack and self.stack[-1][0] == "main":
+            self.main_sections.append(element_id)
         if tag == "img":
             self.images.append(attrs)
         if tag not in VOID_TAGS:
@@ -367,7 +370,17 @@ def main():
         ordered = ordered_highlights(publications, highlights)
         project_data = json.loads((ROOT / "data/projects.json").read_text(encoding="utf-8"))
         validate_project_groups(project_data, publications, highlights)
-        projects_page = read_page(ROOT / "projects/index.html")
+        projects_path = ROOT / "projects/index.html"
+        projects_page = read_page(projects_path)
+        projects_source = projects_path.read_text(encoding="utf-8")
+        if "project-theme-nav" in projects_source or 'aria-label="Project sections"' in projects_source:
+            problem(projects_path, "Projects must not display the redundant section navigation row")
+        if "future-projects" in projects_page.ids or any(
+            urlsplit(reference).fragment == "future-projects" for reference, _ in projects_page.refs
+        ):
+            problem(projects_path, "Future directions must remain unlisted on Projects")
+        if projects_page.main_sections != ["selected-projects", "project-topics", "additional-projects"]:
+            problem(projects_path, "Projects must show selected work, research areas, then additional and earlier work last")
         if Counter(projects_page.projects) != Counter(project["id"] for project in project_data["projects"]):
             problem(ROOT / "projects/index.html", "project cards do not match project data")
         if Counter(projects_page.project_publications) != Counter(identifiers):

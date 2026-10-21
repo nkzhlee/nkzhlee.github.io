@@ -212,11 +212,6 @@ def research():
 def projects():
     body = intro("Projects", "Research projects", "My research connects pedagogical alignment, human–AI collaboration, and personalized learning. Related papers, datasets, and systems are grouped around a shared research question.")
     body += render_projects(PROJECT_DATA, PUBS, HIGHLIGHTS)
-    body += '''<section class="wrap section project-future" id="future-projects"><h2>Future directions</h2><p>Building on these projects, I plan to pursue three connected directions:</p><ul>
-<li><strong>Educational goals to AI tasks:</strong> LLM agents that propose rubrics and evaluation specifications for educator review.</li>
-<li><strong>AI that strengthens human connection:</strong> Agents that invite teacher, peer, and family participation while supporting independent thinking.</li>
-<li><strong>Personalized special-education support:</strong> Materials and coaching aligned with educator-approved Individualized Education Program (IEP) goals, with specialist review.</li>
-</ul><p class="section-end"><a href="/research/">Paper highlights by year</a> · <a href="/publications/">Full publication list</a></p></section>'''
     write("projects/index.html", layout("Research Projects | Zhaohui Li", "Research projects in pedagogical alignment, human–AI collaboration, personalized learning, special education, and earlier NLP, with related papers and datasets.", body, "/projects/"))
 
 def publications():

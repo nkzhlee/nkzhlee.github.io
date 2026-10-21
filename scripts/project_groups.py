@@ -101,16 +101,15 @@ def render_project(project, themes, papers, figures):
 
 def render_projects(data, publications, highlights):
     themes, papers, figures = validate_project_groups(data, publications, highlights)
-    body = '<nav class="wrap project-theme-nav" aria-label="Project sections"><a href="#selected-projects">Selected research experience</a><a href="#additional-projects">Additional &amp; earlier work</a><a href="#project-topics">Browse by research area</a><a href="#future-projects">Future directions</a></nav>'
     selected = sorted((project for project in data["projects"] if project.get("selectedOrder") is not None), key=lambda project: project["selectedOrder"])
     additional = [project for project in data["projects"] if project.get("selectedOrder") is None]
     cards = ''.join('<li>' + render_project(project, themes, papers, figures) + '</li>' for project in selected)
-    body += f'<section class="wrap project-section" id="selected-projects"><header><h2>Selected research experience</h2></header><ol class="selected-projects">{cards}</ol></section>'
-    cards = ''.join(render_project(project, themes, papers, figures) for project in additional)
-    body += f'<section class="wrap project-section" id="additional-projects"><header><h2>Additional &amp; earlier work</h2></header>{cards}</section>'
+    body = f'<section class="wrap project-section" id="selected-projects"><header><h2>Selected research experience</h2></header><ol class="selected-projects">{cards}</ol></section>'
     body += '<section class="wrap project-topics" id="project-topics"><h2>Browse by research area</h2><div class="project-topic-grid">'
     for theme in data["themes"]:
         projects = [project for project in selected + additional if theme["id"] in [project["themeId"], *project["relatedThemeIds"]]]
         links = ''.join(f'<li><a href="#{escape(project["id"], quote=True)}">{escape(project["title"])}</a></li>' for project in projects)
         body += f'<section class="project-topic" id="{escape(theme["id"], quote=True)}" style="--theme-color:{theme["color"]}"><h3>{escape(theme["shortTitle"])}</h3><p>{escape(theme["description"])}</p><ul>{links}</ul></section>'
-    return body + '</div></section>'
+    body += '</div></section>'
+    cards = ''.join(render_project(project, themes, papers, figures) for project in additional)
+    return body + f'<section class="wrap project-section" id="additional-projects"><header><h2>Additional &amp; earlier work</h2></header>{cards}</section>'
