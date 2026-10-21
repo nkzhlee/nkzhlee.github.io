@@ -309,7 +309,7 @@ def contact():
         meeting_action = f'<p>Email me your topic, time zone, and a few available times. I’ll reply to confirm a meeting.</p><a class="button booking-action" href="{E(request_url, quote=True)}">Request a meeting by email</a><p class="meeting-note">Meeting requests are confirmed by email.</p>'
     body=intro("Contact","Contact","I welcome conversations about human-centered AI, education, and research collaboration.")
     body=f'''{body}<section class="wrap section contact-layout" aria-label="Meetings and contact details">
-<div class="meeting-panel"><h2>Meet with me</h2>{meeting_action}<div class="meeting-context"><h3>What would you like to discuss?</h3><p>Research collaborations, invited talks, and conversations about AI in education.</p><address class="contact-signature"><a class="contact-email" href="mailto:{E(PROFILE['email'])}">{E(PROFILE["email"])}</a></address></div></div>
+<div class="meeting-panel"><h2>Meet with me</h2>{meeting_action}<div class="meeting-context"><h3>Prefer email?</h3><p>Feel free to reach out by email as well to discuss research collaborations, invited talks, or AI in education.</p><address class="contact-signature"><a class="contact-email" href="mailto:{E(PROFILE['email'])}">{E(PROFILE["email"])}</a></address></div></div>
 </section>'''
     write("cv/index.html",layout("Contact | Zhaohui Li","Contact Zhaohui Li for research collaborations, speaking invitations, and meetings about AI and education.",body,"/cv/"))
 
