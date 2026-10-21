@@ -367,10 +367,30 @@ def main():
         if page is not None:
             publication_path = ROOT / "publications/index.html"
             publication_source = publication_path.read_text()
-            disclosure = re.search(r'<details class="publication-map-disclosure">.*?</details>', publication_source, re.S)
+            disclosure = re.search(r'<details class="publication-map-disclosure" open>.*?</details>', publication_source, re.S)
             citation_list = publication_source.find('id="publication-list"')
             if not disclosure or citation_list < 0 or disclosure.end() > citation_list:
-                problem(publication_path, "optional map must be collapsed and appear before the citation list")
+                problem(publication_path, "publication landscape must be open by default and appear before the citation list")
+            map_summary = re.search(r'<summary\b[^>]*>(.*?)</summary>', disclosure.group(0), re.S) if disclosure else None
+            landscape_heading = '<h2 id="publication-map-heading">Publication landscape</h2>'
+            if not map_summary or landscape_heading not in map_summary.group(1) or (
+                Page(map_summary.group(1)).tags["h2"] != 1
+                or len(re.findall(r'<h2\b[^>]*>\s*Publication landscape\s*</h2>', publication_source)) != 1
+            ):
+                problem(publication_path, "disclosure summary must contain the single Publication landscape heading")
+            if map_summary and (Page(map_summary.group(1)).tags["small"] or "Explore" in map_summary.group(1)):
+                problem(publication_path, "landscape summary must omit the old exploration label and explanatory subtitle")
+            publication_intro = re.search(r'<header class="page-intro wrap">(.*?)</header>', publication_source, re.S)
+            if not publication_intro or "page-lead" in publication_intro.group(1):
+                problem(publication_path, "Publications intro must not display a lead paragraph")
+            if any(text in publication_source for text in (
+                "Optional: browse connections", "Venues &amp; shared topics", "Venues & shared topics",
+                "Shared questions connect", "Conference and journal papers",
+            )) or any("map-heading" in attrs.get("class", "").split() for _, attrs, _ in page.map_elements):
+                problem(publication_path, "Publications must omit the redundant landscape and page introduction copy")
+            map_sections = [attrs for _, attrs, _ in page.map_elements if attrs.get("id") == "publication-map"]
+            if len(map_sections) != 1 or "publication-map-heading" not in map_sections[0].get("aria-labelledby", "").split():
+                problem(publication_path, "landscape section must retain its accessible heading association")
             if "Venue groupings, not topic totals" not in publication_source or "ASD-HI appears under AIED" not in publication_source:
                 problem(publication_path, "map must retain the accessible explanation of venue grouping counts")
             for class_name in ("map-summary", "map-instruction", "map-note"):

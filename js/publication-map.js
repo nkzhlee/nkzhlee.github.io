@@ -3,14 +3,16 @@
   const map = document.querySelector('[data-publication-map]');
   if (!map) return;
   const disclosure = map.closest('details');
+  const summary = disclosure?.querySelector('summary');
   function revealHashTarget() {
     if (!disclosure || !location.hash) return;
     let id;
     try { id = decodeURIComponent(location.hash.slice(1)); } catch (_) { return; }
     const target = document.getElementById(id);
-    if (target && (target === map || map.contains(target))) {
+    if (target && (target === map || map.contains(target) || summary?.contains(target))) {
       disclosure.open = true;
-      requestAnimationFrame(() => target.scrollIntoView({block: 'start', behavior: 'auto'}));
+      const scrollTarget = target === map ? summary || map : target;
+      requestAnimationFrame(() => scrollTarget.scrollIntoView({block: 'start', behavior: 'auto'}));
     }
   }
   revealHashTarget();

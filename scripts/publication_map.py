@@ -112,7 +112,6 @@ def render_publication_map(publications, taxonomy):
     }
     json_text = json.dumps(payload, ensure_ascii=False).replace("<", "\\u003c")
     return f'''<section class="wrap publication-map-section" id="publication-map" aria-labelledby="publication-map-heading" data-publication-map>
-<div class="map-heading"><div><p class="eyebrow">Venues &amp; shared topics</p><h2 id="publication-map-heading">Publication landscape</h2><p>Shared questions connect my work across AI, education technology, and special education.</p></div></div>
 <div class="map-summary" aria-label="Publication map summary" hidden><span><strong>{len(records)}</strong> works</span><span><strong>{len(venues)}</strong> venues &amp; repositories</span><span><strong>{shared_count}</strong> themes shared across venue groups</span></div>
 <div class="visually-hidden" id="map-grouping-note"><h3>Venue groupings, not topic totals</h3><p>Counts below group works by their publication venue or repository, not by every research area they address. For example, ASD-HI appears under AIED (AI for education), although it concerns autism and special education.</p></div>
 <div class="map-legend" role="group" aria-label="Filter by venue grouping" aria-describedby="map-grouping-note">{"".join(community_legend)}</div>

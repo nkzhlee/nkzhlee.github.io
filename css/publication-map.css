@@ -1,14 +1,16 @@
 /* Publication landscape: fixed-size count marks, not an area-encoded chart. */
-.publication-map-disclosure > summary { padding-block: 25px; border-top: 1px solid var(--rule); cursor: pointer; color: var(--green); font-weight: 600; }
-.publication-map-disclosure > summary::marker { color: var(--green); }
+.publication-map-disclosure > summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 25px 16px; cursor: pointer; list-style: none; }
+.publication-map-disclosure > summary::-webkit-details-marker { display: none; }
 .publication-map-disclosure > summary:focus-visible { outline-offset: 5px; }
-.publication-map-disclosure > summary small { display: block; margin-top: 6px; color: var(--muted); font-size: .8rem; font-weight: 400; }
-.publication-map-disclosure .publication-map-section { padding-top: 10px; }
+.publication-map-disclosure > summary h2 { margin: 0; }
+.map-disclosure-action { display: inline-flex; align-items: center; gap: 10px; flex-shrink: 0; color: var(--green); font-size: .8rem; }
+.map-disclosure-chevron { width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); }
+.map-hide-label { display: none; }
+.publication-map-disclosure[open] .map-hide-label { display: inline; }
+.publication-map-disclosure[open] .map-show-label { display: none; }
+.publication-map-disclosure[open] .map-disclosure-chevron { transform: rotate(225deg); }
+.publication-map-disclosure .publication-map-section { padding-top: 0; }
 .publication-map-section { padding-block: 46px 50px; border-bottom: 1px solid var(--rule); }
-.map-heading { display: flex; justify-content: space-between; align-items: end; gap: 35px; }
-.map-heading h2 { margin-bottom: 13px; }
-.map-heading .eyebrow { margin-bottom: 11px; }
-.map-heading p:last-child { margin-bottom: 0; max-width: 730px; color: var(--muted); font-size: .94rem; }
 .map-download { white-space: nowrap; font-size: .77rem; margin-bottom: 3px; text-decoration: none; }
 .map-download .file-label { display: block; margin-top: 3px; }
 .map-summary { display: flex; flex-wrap: wrap; gap: 12px 30px; padding: 24px 0 19px; margin-bottom: 8px; border-bottom: 1px solid var(--rule); font-size: .77rem; color: var(--muted); }
@@ -64,15 +66,12 @@
 .map-mobile-venues, .map-mobile-topics { display: none; }
 .publication-map-section.has-map-selection .map-row:not(.is-muted) { background: #eef3ec; }
 @media (max-width: 950px) {
-  .map-heading { align-items: start; }
   .map-table thead th:first-child { width: 21%; }
   .map-topic { padding-inline: 2px; }
   .map-venue { padding-right: 8px; gap: 6px; }
 }
 @media (max-width: 850px) {
   .publication-map-section { padding-block: 33px 38px; }
-  .map-heading { display: block; }
-  .map-heading p:last-child { font-size: .9rem; }
   .map-download { display: inline-flex; gap: 8px; align-items: center; margin-top: 17px; }
   .map-download .file-label { margin-top: 0; }
   .map-summary { gap: 13px 23px; padding-block: 20px 18px; }
@@ -112,6 +111,7 @@
 }
 @media (prefers-reduced-motion: reduce) { .map-count { transition: none; } }
 @media print {
+  .map-disclosure-action { display: none; }
   .map-download, .map-results, .map-mobile-topics, .map-mobile-venues { display: none; }
   .map-table-wrap { display: block; }
   .publication-map-section { break-before: page; }
