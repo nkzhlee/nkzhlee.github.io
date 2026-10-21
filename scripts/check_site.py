@@ -199,13 +199,26 @@ def main():
         signature = re.search(r'<address class="contact-signature">\s*(.*?)\s*</address>', contact_content, re.S)
         email = escape(profile["email"], quote=True)
         expected_signature = f'<a class="contact-email" href="mailto:{email}">{email}</a>'
-        if not signature or signature.group(1) != expected_signature or contact_content.count('class="contact-signature"') != 1:
+        if not signature or signature.group(1) != expected_signature or (
+            contact_content.count('class="contact-signature"') != 1
+            or contact_content.count('class="contact-email"') != 1
+        ):
             problem(contact_path, "Contact signature must contain only one link to the configured email address")
         meeting_panel = re.search(r'<div class="meeting-panel">', contact_content)
-        if not meeting_panel or not signature or signature.start() < meeting_panel.end() or (
-            Page(contact_content[meeting_panel.start():signature.start()]).stack
+        meeting_context = re.search(r'<div class="meeting-context">', contact_content)
+        signature_placement_valid = False
+        if meeting_panel and meeting_context and signature and (
+            meeting_panel.end() <= meeting_context.start() < meeting_context.end() <= signature.start()
         ):
-            problem(contact_path, "Contact email signature must follow the complete meeting panel")
+            panel_prefix = Page(contact_content[meeting_panel.start():meeting_context.start()])
+            context_prefix = Page(contact_content[meeting_context.start():signature.start()])
+            signature_placement_valid = (
+                panel_prefix.stack == [("div", None)]
+                and context_prefix.stack == [("div", None)]
+                and context_prefix.tags["p"] >= 1
+            )
+        if not signature_placement_valid:
+            problem(contact_path, "Contact email signature must follow the discussion paragraph inside the meeting context and panel")
         if any(text in contact_content for text in (
             "contact-details", "contact-profiles", "contact-guidance", "Get in touch",
             "Current appointment", "<dt>Mentor</dt>",
