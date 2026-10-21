@@ -1,14 +1,10 @@
 /* Publication landscape: fixed-size count marks, not an area-encoded chart. */
-.publication-map-disclosure > summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 25px 16px; cursor: pointer; list-style: none; }
+.publication-map-disclosure > summary { display: flex; align-items: center; gap: 14px; padding-block: 25px 16px; cursor: pointer; list-style: none; }
 .publication-map-disclosure > summary::-webkit-details-marker { display: none; }
 .publication-map-disclosure > summary:focus-visible { outline-offset: 5px; }
 .publication-map-disclosure > summary h2 { margin: 0; }
-.map-disclosure-action { display: inline-flex; align-items: center; gap: 10px; flex-shrink: 0; color: var(--green); font-size: .8rem; }
-.map-disclosure-chevron { width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); }
-.map-hide-label { display: none; }
-.publication-map-disclosure[open] .map-hide-label { display: inline; }
-.publication-map-disclosure[open] .map-show-label { display: none; }
-.publication-map-disclosure[open] .map-disclosure-chevron { transform: rotate(225deg); }
+.map-disclosure-chevron { width: 8px; height: 8px; flex-shrink: 0; color: var(--green); border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(-45deg); }
+.publication-map-disclosure[open] .map-disclosure-chevron { transform: rotate(45deg); }
 .publication-map-disclosure .publication-map-section { padding-top: 0; }
 .publication-map-section { padding-block: 46px 50px; border-bottom: 1px solid var(--rule); }
 .map-download { white-space: nowrap; font-size: .77rem; margin-bottom: 3px; text-decoration: none; }
@@ -111,7 +107,7 @@
 }
 @media (prefers-reduced-motion: reduce) { .map-count { transition: none; } }
 @media print {
-  .map-disclosure-action { display: none; }
+  .map-disclosure-chevron { display: none; }
   .map-download, .map-results, .map-mobile-topics, .map-mobile-venues { display: none; }
   .map-table-wrap { display: block; }
   .publication-map-section { break-before: page; }

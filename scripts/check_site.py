@@ -367,12 +367,17 @@ def main():
         if page is not None:
             publication_path = ROOT / "publications/index.html"
             publication_source = publication_path.read_text()
-            disclosure = re.search(r'<details class="publication-map-disclosure" open>.*?</details>', publication_source, re.S)
+            disclosure = re.search(r'<details class="publication-map-disclosure">.*?</details>', publication_source, re.S)
             citation_list = publication_source.find('id="publication-list"')
             if not disclosure or citation_list < 0 or disclosure.end() > citation_list:
-                problem(publication_path, "publication landscape must be open by default and appear before the citation list")
+                problem(publication_path, "publication landscape must be collapsed by default and appear before the citation list")
             map_summary = re.search(r'<summary\b[^>]*>(.*?)</summary>', disclosure.group(0), re.S) if disclosure else None
             landscape_heading = '<h2 id="publication-map-heading">Publication landscape</h2>'
+            landscape_icon = '<span class="map-disclosure-chevron" aria-hidden="true"></span>'
+            if not map_summary or not re.fullmatch(
+                re.escape(landscape_icon) + r"\s*" + re.escape(landscape_heading), map_summary.group(1).strip()
+            ):
+                problem(publication_path, "landscape summary must contain only one decorative icon before its heading, without Hide or Show labels")
             if not map_summary or landscape_heading not in map_summary.group(1) or (
                 Page(map_summary.group(1)).tags["h2"] != 1
                 or len(re.findall(r'<h2\b[^>]*>\s*Publication landscape\s*</h2>', publication_source)) != 1
