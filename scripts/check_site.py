@@ -2,6 +2,7 @@
 """Validate generated academic pages before deployment; Python standard library only."""
 
 from collections import Counter
+from html import escape
 from html.parser import HTMLParser
 import json
 from pathlib import Path
@@ -193,6 +194,23 @@ def main():
         "cv-panel", "Curriculum vitae", "Academic CV", "Open CV", "Download a copy",
     )):
         problem(contact_path, "Contact main content must not duplicate the CV panel")
+    if contact_main:
+        contact_content = contact_main.group(1)
+        signature = re.search(r'<address class="contact-signature">\s*(.*?)\s*</address>', contact_content, re.S)
+        email = escape(profile["email"], quote=True)
+        expected_signature = f'<a class="contact-email" href="mailto:{email}">{email}</a>'
+        if not signature or signature.group(1) != expected_signature or contact_content.count('class="contact-signature"') != 1:
+            problem(contact_path, "Contact signature must contain only one link to the configured email address")
+        meeting_panel = re.search(r'<div class="meeting-panel">', contact_content)
+        if not meeting_panel or not signature or signature.start() < meeting_panel.end() or (
+            Page(contact_content[meeting_panel.start():signature.start()]).stack
+        ):
+            problem(contact_path, "Contact email signature must follow the complete meeting panel")
+        if any(text in contact_content for text in (
+            "contact-details", "contact-profiles", "contact-guidance", "Get in touch",
+            "Current appointment", "<dt>Mentor</dt>",
+        )):
+            problem(contact_path, "Contact main must not duplicate appointment, mentor, or profile details")
     contact_refs = [reference for reference, _ in read_page(contact_path).refs]
     profile_links = re.search(r'<div class="profile-links">(.*?)</div>', home_source, re.S)
     if not profile_links or (

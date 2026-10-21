@@ -310,7 +310,7 @@ def contact():
     body=intro("Contact","Contact","I welcome conversations about human-centered AI, education, and research collaboration.")
     body=f'''{body}<section class="wrap section contact-layout" aria-label="Meetings and contact details">
 <div class="meeting-panel"><p class="eyebrow">Meet with me</p><h2>Schedule a conversation</h2>{meeting_action}<div class="meeting-context"><h3>What would you like to discuss?</h3><p>Research collaborations, invited talks, and ideas for supporting teaching and learning with AI.</p></div></div>
-<div class="contact-details"><h2>Get in touch</h2><a class="contact-email" href="mailto:{E(PROFILE['email'])}">{E(PROFILE["email"])}</a><p class="contact-guidance">For collaboration inquiries, please include your research question and a link to relevant work.</p><dl><dt>Current appointment</dt><dd>{E(PROFILE["role"])}<br>{E(PROFILE["college"])}<br><a href="{E(PROFILE["institution_url"])}">{E(PROFILE["institution"])}</a></dd><dt>Mentor</dt><dd><a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></dd></dl><div class="contact-profiles"><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="https://github.com/nkzhlee">GitHub <span aria-hidden="true">↗</span></a></div></div>
+<address class="contact-signature"><a class="contact-email" href="mailto:{E(PROFILE['email'])}">{E(PROFILE["email"])}</a></address>
 </section>'''
     write("cv/index.html",layout("Contact | Zhaohui Li","Contact Zhaohui Li for research collaborations, speaking invitations, and meetings about AI and education.",body,"/cv/"))
 
