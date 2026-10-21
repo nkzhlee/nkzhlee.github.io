@@ -52,7 +52,7 @@ if (search) {
   const count = document.querySelector('#publication-count');
   const noResults = document.querySelector('#no-results');
   const citationSection = document.querySelector('#publication-list');
-  const citationDisclosure = search.closest('details');
+  const citationDisclosure = search.closest('.publication-list-disclosure');
   const normalize = (value) => value.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
   function filter() {
     const terms = normalize(search.value.trim()).split(/\s+/).filter(Boolean);

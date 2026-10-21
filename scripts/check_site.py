@@ -424,6 +424,10 @@ def main():
             details_ranges = DisclosureRanges(publication_source).ranges
             list_candidates = [item for item in details_ranges if "publication-list-disclosure" in item[2].get("class", "").split()]
             list_disclosure = list_candidates[0] if len(list_candidates) == 1 else None
+            filter_candidates = [item for item in details_ranges if "publication-filter-disclosure" in item[2].get("class", "").split()]
+            filter_disclosure = filter_candidates[0] if len(filter_candidates) == 1 else None
+            if not filter_disclosure or "open" in filter_disclosure[2]:
+                problem(publication_path, "publication search and filters must have one disclosure that is closed by default")
             if not list_disclosure or "open" not in list_disclosure[2]:
                 problem(publication_path, "publication list must have one disclosure that is open by default")
             else:
@@ -457,6 +461,31 @@ def main():
                     "#conference-publications", "#journal-publications", "#data-publications", "#edited-books",
                 ]:
                     problem(publication_path, "category links must retain Conference, Journal, Dataset, Books anchor order")
+                if filter_disclosure:
+                    filter_start, filter_end, _ = filter_disclosure
+                    filter_source = publication_source[filter_start:filter_end]
+                    filter_prefix = Page(publication_source[list_start:filter_start])
+                    if not category_links or not (
+                        list_start < filter_start < filter_end < list_end
+                        and filter_start >= list_start + category_links.end()
+                        and not publication_source[list_start + category_links.end():filter_start].strip()
+                        and filter_prefix.stack == [("details", None)]
+                    ):
+                        problem(publication_path, "search and filters must follow the category links directly inside the publication list")
+                    filter_summary = re.search(r'<summary\b[^>]*>(.*?)</summary>', filter_source, re.S)
+                    if not filter_summary or not re.fullmatch(
+                        re.escape(landscape_icon) + r"\s*" + re.escape('<span>Search &amp; filters</span>'), filter_summary.group(1).strip()
+                    ):
+                        problem(publication_path, "filter disclosure summary must contain a leading decorative icon and Search & filters label")
+                    filter_contents = Page(filter_source)
+                    for control_id in ("publication-search", "publication-type", "publication-year", "publication-count", "reset-filters"):
+                        if filter_contents.ids[control_id] != 1:
+                            problem(publication_path, f"filter disclosure must contain its {control_id} control")
+                    for control_class in ("publication-tools", "result-toolbar"):
+                        if f'class="{control_class}"' not in filter_source:
+                            problem(publication_path, f"filter disclosure must contain the {control_class} container")
+                    if filter_contents.publication_groups or filter_contents.publications or filter_contents.books or filter_contents.ids["no-results"]:
+                        problem(publication_path, "publication categories, records, books, and no-results message must remain outside the filter disclosure")
                 list_contents = Page(list_source)
                 for control_id in ("publication-search", "publication-type", "publication-year", "publication-count", "reset-filters", "no-results"):
                     if list_contents.ids[control_id] != 1:
@@ -507,6 +536,12 @@ def main():
             global_hidden_rule = re.search(r"\[hidden\]\s*\{[^}]*\bdisplay\s*:\s*none\s*!important", (ROOT / "css/academic.css").read_text())
             if not summary_hidden_rule and not global_hidden_rule:
                 problem(map_css_path, "hidden map summary must override its flex display")
+            academic_js_path = ROOT / "js/academic.js"
+            citation_selector = re.search(r'\bconst\s+citationDisclosure\s*=\s*([^;]+);', academic_js_path.read_text())
+            if not citation_selector or not re.search(
+                r"""\b(?:querySelector|closest)\(\s*(['"])\.publication-list-disclosure\1\s*\)""", citation_selector.group(1)
+            ):
+                problem(academic_js_path, "citationDisclosure must explicitly select .publication-list-disclosure, not the nearest details element")
             if Counter(page.publications) != Counter(visible):
                 problem(ROOT / "publications/index.html", "publication cards do not match visible data records")
             if Counter(page.books) != Counter(book["id"] for book in books):
