@@ -16,7 +16,15 @@
         "label": "PubMed",
         "url": "https://pubmed.ncbi.nlm.nih.gov/42726183/"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/paicoach-2026.pdf",
+      "version": "Publisher open-access PDF",
+      "versionLabel": "Published article",
+      "sourceUrl": "https://link.springer.com/content/pdf/10.1007/s10803-026-07519-6.pdf",
+      "pages": 14,
+      "sha256": "e89ff4e3a45dc443f58f633d848a7d981f16989fb7c215bea57b4813246feae0"
+    }
   },
   {
     "id": "robot-reading-2026",
@@ -31,7 +39,15 @@
         "label": "DOI",
         "url": "https://doi.org/10.1007/978-3-032-29788-4_71"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/robot-reading-2026.pdf",
+      "version": "Publisher PDF supplied by the author",
+      "versionLabel": "Published article",
+      "sourceUrl": "https://doi.org/10.1007/978-3-032-29788-4_71",
+      "pages": 7,
+      "sha256": "7ceb4b8d13ef20e323cfb022f6d96b6a88bb4afc2dec558bef0a871aea071031"
+    }
   },
   {
     "id": "scieval-2026",
@@ -49,12 +65,16 @@
       {
         "label": "Preprint",
         "url": "https://arxiv.org/abs/2604.25472"
-      },
-      {
-        "label": "PDF",
-        "url": "https://arxiv.org/pdf/2604.25472"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/scieval-2026.pdf",
+      "version": "arXiv preprint",
+      "versionLabel": "arXiv preprint",
+      "sourceUrl": "https://arxiv.org/pdf/2604.25472",
+      "pages": 15,
+      "sha256": "4efbeb5baa9ba6c46bab0ab8fc976d9bdcb87c406d025e43bc4d14d1df214af4"
+    }
   },
   {
     "id": "llm4art-2026",
@@ -67,14 +87,22 @@
     "status": "Published",
     "links": [
       {
-        "label": "Proceedings PDF",
+        "label": "Proceedings",
         "url": "https://www.solaresearch.org/wp-content/uploads/2026/04/LAK26-Companion-Proceedings.pdf"
       },
       {
         "label": "Conference",
         "url": "https://www.solaresearch.org/events/lak/lak26/accepted-papers/"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/llm4art-2026.pdf",
+      "version": "Published paper extracted from proceedings",
+      "versionLabel": "Published article",
+      "sourceUrl": "https://www.solaresearch.org/wp-content/uploads/2026/04/LAK26-Companion-Proceedings.pdf",
+      "pages": 3,
+      "sha256": "8d1c719b7de79deabc4bd01d4982479a4bf02eb94f7d31aa3a44c5212f0bba17"
+    }
   },
   {
     "id": "judging-judges-2026",
@@ -92,12 +120,16 @@
       {
         "label": "Preprint",
         "url": "https://arxiv.org/abs/2602.13243"
-      },
-      {
-        "label": "PDF",
-        "url": "https://arxiv.org/pdf/2602.13243"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/judging-judges-2026.pdf",
+      "version": "arXiv preprint",
+      "versionLabel": "arXiv preprint",
+      "sourceUrl": "https://arxiv.org/pdf/2602.13243",
+      "pages": 17,
+      "sha256": "18a43bed189086ac98f0f4706afd2b45ef685b5a468a22d77c91fc4e160fbccc"
+    }
   },
   {
     "id": "aire-aera-2026",
@@ -127,7 +159,15 @@
         "label": "DOI",
         "url": "https://doi.org/10.1007/978-3-031-98462-4_36"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/storylab-2025.pdf",
+      "version": "Author manuscript",
+      "versionLabel": "Author manuscript",
+      "sourceUrl": "https://doi.org/10.1007/978-3-031-98462-4_36",
+      "pages": 8,
+      "sha256": "c64b2309fec81513ef0e5791b7c07a1cdd28182407b120984f907141472642fa"
+    }
   },
   {
     "id": "asd-hi-2025",
@@ -142,7 +182,15 @@
         "label": "DOI",
         "url": "https://doi.org/10.1007/978-3-031-98414-3_4"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/asd-hi-2025.pdf",
+      "version": "Author manuscript",
+      "versionLabel": "Author manuscript",
+      "sourceUrl": "https://doi.org/10.1007/978-3-031-98414-3_4",
+      "pages": 14,
+      "sha256": "a57fb3894305e1b2183339b639035d0960d4c162a8639db350d990037c076590"
+    }
   },
   {
     "id": "bilingual-agent-2025",
@@ -157,7 +205,15 @@
         "label": "DOI",
         "url": "https://doi.org/10.1016/j.caeai.2025.100484"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/bilingual-agent-2025.pdf",
+      "version": "Publisher open-access PDF",
+      "versionLabel": "Published article",
+      "sourceUrl": "https://doi.org/10.1016/j.caeai.2025.100484",
+      "pages": 17,
+      "sha256": "0553dc6fc55f2276cff907431ce16314c48e903c82609642a139a713505d67b7"
+    }
   },
   {
     "id": "dialogic-reading-2025",
@@ -172,7 +228,15 @@
         "label": "DOI",
         "url": "https://doi.org/10.1111/bjet.13615"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/dialogic-reading-2025.pdf",
+      "version": "Publisher open-access PDF",
+      "versionLabel": "Published article",
+      "sourceUrl": "https://bera-journals.onlinelibrary.wiley.com/doi/pdfdirect/10.1111/bjet.13615",
+      "pages": 30,
+      "sha256": "a818f8a65989be1d40e0808900173d8ccfea861efa9ff0e27128df275528a7e0"
+    }
   },
   {
     "id": "demonstration-examples-2025",
@@ -186,12 +250,16 @@
       {
         "label": "Paper",
         "url": "https://par.nsf.gov/biblio/10613222"
-      },
-      {
-        "label": "PDF",
-        "url": "https://par.nsf.gov/servlets/purl/10613222"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/demonstration-examples-2025.pdf",
+      "version": "Accepted manuscript",
+      "versionLabel": "Accepted manuscript",
+      "sourceUrl": "https://par.nsf.gov/servlets/purl/10613222",
+      "pages": 14,
+      "sha256": "1dc7d5eed5ce440ba48e46de33d8950abca3a81fc1a785a8d1f8ac3522a526be"
+    }
   },
   {
     "id": "joint-selective-2024",
@@ -205,12 +273,17 @@
       {
         "label": "arXiv",
         "url": "https://arxiv.org/abs/2410.24029"
-      },
-      {
-        "label": "PDF",
-        "url": "https://arxiv.org/pdf/2410.24029"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/joint-selective-2024.pdf",
+      "version": "arXiv preprint",
+      "versionLabel": "arXiv preprint",
+      "sourceUrl": "https://arxiv.org/pdf/2410.24029",
+      "pages": 11,
+      "sha256": "62303804d88666d212bfe8460c3441d2600747878706071902abf5b3c9f92b3b",
+      "license": "CC BY 4.0"
+    }
   },
   {
     "id": "asrrn-2023",
@@ -226,14 +299,19 @@
         "url": "https://aclanthology.org/2023.findings-emnlp.254/"
       },
       {
-        "label": "PDF",
-        "url": "https://aclanthology.org/2023.findings-emnlp.254.pdf"
-      },
-      {
         "label": "DOI",
         "url": "https://doi.org/10.18653/v1/2023.findings-emnlp.254"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/asrrn-2023.pdf",
+      "version": "Publisher PDF",
+      "versionLabel": "Published article",
+      "sourceUrl": "https://aclanthology.org/2023.findings-emnlp.254.pdf",
+      "pages": 13,
+      "sha256": "7cfe13d3bd7ebc0f2619a5ea703dc2bb78e26a2a9592a57e2f7024139a160d71",
+      "license": "CC BY 4.0"
+    }
   },
   {
     "id": "defer-grading-2023",
@@ -248,7 +326,15 @@
         "label": "DOI",
         "url": "https://doi.org/10.1007/978-3-031-36272-9_34"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/defer-grading-2023.pdf",
+      "version": "Author manuscript",
+      "versionLabel": "Author manuscript",
+      "sourceUrl": "https://par.nsf.gov/servlets/purl/10418179",
+      "pages": 12,
+      "sha256": "feb30362f336d3b60a6083afff11784fd127cf45cb3f2fcd2f646fea32dc0931"
+    }
   },
   {
     "id": "istudio-2023",
@@ -282,7 +368,16 @@
         "label": "Paper",
         "url": "https://journals.scholarpublishing.org/index.php/AIVP/article/view/14406"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/physics-assessment-2023.pdf",
+      "version": "Publisher PDF",
+      "versionLabel": "Published article",
+      "sourceUrl": "https://scholarpublishing.org/journals/index.php/EJAS/article/view/8443/8611",
+      "pages": 19,
+      "sha256": "96dc6b5f80ad32aa3a17e073d5a01bfb51ef1de108bbdb880399624cb4590819",
+      "license": "CC BY 4.0"
+    }
   },
   {
     "id": "formative-feedback-2022",
@@ -296,12 +391,16 @@
       {
         "label": "DOI",
         "url": "https://doi.org/10.52041/iase.icots11.T3C3"
-      },
-      {
-        "label": "PDF",
-        "url": "https://mdbeckman.github.io/2023-MSU-Colloq/docs/ICOTS-Paper.pdf"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/formative-feedback-2022.pdf",
+      "version": "Author manuscript",
+      "versionLabel": "Author manuscript",
+      "sourceUrl": "https://mdbeckman.github.io/2023-MSU-Colloq/docs/ICOTS-Paper.pdf",
+      "pages": 6,
+      "sha256": "165ce9e9cad801907e96a6a912ddc580a82a29559bb133b19684b8f65d6801b9"
+    }
   },
   {
     "id": "physics-dataset-2022",
@@ -332,14 +431,19 @@
         "url": "https://aclanthology.org/2021.emnlp-main.487/"
       },
       {
-        "label": "PDF",
-        "url": "https://aclanthology.org/2021.emnlp-main.487.pdf"
-      },
-      {
         "label": "DOI",
         "url": "https://doi.org/10.18653/v1/2021.emnlp-main.487"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/sfrn-2021.pdf",
+      "version": "Publisher PDF",
+      "versionLabel": "Published article",
+      "sourceUrl": "https://aclanthology.org/2021.emnlp-main.487.pdf",
+      "pages": 11,
+      "sha256": "78c171424dfd02f63fed44dfd8d964ac4e60374e47b2abe70d5d529d89dfe4a5",
+      "license": "CC BY 4.0"
+    }
   },
   {
     "id": "main-content-2019",
@@ -349,12 +453,15 @@
     "venue": "AAAI 2019, 33(1), 9973–9974",
     "type": "conference",
     "status": "Published",
-    "links": [
-      {
-        "label": "PDF",
-        "url": "https://ojs.aaai.org/index.php/AAAI/article/download/5123/4996"
-      }
-    ]
+    "links": [],
+    "download": {
+      "url": "/files/papers/main-content-2019.pdf",
+      "version": "Author manuscript",
+      "versionLabel": "Author manuscript",
+      "sourceUrl": "https://zhaohuilee.com/files/AAAI-19_paper_367.pdf",
+      "pages": 2,
+      "sha256": "2c9ac5d614a1f632eddf02075801275a9c442fd9971583327ac904268a92479a"
+    }
   },
   {
     "id": "hierarchical-answer-2018",
@@ -369,7 +476,15 @@
         "label": "DOI",
         "url": "https://doi.org/10.1007/978-3-030-01012-6_8"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/hierarchical-answer-2018.pdf",
+      "version": "Author manuscript",
+      "versionLabel": "Author manuscript",
+      "sourceUrl": "https://zhaohuilee.com/files/82.pdf",
+      "pages": 12,
+      "sha256": "c505c16d4b517db1defcf48c01972feb1ca31484f36502942f2ed1e47895dca1"
+    }
   },
   {
     "id": "dataflow-2016",
@@ -385,14 +500,18 @@
         "url": "https://doi.org/10.1145/2983323.2983327"
       },
       {
-        "label": "PDF",
-        "url": "https://jiafengguo.github.io/2016/2016-Ease%20the%20Process%20of%20Machine%20Learning%20with%20Dataflow.pdf"
-      },
-      {
         "label": "Code",
         "url": "https://github.com/ICT-BDA/EasyML"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/dataflow-2016.pdf",
+      "version": "Author manuscript",
+      "versionLabel": "Author manuscript",
+      "sourceUrl": "https://jiafengguo.github.io/2016/2016-Ease%20the%20Process%20of%20Machine%20Learning%20with%20Dataflow.pdf",
+      "pages": 4,
+      "sha256": "9bd0bce25c520a1e01ed14279118639d8dc62c2326f2b492b29decdc24992347"
+    }
   },
   {
     "id": "word-vectors-2014",
@@ -407,6 +526,14 @@
         "label": "DOI",
         "url": "https://doi.org/10.1007/978-3-662-45924-9_16"
       }
-    ]
+    ],
+    "download": {
+      "url": "/files/papers/word-vectors-2014.pdf",
+      "version": "Author manuscript",
+      "versionLabel": "Author manuscript",
+      "sourceUrl": "https://zhaohuilee.com/files/NLPCC148.pdf",
+      "pages": 12,
+      "sha256": "8d452d7ef6b91898ba0f7397ccd2dbc7d0d100afa855d0869528b268714096bd"
+    }
   }
 ]

@@ -7,6 +7,7 @@ import json
 from publication_map import render_publication_map, render_publication_map_svg
 from highlights import render_highlights
 from project_groups import render_projects
+from publication_links import download_link, paper_url, pdf_version
 
 ROOT = Path(__file__).resolve().parents[1]
 STYLE_VERSION = sha256((ROOT / "css/academic.css").read_bytes()).hexdigest()[:10]
@@ -107,14 +108,15 @@ def intro(kicker, title, text):
     return f'<header class="page-intro wrap"><h1>{title}</h1><p class="page-lead">{text}</p></header>'
 
 def pub_links(p):
-    links = "".join(f'<a href="{E(x["url"])}">{E(x["label"])} <span aria-hidden="true">↗</span></a>' for x in p.get("links",[]))
+    links = download_link(p)
+    links += "".join(f'<a href="{E(x["url"])}">{E(x["label"])} <span aria-hidden="true">↗</span></a>' for x in p.get("links",[]))
     project = PROJECT_BY_PAPER.get(p["id"])
     if project:
         links += f'<a href="/projects/#{E(project["id"], quote=True)}">Project</a>'
-    return f'<div class="publication-links">{links}</div>' if links else ""
+    return f'<div class="publication-links">{links}</div>{pdf_version(p)}' if links else ""
 
 def pub_card(p, compact=False, heading_tag="h3"):
-    url = p.get("links", [{}])[0].get("url") if p.get("links") else None
+    url = paper_url(p)
     title = f'<a href="{E(url)}">{E(p["title"])}</a>' if url else E(p["title"])
     authors = E(p["authors"])
     for name in ["Zhaohui Li", "Li, Z."]:
@@ -176,15 +178,18 @@ def recent_news():
 def home():
     booking_url = PROFILE.get("booking_url", "").strip()
     booking_link = f'<a href="{E(booking_url, quote=True)}" target="_blank" rel="noopener noreferrer">Book a Meeting</a>' if booking_url else ""
+    research_interests = ''.join(f'<p>{E(paragraph)}</p>' for paragraph in PROFILE["research_interests"])
+    research_keywords = E(', '.join(PROFILE["research_keywords"]))
     body = f'''<section class="profile wrap">
 <figure class="profile-photo"><img src="/files/zhaohui-2026.jpg" alt="Zhaohui Li" width="1280" height="960" fetchpriority="high"></figure>
 <div class="profile-copy"><h1>Zhaohui Li <span class="name-degree">Ph.D.</span></h1>
 <p class="appointment">{E(PROFILE["role"])}<br><a href="{E(PROFILE["college_url"], quote=True)}">{E(PROFILE["college"])}</a><br>{E(PROFILE["institution"])}<br><span class="mentor">Mentor: <a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a></span></p>
-<p>I develop human-centered AI for education, translating educational goals and expert knowledge into computational tasks. My work combines algorithms, benchmark datasets, and systems for assessment and feedback, instructional material evaluation, early literacy, and parent–child interaction. I collaborate with educators to build reliable, responsible AI that supports teaching, learning, and human connection.</p>
+{research_interests}
+<p class="research-keywords"><strong>Keywords:</strong> {research_keywords}</p>
 <div class="profile-links"><a href="{E(PROFILE['scholar_url'])}">Google Scholar</a><a href="mailto:{E(PROFILE['email'])}">Email</a><a href="{CV}">CV</a><a href="https://github.com/nkzhlee">GitHub</a><a href="{E(PROFILE['linkedin_url'], quote=True)}">LinkedIn</a>{booking_link}</div></div></section>
 {recent_news()}
 <section class="wrap section home-notes" id="research-experience"><h2>Research Experience</h2>
-<p class="research-background">I received my Ph.D. in Computer Science from The Pennsylvania State University in 2024, advised by <a href="https://scholar.google.com/citations?hl=en&amp;user=jb9VOp0AAAAJ">Dr. Rebecca J. Passonneau</a> in the <a href="https://www.nlplab.psu.edu/">Natural Language Processing Lab</a>. My dissertation on automated assessment of STEM reasoning received Penn State’s <a href="https://aihub.icds.psu.edu/aiweek2024/">{E(DISSERTATION_AWARD)}</a> award in 2024. Before joining UT San Antonio, I was a postdoctoral associate at the University at Buffalo’s Institute for Artificial Intelligence and Data Science (IAD) and Department of Computer Science and Engineering (CSE), mentored by <a href="{E(PROFILE['mentor_url'])}">Dr. Jinjun Xiong</a>.</p>
+<p class="research-background">I received my Ph.D. in Computer Science from The Pennsylvania State University in 2024, advised by <a href="https://scholar.google.com/citations?hl=en&amp;user=jb9VOp0AAAAJ">Dr. Rebecca J. Passonneau</a> in the <a href="https://www.nlplab.psu.edu/">Natural Language Processing Lab</a>. My dissertation on automated assessment of STEM reasoning received Penn State’s <a href="https://aihub.icds.psu.edu/aiweek2024/">{E(DISSERTATION_AWARD)}</a> award in 2024. Before joining UT San Antonio, I was a postdoctoral associate at the University at Buffalo’s <a href="https://www.buffalo.edu/ai-data-science.html">Institute for Artificial Intelligence and Data Science (IAD)</a> and Department of Computer Science and Engineering (CSE), mentored by <a href="{E(PROFILE['mentor_url'])}">Dr. Jinjun Xiong</a>.</p>
 <p>I continue to work with the following centers at the University at Buffalo:</p>{leadership_list()}</section>
 <section class="wrap section"><div class="section-title"><h2>Recent papers</h2><a href="/research/">All {len(HIGHLIGHTS)} paper highlights →</a></div>
 {render_highlights(PUBS, HIGHLIGHTS, limit=6)}
@@ -198,8 +203,8 @@ def research():
     body += f'<section class="wrap section" id="paper-highlights" aria-label="Paper highlights">{render_highlights(PUBS, HIGHLIGHTS)}<p class="section-end">The <a href="/publications/">full publication list</a> also includes posters and dataset records.</p></section>'
     body += f'<section class="wrap section research-section" id="leadership"><h2>Research leadership</h2><p>I continue to work with <a href="{E(PROFILE["mentor_url"])}">Dr. Jinjun Xiong</a> and serve as AI Team Lead at the following University at Buffalo centers:</p>{leadership_list()}</section>'
     body += '<section class="wrap section research-section" id="ongoing"><h2>Projects by research area</h2><p>Explore related papers, datasets, and systems grouped by their shared research questions.</p><ul class="resource-list"><li id="assessment"><a href="/projects/#pedagogical-alignment">Pedagogical alignment &amp; assessment</a></li><li id="interaction"><a href="/projects/#human-ai-collaboration">Human–AI collaboration</a></li><li id="literacy"><a href="/projects/#personalized-learning">Personalized learning &amp; special education</a></li><li><a href="/projects/#earlier-nlp">Earlier NLP &amp; machine learning</a></li></ul></section>'
-    body += '''
-<section class="wrap section research-section prose" id="future"><h2>Future directions</h2><p>I plan to develop a theoretical framework for translating educational goals into computational tasks, informed by interdisciplinary collaboration, and an agent-based system to support task formulation and evaluation design. I also plan to investigate responsible AI use in education, including potential risks of emotional overreliance and declines in students’ independent reasoning.</p></section>
+    body += f'''
+<section class="wrap section research-section prose" id="future"><h2>Future directions</h2><p>{E(PROFILE["research_interests"][1])}</p></section>
 <section class="wrap section" id="resources"><h2>Datasets &amp; software</h2><ul class="resource-list">
 <li><a href="https://doi.org/10.26208/JFMP-V777">I-STUDIO</a> — Short student answers to statistics questions, with assessment labels (2023).</li>
 <li><a href="https://doi.org/10.26208/BWE2-BR31">Physics lab report assessment</a> — Rubric-based assessment data for machine learning (2022).</li>
@@ -240,9 +245,9 @@ def timeline_row(date,title,org,detail="",extra=""):
     return f'<article class="timeline-row"><p class="timeline-date">{date}</p><div><h3>{title}</h3><p class="organization">{org}</p>{f"<p>{detail}</p>" if detail else ""}{extra}</div></article>'
 
 def teaching_mentoring():
-    courses = timeline_row("Spring 2020", "Natural Language Processing", "Penn State · CSE 597 · Graduate", "Teaching assistant. Contributed to teaching and grading, supported student projects, and created three NLP lesson projects.")
-    courses += timeline_row("Fall 2019", "Artificial Intelligence", "Penn State · CMPSC 442 · Undergraduate", "Teaching assistant. Contributed to teaching, grading, and examinations for a course with more than 100 students.")
-    courses += timeline_row("Feb 2022", "NSF Argumentation Workshop", "PACE Lab · Illinois State University", "Invited speaker on AI-assisted assessment.")
+    courses = timeline_row("Spring 2020", "Natural Language Processing", "Penn State · CSE 597 · Graduate", "Teaching assistant. Taught the large language models (LLMs) portion of the course. Graded assignments and supported student projects.")
+    courses += timeline_row("Fall 2019", "Artificial Intelligence", "Penn State · CMPSC 442 · Undergraduate", "Teaching assistant. Taught classes on Bayesian methods. Assisted with teaching, grading, and exams for over 100 students.")
+    courses += timeline_row("Feb 2022", "NSF Argumentation Workshop", "PACE Lab · Illinois State University", "Invited speaker. Delivered a workshop talk on AI-assisted assessment and large language models.")
     return f'''<section class="section teaching-mentoring" id="teaching-mentoring" aria-labelledby="teaching-mentoring-heading"><h2 id="teaching-mentoring-heading">Teaching &amp; Mentoring</h2>
 <p>I connect practical AI development with a firm understanding of fundamentals. My graduate NLP lesson projects included student-answer classification and language modeling. I emphasize worked examples, experimentation, and explaining why a method works. In future courses using generative AI, I would ask students to verify its suggestions and explain their own reasoning.</p>
 <h3>Teaching experience</h3><div class="timeline">{courses}</div>
@@ -254,8 +259,8 @@ def teaching_mentoring():
 
 def experience():
     mentor = f'Mentor: <a href="{E(PROFILE["mentor_url"])}">Dr. {E(PROFILE["mentor"])}</a>.'
-    appointments = timeline_row("Sep 2026–Present","Postdoctoral Associate",f'College of AI, Cyber and Computing · <a href="{E(PROFILE["institution_url"])}">{E(PROFILE["institution"])}</a><br>San Antonio, TX',mentor)
-    appointments += timeline_row("Aug 2024–Aug 2026","Postdoctoral Associate",'Institute for Artificial Intelligence and Data Science (IAD)<br>Department of Computer Science and Engineering (CSE)<br><a href="https://www.buffalo.edu/">University at Buffalo</a><br>Buffalo, NY',mentor,'<p>I continue to work with these centers as AI Team Lead:</p>' + leadership_list())
+    appointments = timeline_row("Sep 2026–Present","Postdoctoral Associate",f'<a href="{E(PROFILE["college_url"])}">{E(PROFILE["college"])}</a> · {E(PROFILE["institution"])}<br>San Antonio, TX',mentor)
+    appointments += timeline_row("Aug 2024–Aug 2026","Postdoctoral Associate",'<a href="https://www.buffalo.edu/ai-data-science.html">Institute for Artificial Intelligence and Data Science (IAD)</a><br>Department of Computer Science and Engineering (CSE)<br>University at Buffalo<br>Buffalo, NY',mentor,'<p>I continue to work with these centers as AI Team Lead:</p>' + leadership_list())
     body=intro("Academic background","Experience","Academic appointments, teaching and mentoring, education, research support, and selected recognition.")
     body+=f'<div class="wrap experience-layout"><nav class="section-nav" aria-label="On this page"><a href="#appointments">Employment</a><a href="#teaching-mentoring">Teaching &amp; Mentoring</a><a href="#education">Education</a><a href="#funding">Research support</a><a href="#recognition">Recognition</a></nav><div>'
     body+=f'<section class="section" id="appointments"><h2>Employment</h2><div class="timeline">{appointments}</div></section>'
@@ -263,12 +268,13 @@ def experience():
     education=timeline_row("Aug 2019–May 2024","Ph.D. in Computer Science",'The Pennsylvania State University · <a href="https://www.nlplab.psu.edu/">Natural Language Processing Lab</a><br>State College, PA',f'Advisor: <a href="https://scholar.google.com/citations?hl=en&amp;user=jb9VOp0AAAAJ">Dr. Rebecca J. Passonneau</a>.<br>Dissertation: <em>Automated and Semi-Automated Assessment of STEM Reasoning Questions</em> (<strong>{E(DISSERTATION_AWARD)}</strong>, Penn State, 2024).')
     education+=timeline_row("Aug 2012–Jun 2016","B.S. in Computer Science and Engineering","Nankai University<br>Tianjin, China",'Advisors: <a href="https://scholar.google.com/citations?hl=en&amp;user=su14mcEAAAAJ">Dr. Jun Xu</a> and <a href="https://scholar.google.com/citations?user=oab9IRYAAAAJ&amp;hl=en">Dr. Jie Liu</a>.<br>Thesis: <em>BDA: Big Data Analysis as a Service</em> (<a href="https://github.com/ICT-BDA/EasyML">2k+ GitHub stars</a>).')
     body+=f'<section class="section" id="education"><h2>Education</h2><div class="timeline">{education}</div></section>'
-    body+='''<section class="section" id="funding"><h2>Research support</h2><p class="section-intro">Projects I have contributed to, with my role stated for each. The dates below describe the funded projects.</p><div class="funding-list">
-<article><span class="small-label">Feb 2026–Dec 2027 · Co-principal investigator</span><h3><a href="https://researchautism.org/research-item/study-of-parents-ai-coach-for-parent-implemented-communication-interventions-for-children-with-asd/">AI-supported parent coaching</a></h3><p>Organization for Autism Research · $50,000</p><p>Study of Parent’s AI Coach for Parent-Implemented Communication Interventions for Children with ASD.</p></article>
-<article><span class="small-label">Award period: Jan 2023–Dec 2027</span><h3>National AI Institute for Exceptional Education</h3><p>National Science Foundation · Award 2229873 · $20 million total institute award</p><p><strong>My role:</strong> AI Team Lead, Aug 2024–present. Supporting Jinjun Xiong (Co-PI) in developing AI for challenges in special education.</p></article>
-<article><span class="small-label">Award period: Sep 2024–Aug 2029</span><h3><a href="https://earlyliteracyai.org/">Center for Early Literacy and Responsible AI</a></h3><p>Institute of Education Sciences · Award R305C240046 · $10 million total center award</p><p><strong>My role:</strong> AI Team Lead, Aug 2024–present. Supporting Jinjun Xiong (Co-PI) in developing responsible AI tools for early literacy and diverse learners.</p></article>
-<article><span class="small-label">Mar 2023–Feb 2025 · Research contributor</span><h3>Project CLASSIFIES</h3><p>National Science Foundation · IUSE Award 2236150 · $300,000 total project award</p><p>NLP algorithm development and technical proposal contributions with Rebecca J. Passonneau (Co-PI).</p></article>
-<article><span class="small-label">2023–2024 · Principal investigator</span><h3>Interactive e-books for children</h3><p>Nittany AI Challenge · Penn State · $5,000</p></article>
+    body+='''<section class="section" id="funding"><h2>Research support</h2><p class="section-intro">Projects and proposals I have contributed to, with my role stated for each. Award amounts and periods describe the funded projects; personal role dates are listed separately where confirmed.</p><div class="funding-list">
+<article><span class="small-label">Award period: Feb 2026–Dec 2027</span><h3><a href="https://researchautism.org/research-item/study-of-parents-ai-coach-for-parent-implemented-communication-interventions-for-children-with-asd/">AI-supported parent coaching</a></h3><p>Organization for Autism Research · $50,000 total project award</p><p><strong>My role:</strong> Co-principal investigator and AI research lead. Study of Parent’s AI Coach for Parent-Implemented Communication Interventions for Children with ASD.</p></article>
+<article><span class="small-label">Not funded · Resubmission in preparation</span><h3>Spencer Foundation — Large Research Grant on Education</h3><p>Program funding range: $125,000–$500,000.</p><p><strong>Proposed role:</strong> Co-principal investigator and AI research lead for <em>AI-Automated Behavioral Support Plans for Young Children with Autism Spectrum Disorder</em>.</p></article>
+<article><span class="small-label">Award period: Sep 2024–Aug 2029</span><h3><a href="https://earlyliteracyai.org/">Center for Early Literacy and Responsible AI</a></h3><p>Institute of Education Sciences · Award R305C240046 · $10 million total center award</p><p><strong>My role:</strong> Tech Lead, Aug 2024–present. Supporting Jinjun Xiong (AI Thrust Lead) in developing responsible AI tools for early literacy and diverse learners.</p></article>
+<article><span class="small-label">Award period: Jan 2023–Dec 2027</span><h3><a href="https://www.buffalo.edu/ai4exceptionaled.html">AI Institute for Exceptional Education</a></h3><p>National Science Foundation · Award 2229873 · $20 million total institute award</p><p><strong>My role:</strong> Tech Lead, Aug 2024–present. Supporting Jinjun Xiong (Science Director) in advancing AI solutions for challenges in special education.</p></article>
+<article><span class="small-label">Award period: Mar 2023–Feb 2025</span><h3>Project CLASSIFIES</h3><p>National Science Foundation · IUSE Award 2236150 · $300,000 total project award</p><p><strong>My role:</strong> Contributor. Developed NLP algorithms and helped write the technical proposal with Rebecca J. Passonneau (Co-PI).</p></article>
+<article><span class="small-label">Award period: Jan 2023–Jan 2024</span><h3>Interactive e-books for children</h3><p>Nittany AI Challenge Award 2023 · Penn State · $5,000</p><p><strong>My role:</strong> Team Lead. Developed an AI-driven interactive e-book system for children.</p></article>
 </div></section>
 <section class="section" id="recognition"><h2>Selected recognition</h2><div class="timeline">
 <article class="timeline-row"><p class="timeline-date">2024</p><div><h3>Best Doctoral Dissertation in AI-Related Discipline</h3><p><a href="https://aihub.icds.psu.edu/aiweek2024/">Penn State · Dissertation award ↗</a></p></div></article>
@@ -281,15 +287,15 @@ def experience():
 def teaching():
     body=intro("Academic activity","Teaching & service","Teaching experience in computer science, invited speaking, and service to AI, NLP, and education research.")
     body+='<div class="wrap teaching-grid"><section class="section"><p class="eyebrow">Teaching</p><h2>Courses & invited speaking</h2><div class="timeline">'
-    body+=timeline_row("Spring 2020","Natural Language Processing","Penn State · CSE 597 · Graduate","Teaching assistant. Supported student projects, teaching, and grading.")
-    body+=timeline_row("Fall 2019","Artificial Intelligence","Penn State · CMPSC 442 · Undergraduate","Teaching assistant. Teaching, grading, and examinations for a course with more than 100 students.")
-    body+=timeline_row("February 2022","NSF Argumentation Workshop","PACE Lab · Illinois State University","Invited speaker on AI-assisted assessment.")
+    body+=timeline_row("Spring 2020","Natural Language Processing","Penn State · CSE 597 · Graduate","Teaching assistant. Taught the large language models (LLMs) portion of the course. Graded assignments and supported student projects.")
+    body+=timeline_row("Fall 2019","Artificial Intelligence","Penn State · CMPSC 442 · Undergraduate","Teaching assistant. Taught classes on Bayesian methods. Assisted with teaching, grading, and exams for over 100 students.")
+    body+=timeline_row("February 2022","NSF Argumentation Workshop","PACE Lab · Illinois State University","Invited speaker. Delivered a workshop talk on AI-assisted assessment and large language models.")
     body+=f'</div></section><section class="section"><h2>Research leadership</h2><p class="section-intro">Current roles with University at Buffalo centers</p>{leadership_list()}<h2 class="service-heading">Professional service</h2><div class="service-list">'
     body+='''
 <article><h3>Session chair</h3><p>AIED 2025 and 2026</p><p>Language learning and story generation; AI agents for education.</p></article>
 <article><h3>Program committee</h3><p>AIED 2025 and 2026. Upcoming service: AIED 2027 and LAK 2027.</p></article>
 <article><h3>Peer review</h3><p>ACL Rolling Review (ACL, EMNLP, NAACL), AAAI, AIED, LAK, and SIGIR</p></article>
-<article><h3>Grant review</h3><p>NSF panel service in the Division of Research on Learning.</p></article>
+<article><h3>Grant review</h3><p>NSF DRL CAREER panelist.</p></article>
 <article><h3>Student volunteer</h3><p>AAAI 2019</p></article>
 </div></section></div>'''
     write("teaching/index.html",layout("Teaching & Service | Zhaohui Li","Teaching in artificial intelligence and NLP, invited speaking, reviewing, and conference service.",body,"/teaching/"))

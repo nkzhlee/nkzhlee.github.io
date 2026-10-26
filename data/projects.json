@@ -35,7 +35,7 @@
       "title": "SciEval: evaluating K–12 science instructional materials",
       "themeId": "pedagogical-alignment",
       "relatedThemeIds": ["human-ai-collaboration"],
-      "selectedOrder": 1,
+      "selectedOrder": 2,
       "status": "Ongoing project",
       "timeframe": "July 2025–present",
       "summary": "I lead task formulation, rubric co-design, and model fine-tuning for evaluating science instructional materials. SciEval provides a rubric-based benchmark with scores and evidence; Judging the Judges uses expert review to examine where model scores, explanations, and suggestions depart from instructional context.",
@@ -45,11 +45,11 @@
       "role": "Research lead",
       "mentor": {"name": "Jinjun Xiong", "url": "https://www.xlab-ub.com/", "affiliation": "The University of Texas at San Antonio", "affiliationUrl": "https://www.utsa.edu/"},
       "collaborators": [
-        {"name": "Tingting Li", "affiliation": "Washington State University"},
-        {"name": "Peng He", "affiliation": "Washington State University"}
+        {"name": "Tingting Li", "url": "https://ceshs.wsu.edu/ceshs-directory/wsu-profile/tingting.li1/", "affiliation": "Washington State University"},
+        {"name": "Peng He", "url": "https://ceshs.wsu.edu/ceshs-directory/wsu-profile/peng.he/", "affiliation": "Washington State University"}
       ],
       "updates": [
-        {"label": "In development", "text": "A classroom platform to help teachers understand, evaluate, and adapt STEM instructional materials."},
+        {"label": "In development", "text": "I collaborate on developing a classroom platform to help teachers understand, evaluate, and adapt STEM instructional materials."},
         {"label": "Proposal in preparation", "text": "NSF STEM K–12."}
       ],
       "evidence": [
@@ -127,7 +127,7 @@
     },
     {
       "id": "selective-prediction",
-      "title": "Human–AI collaboration: selective prediction and human deferral",
+      "title": "Human–AI collaboration: selective prediction and deferral",
       "themeId": "human-ai-collaboration",
       "relatedThemeIds": ["pedagogical-alignment"],
       "selectedOrder": 8,
@@ -153,7 +153,7 @@
       "title": "Embodied AI: reading companions for children's AI literacy",
       "themeId": "human-ai-collaboration",
       "relatedThemeIds": ["personalized-learning"],
-      "selectedOrder": 3,
+      "selectedOrder": 4,
       "status": "Ongoing project",
       "timeframe": "Nov 2024–present",
       "summary": "I implement pedagogically structured dialogue for an LLM-powered reading robot. The feasibility study evaluates dialogue policies with simulated child profiles and an expert; it informs future studies of physical presence, turn-taking, and participation by children and adults. Related Storio studies examine bilingual conversational support in children's e-book reading: a design study with children, parents, and educators, and a separate randomized study comparing AI-guided and parent-led reading across comprehension, vocabulary, retelling, and engagement.",
@@ -163,7 +163,7 @@
       "role": "Research lead",
       "mentor": {"name": "Jinjun Xiong", "url": "https://www.xlab-ub.com/", "affiliation": "The University of Texas at San Antonio", "affiliationUrl": "https://www.utsa.edu/"},
       "collaborators": [
-        {"name": "Shiyan Jiang", "affiliation": "University of Pennsylvania"}
+        {"name": "Shiyan Jiang", "url": "https://www.gse.upenn.edu/faculty/shiyan-jiang", "affiliation": "University of Pennsylvania"}
       ],
       "evidence": [
         {"document": "research-statement", "pages": [3, 4]},
@@ -175,7 +175,7 @@
       "title": "AIRE: decodable story generation and evaluation",
       "themeId": "personalized-learning",
       "relatedThemeIds": ["pedagogical-alignment", "human-ai-collaboration"],
-      "selectedOrder": 2,
+      "selectedOrder": 3,
       "status": "Ongoing project",
       "timeframe": "July 2024–present",
       "summary": "I lead AIRE development and co-design rubrics for phonics alignment, narrative coherence, and illustration quality with literacy experts. AIRE generates personalized decodable texts aligned with taught phonics patterns. Related work in StoryLab combines teacher-defined learning goals with children's interests to generate stories, illustrations, and vocabulary support, with teachers selecting and revising materials.",
@@ -202,10 +202,10 @@
     },
     {
       "id": "parent-coaching",
-      "title": "PaiCoach: AI assessment and coaching for autism home interventions",
+      "title": "PaiCoach: AI assessment and parent coaching for autism home interventions",
       "themeId": "personalized-learning",
       "relatedThemeIds": ["pedagogical-alignment", "human-ai-collaboration"],
-      "selectedOrder": 4,
+      "selectedOrder": 1,
       "status": "Ongoing project",
       "timeframe": "Nov 2024–present",
       "summary": "I lead ASD-HI benchmark and PaiCoach model development to assess parent–child home interventions and generate feedback for specialist review. ASD-HI benchmarks communication-strategy detection and assessment. A four-family PaiCoach study found preliminary improvements under an AI-assisted workflow in which specialists corrected strategy codes and reviewed every feedback message before delivery.",

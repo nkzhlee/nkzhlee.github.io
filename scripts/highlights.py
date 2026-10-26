@@ -1,5 +1,6 @@
 """Paper-by-paper research highlights, using figures from the source papers."""
 from html import escape
+from publication_links import download_link, paper_url as publication_url, pdf_version
 
 
 def ordered_highlights(publications, highlights):
@@ -14,8 +15,8 @@ def ordered_highlights(publications, highlights):
 def paper_highlight(paper, highlight, compact=False):
     e = escape
     identifier = e(paper["id"])
-    source_url = highlight.get("sourceUrl") or paper["links"][0]["url"]
-    paper_url = paper["links"][0]["url"]
+    paper_url = publication_url(paper)
+    source_url = f'{paper_url}#page={highlight["sourcePage"]}' if paper.get("download") else (highlight.get("sourceUrl") or paper_url)
     year = paper.get("year") or "Undated"
     venue = paper["venue"] if str(year) in paper["venue"] else f'{year} · {paper["venue"]}'
     citation = f'/publications/#{identifier}'
@@ -27,7 +28,7 @@ def paper_highlight(paper, highlight, compact=False):
         authors_line += f'<p class="authors">{e(paper["authorNote"])}</p>'
     return f'''<article class="paper-highlight" id="highlight-{identifier}" data-highlight data-year="{year}" data-highlight-search="{search}">
 <figure class="paper-figure"><a href="{e(source_url, quote=True)}"><img src="{e(highlight['image'], quote=True)}" alt="{e(highlight['imageAlt'], quote=True)}" width="{int(highlight['imageWidth'])}" height="{int(highlight['imageHeight'])}" loading="lazy" decoding="async"></a><figcaption><a href="{e(source_url, quote=True)}">{source_label} from the paper</a></figcaption></figure>
-<div class="paper-copy"><p class="paper-venue">{e(venue)}</p><h3><a href="{e(paper_url, quote=True)}">{e(paper["title"])}</a></h3><p class="paper-summary">{e(highlight["summary"])}</p>{'' if compact else authors_line}<div class="paper-links"><a href="{e(paper_url, quote=True)}">Paper</a><a href="{citation}">Full citation</a></div></div>
+<div class="paper-copy"><p class="paper-venue">{e(venue)}</p><h3><a href="{e(paper_url, quote=True)}">{e(paper["title"])}</a></h3><p class="paper-summary">{e(highlight["summary"])}</p>{'' if compact else authors_line}<div class="paper-links">{download_link(paper) or f'<a href="{e(paper_url, quote=True)}">Paper</a>'}<a href="{citation}">Full citation</a></div>{pdf_version(paper)}</div>
 </article>'''
 
 

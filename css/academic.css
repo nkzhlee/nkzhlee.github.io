@@ -215,3 +215,5 @@ footer { border-top: 1px solid var(--rule); margin-top: 30px; }
   .section, .page-intro { padding-block: 20px; }
   .publication, .paper-highlight { break-inside: avoid; }
 }
+.paper-download { font-weight: 600; }
+.pdf-version { color: var(--muted); font-size: .73rem; margin: 7px 0 0; }

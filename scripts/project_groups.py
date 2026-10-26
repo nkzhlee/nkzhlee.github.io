@@ -1,6 +1,7 @@
 """Render selected research experience and related works, with a secondary topic index."""
 from collections import Counter
 from html import escape
+from publication_links import download_link, paper_url
 import re
 
 
@@ -76,12 +77,14 @@ def render_project(project, themes, papers, figures):
     figure = ""
     if project.get("figureId"):
         visual = figures[project["figureId"]]
-        figure = f'''<figure class="project-figure"><a href="{e(visual['sourceUrl'], quote=True)}"><img src="{e(visual['image'], quote=True)}" alt="{e(visual['imageAlt'], quote=True)}" width="{int(visual['imageWidth'])}" height="{int(visual['imageHeight'])}" loading="lazy" decoding="async"></a><figcaption><a href="{e(visual['sourceUrl'], quote=True)}">{e(visual['figureLabel'])} · {e(project['figureTitle'])}</a></figcaption></figure>'''
+        source_paper = papers[project["figureId"]]
+        source_url = f'{paper_url(source_paper)}#page={visual["sourcePage"]}' if source_paper.get("download") else visual["sourceUrl"]
+        figure = f'''<figure class="project-figure"><a href="{e(source_url, quote=True)}"><img src="{e(visual['image'], quote=True)}" alt="{e(visual['imageAlt'], quote=True)}" width="{int(visual['imageWidth'])}" height="{int(visual['imageHeight'])}" loading="lazy" decoding="async"></a><figcaption><a href="{e(source_url, quote=True)}">{e(visual['figureLabel'])} · {e(project['figureTitle'])}</a></figcaption></figure>'''
     related = []
     for paper_id in sorted(project["publicationIds"], key=lambda key: papers[key].get("year") or 0, reverse=True):
         paper = papers[paper_id]
         venue = paper.get("venue", paper["type"])
-        related.append(f'<li data-project-publication="{e(paper_id, quote=True)}"><a href="/publications/#{e(paper_id, quote=True)}">{e(paper["title"])}</a><span class="project-work-meta">{paper.get("year") or "Undated"} · {e(venue)}</span></li>')
+        related.append(f'<li data-project-publication="{e(paper_id, quote=True)}"><a href="/publications/#{e(paper_id, quote=True)}">{e(paper["title"])}</a><span class="project-work-meta">{paper.get("year") or "Undated"} · {e(venue)}</span>{download_link(paper)}</li>')
     works = '<h4 class="related-work-heading">Related papers &amp; resources</h4><ul class="project-works">' + ''.join(related) + '</ul>' if related else ''
     connections = ''.join(f'<a href="#{e(key, quote=True)}" style="--theme-color:{themes[key]["color"]}">{e(themes[key]["shortTitle"])}</a>' for key in project["relatedThemeIds"])
     connections = f'<p class="project-connections">Also connects with: {connections}</p>' if connections else ''

@@ -4,6 +4,7 @@
 from collections import Counter
 from html import escape
 from html.parser import HTMLParser
+from hashlib import sha256
 import json
 from pathlib import Path
 import re
@@ -365,13 +366,13 @@ def main():
             problem(experience_path, f"missing teaching and mentoring evidence: {expected}")
     award = "Best Doctoral Dissertation in AI-Related Discipline"
     cv_source = (ROOT / "cv-source/main.tex").read_text()
-    for path, source in ((home_path, home_source), (experience_path, experience_source), (ROOT / "cv-source/main.tex", cv_source)):
+    for path, source in ((home_path, home_source), (experience_path, experience_source)):
         if award not in source or "Best Doctoral Dissertation Award" in source:
             problem(path, "use the specific AI-related dissertation award title consistently")
     if "Shiyang Jiang" in cv_source or "Shiyang Jiang" in (ROOT / "data/projects.json").read_text():
         problem(ROOT / "data/projects.json", "collaborator name must be Shiyan Jiang")
-    if "upcoming: AIED 2027 and LAK 2027" not in cv_source:
-        problem(ROOT / "cv-source/main.tex", "CV must distinguish upcoming committee service")
+    if "Upcoming service: AIED 2027 and LAK 2027" not in (ROOT / "teaching/index.html").read_text():
+        problem(ROOT / "teaching/index.html", "website must distinguish upcoming committee service")
 
     for asset in ("files/Zhaohui_Li_CV.pdf", "files/zhaohui-2026.jpg", "files/publication-map.svg"):
         path = ROOT / asset
@@ -392,6 +393,26 @@ def main():
         if duplicates:
             problem(data_path, f"duplicate publication IDs: {', '.join(duplicates)}")
         visible = [p["id"] for p in publications if p.get("status", "") != "Status to confirm"]
+        for paper in publications:
+            if paper["type"] in ("dataset", "poster"):
+                continue
+            download = paper.get("download", {})
+            expected_url = f'/files/papers/{paper["id"]}.pdf'
+            if download.get("url") != expected_url:
+                problem(data_path, f'{paper["id"]}: missing individual PDF download hosted on this site')
+                continue
+            pdf_path = ROOT / expected_url.lstrip("/")
+            if not pdf_path.is_file():
+                problem(pdf_path, "missing publication download")
+                continue
+            pdf_bytes = pdf_path.read_bytes()
+            if not pdf_bytes.startswith(b"%PDF-") or sha256(pdf_bytes).hexdigest() != download.get("sha256"):
+                problem(pdf_path, "publication download is not the verified PDF")
+            if not download.get("version") or not download.get("sourceUrl") or not download.get("pages"):
+                problem(data_path, f'{paper["id"]}: missing PDF version or source provenance')
+            download_pattern = rf'<a\b[^>]*href="{re.escape(expected_url)}"[^>]*\bdownload(?:\s|=|>)'
+            if not re.search(download_pattern, (ROOT / "publications/index.html").read_text()):
+                problem(ROOT / "publications/index.html", f'{paper["id"]}: missing direct download action')
         books = json.loads((ROOT / "data/edited-books.json").read_text(encoding="utf-8"))
         page = parsed.get(ROOT / "publications/index.html")
         if page is not None:
