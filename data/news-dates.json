@@ -1,4 +1,5 @@
 {
+  "gauge-proposal": {"datetime": "2026-10-29", "sort_date": "2026-10-29", "label": "Oct 2026", "kind": "Proposal in submission", "evidence": "User confirmed Co-PI role and in-submission status on October 29, 2026. GAUGE IES NCSER 84.324T FY2027 LOI draft lists an estimated total budget of $3,750,000 and a proposed three-year period, July 2027–June 2030. Date records this website status update, not a verified submission or funding date."},
   "book-contract": {"datetime": "2026-10", "sort_date": "2026-10-20", "label": "Oct 2026", "kind": "Website update", "evidence": "Current website update; not a contract-signing date."},
   "conference-service": {"datetime": "2026-10", "sort_date": "2026-10-20", "label": "Oct 2026", "kind": "Website update", "evidence": "Current website update; not a committee appointment date."},
   "paicoach-2026": {"datetime": "2026-09-11", "sort_date": "2026-09-11", "label": "Sep 2026", "kind": "Publication", "source": "https://link.springer.com/article/10.1007/s10803-026-07519-6"},

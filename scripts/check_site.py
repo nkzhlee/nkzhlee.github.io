@@ -314,6 +314,7 @@ def main():
         if "proceedings" in news.lower():
             problem(home_path, "Recent news should refer to conferences rather than proceedings")
         for required in (
+            "/experience/#gauge-proposal", "I am a Co-PI on", "proposal in submission", "Proposed total budget: $3.75 million",
             "/publications/#edited-books", "under contract", "AIED 2027", "LAK 2027",
             "https://iaied.org/conferences", "https://www.solaresearch.org/events/lak/lak27/",
             "I secured a $50,000", "Organization for Autism Research grant", "as Co-PI",
@@ -334,6 +335,8 @@ def main():
         for identifier in ("book-contract", "conference-service"):
             if news_dates[identifier]["kind"] != "Website update":
                 problem(home_path, "unverified signing/appointment dates must be labeled as website updates")
+        if news_dates.get("gauge-proposal", {}).get("kind") != "Proposal in submission":
+            problem(home_path, "GAUGE news must retain its in-submission proposal status")
         if len(news_ids) != len(set(news_ids)):
             problem(home_path, "Recent news has duplicate announcements")
         news_publications = re.findall(r'data-news-publication="([^"]+)"', news)
@@ -360,6 +363,11 @@ def main():
         problem(home_path, "book announcement must be a news item, not a standalone section")
     experience_path = ROOT / "experience/index.html"
     experience_source = experience_path.read_text()
+    gauge = re.search(r'<article\b[^>]*\bid="gauge-proposal"[^>]*>(.*?)</article>', experience_source, re.S)
+    if not gauge or any(term not in gauge.group(1) for term in (
+        "Proposal in submission", "Requested total budget: $3,750,000", "Co-principal investigator", "ALN 84.324T",
+    )):
+        problem(experience_path, "GAUGE must state the Co-PI role, in-submission status, program, and requested rather than awarded budget")
     for expected in ('href="#teaching-mentoring"', 'id="teaching-mentoring"', 'five doctoral students',
                      'three master’s students', 'Proposed course: AI for Education.'):
         if expected not in experience_source:
